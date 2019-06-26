@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../duty/css/duty-four.css">
+        <link rel="stylesheet" href="css/duty-problem.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+        <style type="text/css">
+            .uh_ios7 [data-control="PAGE"]:before{
+                content: none;
+            }
+            body.uh_ios7 #ScrollContent {
+                padding-top: 0;
+            }
+            [data-control="FLEXBOXVER"] {
+                height: 100%;
+                overflow-y: auto;
+            }
+            [data-control="FOOTER"] {
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div tabindex="0" data-control="PAGE" class="bc-bg" id="duty-problem-report-page" v-cloak>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="isDeptGet">
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub" v-if="isPreview">
+                    <button class="btn ub-f1" style="margin-right: 0.5em;" @click="previewOut">
+                        <div class="fz-bg fc-main">取消</div>
+                    </button>
+                    <button class="btn bg-main ub-f1" style="margin-left: 0.5em;" id="handin">
+                        <span class="fz-bg fc-white">确认提交</span>
+                    </button>
+                </div>
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub" v-else>
+                    <button class="btn bg-main ub-f1" type="button" @click="previewIn" id="preview">
+                        <span class="fz-bg fc-white">提交</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac border-btm">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">报送时间</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{findtime.time}}</span>
+                            </div>
+                            <!-- <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div> -->
+                        </div>
+                        <!-- <input type="text" id="picktime" class="lists-hiddenipt" readonly="readonly" /> -->
+                    </div>
+                    <div class="lists-item bg-white pd-10-lr ub ub-ac">
+                        <div class="lists-item-title">
+                            <span class="fz-md fz-md-set">问题内容</span>
+                        </div>
+                    </div>
+                    <div class="prob-form bg-white border-btm">
+                        <div class="prob-textarea pd-10-lr">
+                            <textarea class="prob-txa fc-title" v-model="text"></textarea>
+                            <div class="prob-tips pd-10-lr tx-r">
+                                <span class="prob-tips-text fc-text fz-sm" :class="textOverClass">最多可以输入{{textMax}}个字</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" @click="clickDept()">
+                        <div class="lists-item pd-10-lr ub ub-ac border-btm">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">归属区域</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{department.text}}</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-item bg-white pd-10-lr ub ub-ac">
+                        <div class="lists-item-title">
+                            <span class="fz-md fz-md-set">图片</span>
+                        </div>
+                    </div>
+                    <div class="addpic addpic-fb bg-white border-btm">
+                        <div class="addpic-box" v-for="(item, index) in previewImgs" @click.stop="openImgFn(previewImgs, index)">
+                            <div class="addpic-item">
+                                <div class="addpic-item-con ub ub-ac ub-pc">
+                                    <div v-text="item.percent" v-if="item.status == 'pending'"></div>
+                                    <div class="fz-sm fz-sm-set" v-if="item.status == 'fail'">上传失败</div>
+                                    <img :src="item.src" class="addpic-con" v-if="item.status == 'finish'" @error="imgError(index)" />
+                                </div>
+                            </div>
+                            <div class="addpic-del" @click.stop="delet(previewImgs, index)"></div>
+                        </div>
+                        <div class="addpic-btn" :class="{'hide': !isUploadShow}" onclick="addPic(this)">
+                            <div class="addpic-item">
+                                <div class="addpic-from-picture tx-c"></div>
+                            </div>
+                        </div>
+                        <div class="addpic-btn" :class="{'hide': !isUploadShow}" onclick="openCamera(this)">
+                            <div class="addpic-item">
+                                <div class="addpic-from-camera tx-c"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-item bg-white pd-10-lr ub ub-ac">
+                        <div class="lists-item-title">
+                            <span class="fz-md fz-md-set">备注</span>
+                        </div>
+                    </div>
+                    <div class="prob-form bg-white border-btm">
+                        <div class="prob-textarea pd-10-lr">
+                            <textarea class="prob-txa fc-title" v-model="note"></textarea>
+                            <div class="prob-tips pd-10-lr tx-r">
+                                <span class="prob-tips-text fc-text fz-sm" :class="noteOverClass">最多可以输入{{textMax}}个字</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prob-preview bg-white" v-if="isPreview">
+                <div class="lists">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">报送时间</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{findtime.time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">问题内容</span>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-md fc-text" v-html="previewText==''?'无':previewText"></span>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title" :class="editClass">
+                                <span class="fz-md">归属区域</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1" :class="editClass">
+                                <span class="fz-md">{{department.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">图片</span>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg">
+                            <div class="addpic addpic-fb" v-if="realSrcs.length > 0">
+                                <div class="addpic-box" v-for="(item, index) in realSrcs" @click.stop="openImgFn(realSrcs, index)">
+                                    <div class="addpic-item">
+                                        <div class="addpic-item-con tx-c">
+                                            <img :src="item" class="addpic-con" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pd-10-lr" v-else>
+                                <span class="lists-item-para fz-md fc-text">无</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">备注</span>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-md fc-text" v-html="previewNote==''?'无':previewNote"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/es6-promise.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="js/duty-problem-report-again-page.js"></script>
+    </body>
+</html>

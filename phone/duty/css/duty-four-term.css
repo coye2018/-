@@ -1,0 +1,33 @@
+.du4-term-item{
+    height: 5.375em;
+    padding-bottom: 0.75em;
+}
+.du4-term-title{
+    padding: 0.8125em 0;
+}
+.du4-term-check-box{
+    margin: 0.125em 1em;
+}
+
+[class^="du4-term-icon"]{
+    display: inline-block !important;
+    vertical-align: middle;
+    background: center no-repeat;
+    background-size: 100%;
+    width: 1.5em;
+    height: 1.5em;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.du4-term-icon-yes{
+    background-image: url(../img/yes.png);
+}
+.du4-term-icon-yes.actives{
+    background-image: url(../img/yes-active.png);
+}
+.du4-term-icon-no{
+    background-image: url(../img/no.png);
+}
+.du4-term-icon-no.actives{
+    background-image: url(../img/no-active.png);
+}

@@ -1,0 +1,50 @@
+.du4-notice {
+    transform: translateY(-1px);
+    -webkit-transform: translateY(-1px);
+}
+
+.du4-notice-item {
+    overflow: hidden;
+}
+
+.du4-notice-title {
+    line-height: 1.375;
+    padding-top: 0.875em;
+    padding-bottom: 0.875em;
+}
+
+.du4-notice-arrow {
+    width: 0.6875em;
+    height: 0.6875em;
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    border-color: #c8c8c8;
+    transform: rotate(-45deg);
+}
+
+.du4-notice-content {
+    display: none;
+}
+
+.du4-notice-content-text {
+    padding-top: 1.4375em;
+    padding-bottom: 2.625em;
+    line-height: 1.4286;
+}
+
+.du4-notice-item.show .du4-notice-content {
+    display: block;
+}
+
+.du4-notice-item.show .du4-notice-arrow {
+    transform: rotate(45deg);
+}
+
+.du4-notice-desc {
+    padding-top: 0.625em;
+}
+
+.du4-notice-desc-text {
+    line-height: 1.2857;
+    padding-bottom: 0.625em;
+}

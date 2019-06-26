@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <zh-header @left="backto">
+                <span>单选、复选组件</span>
+            </zh-header>
+
+            <zh-footer>
+                <zh-footer-btn>
+                    <zh-btn slot="btn1" :size="'large'" :bg="true" :color="'blue'" :radius="true" @click="getVal">
+                        读取数据
+                    </zh-btn>
+                </zh-footer-btn>
+            </zh-footer>
+
+            <zh-content>
+            <!--
+                * 说明：
+                * option 选项数据
+                * type 0=单选 1=多选 
+                * other 0=不带多选 1=带多选
+                * value 默认值(为当单选时，即使不填value，也会默认已勾选第一项)
+                * readonly 是否只读 true=只读 false=可以编辑
+                * placeholder 当带其它项时输入框的水印提示文字
+            -->
+            
+                <zh-forum :title="'单选'"></zh-forum>
+                <!--
+                创建一个单选的实例               
+                -->
+                <zh-checkbox :option="option" :type="0" :other="0" ref="example1"></zh-checkbox>
+
+                <zh-forum :title="'多选'"></zh-forum>
+                <!--
+                创建一个多选的实例               
+                -->
+                <zh-checkbox :option="option" :type="1" :other="0" ref="example2"></zh-checkbox>
+                
+                <zh-forum :title="'单选带其它选项'"></zh-forum>
+                <!--
+                创建一个单选带其它项的实例               
+                -->
+                <zh-checkbox :option="option" :type="0" :other="1" :value="v_example3" ref="example3"></zh-checkbox>
+
+                <zh-forum :title="'多选带其它选项'"></zh-forum>
+                <!--
+                创建一个多选带其它项的实例               
+                -->
+                <zh-checkbox :option="option" :type="1" :other="1"  :placeholder="'请输入清扫原因'"  ref="example4" ></zh-checkbox>
+
+            </zh-content>
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/autosize.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js/zh-checkbox.js"></script>
+        <script src="js-model/checkbox.js"></script>
+    </body>
+</html>

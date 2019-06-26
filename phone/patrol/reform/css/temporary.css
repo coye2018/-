@@ -1,0 +1,136 @@
+#Footer {
+    height: 3.75em;
+}
+
+#Footer::before {
+    content: '';
+    height: 1px;
+    display: block;
+    background-color: #e1e1e1;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+}
+
+#Footer > div {
+    width: 100%;
+    height: 100%;
+}
+
+.btnFooter {
+    display: block;
+    width: calc(100% - 2em);
+    height: 2.5em;
+    border-radius: 2.5em;
+    background: #52A6FF;
+    color: #ffffff;
+    opacity: 1;
+    -webkit-transition: .15s;
+    transition: .15s;
+}
+
+.title {
+    display: inline-block;
+    width: 5.25em;
+}
+
+input[type=text] {
+    width: calc(100% - 5.875em)
+}
+
+/*列表*/
+#content{
+    margin-bottom: 3.75em
+}
+.contentList {
+    padding: 0 0.625em;
+}
+
+.contentList li {
+    width: 100%;
+    padding: 0.875em 0;
+}
+
+.contentList li span {
+    color: #333;
+}
+
+.contentList li input,
+.contentList li span:nth-child(2) {
+    color: #999;
+}
+
+.paddingT {
+    padding-top: 0.5em;
+    line-height: 1.375em;
+}
+
+.picBox {
+    width: 100%;
+    height: 5em;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.pic {
+    position: relative;
+    width: 3.875em;
+    height: 3.875em;
+    margin-right: .625em;
+}
+
+/*添加图片的img需要偏上*/
+#add,
+#photos {
+    bottom: 0.2em;
+}
+
+.pic .del {
+    width: 1.8em;
+    position: absolute;
+    top: -0.685em;
+    right: -0.575em;
+}
+
+.contentList li.borderB {
+    height: 6em;
+}
+
+#add img,
+#photos img {
+    width: 3.875em;
+    height: 3.875em;
+}
+
+.evImg1 {
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-image: url("../../../icon/62/add.png");
+}
+
+/*列表结束*/
+[data-control="FLEXBOXVER"].nopadding {
+    padding: 0;
+}
+
+.uh_ios7 .nopadding {
+    margin-top: -1.15em;
+}
+
+.layui-m-layer-footer .layui-m-layerbtn span[no] {
+    color: #40AFFE;
+}
+.layui-m-layer-footer .layui-m-layerbtn span[yes] {
+    color: #40AFFE;
+}
+
+.layer-reform{
+    height: 7em;
+    overflow: auto;
+}

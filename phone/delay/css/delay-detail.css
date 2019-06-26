@@ -1,0 +1,120 @@
+.warning-top{
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+}
+.warning-btm{
+    overflow: hidden;
+}
+.warning-btm-box{
+    margin-top: 0.75em;
+    margin-bottom: 1em;
+}
+
+.warning-btn-box{
+    margin-right: 0.5em;
+}
+.warning-btn{
+    height: 1.25em;
+    line-height: 1;
+    padding: 0 0.25em;
+}
+.warning-img{
+    height: 3.1875em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+.warning-img.red{
+    background-image: url(../img/warning-red.png);
+}
+.warning-img.orange{
+    background-image: url(../img/warning-orange.png);
+}
+.warning-img.yellow{
+    background-image: url(../img/warning-yellow.png);
+}
+.warning-img.blue{
+    background-image: url(../img/warning-blue.png);
+}
+.warning-note{
+    width: 26.05%;
+    position: relative;
+}
+.warning-note:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #E1E1E1;
+    -webkit-transform: scaleX(0.33);
+    transform: scaleX(0.33);
+}
+.warning-note-mg{
+    margin-top: 0.375em;
+}
+
+
+/* 通知内容 */
+.delay-item-title{
+    padding: 0 0 0.937em 0; 
+}
+.delay-item-box{
+    padding-top: 0.833em; 
+    padding-bottom: 0.833em; 
+}
+.delay-item-textarea{
+    width: 100%;
+}
+.delay-item-progress{
+    padding: 0 1em 0 0.3em;
+    padding-right: 1em;   
+}
+
+/*进度条*/
+.progress-bar{
+    display: block;
+    width: 100%;
+    height: 0.687em;
+    border-radius: 0.687em;
+    background: #E1E1E1;
+    position: relative;
+}
+.progress-bar .progress-bar-percent{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0.687em;
+    background: #52A6FF;
+}
+
+/*预警操作*/
+.detail-option-opotion{
+    height: 2.5em;
+}
+.detail-option-opotion .item{
+    padding: 0.479em;
+    position: relative;
+}
+.detail-option-opotion .item::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0.658em;
+    height: 1.458em;
+    border-right: 1px solid #e1e1e1;
+}
+.detail-option-opotion img{
+    display: inline-block;
+    width: 1.75em;
+    height: 1.75em;
+}
+.detail-opotion-spacing{
+    height: 2.5em;
+}
+

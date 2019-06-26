@@ -1,0 +1,50 @@
+#ScrollContent{
+    padding-top: 2.75em;
+}
+
+.delay-container{
+    position: relative;
+    margin-top: 0.583em;
+}
+
+.delay-list{
+    padding: 1em;
+    background: #fff;
+    position: relative;
+}
+
+.delay-list:first-child::before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    border-top: 1px solid #e4e4e4;
+    content: '';
+    z-index: 1;
+}
+
+.delay-list::after{
+    position: absolute;
+    left: 0.416em;
+    bottom: 0;
+    right: 0;
+    border-top: 1px solid #e4e4e4;
+    content: '';
+    z-index: 1;    
+}
+.delay-list:last-child::after{
+    left: 0;
+}
+
+.delay-list .delay-hd{
+    padding: 0 0.416em;
+}
+
+.delay-list .delay-hd img{
+    display: block;
+    width: 2em;
+    height: 2em;
+}
+
+
+

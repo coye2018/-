@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-problem-detail.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="dutyProblemDetail" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">问题详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <!-- <i class="icon-20-h-more"></i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="btnIndex == 1">
+                <div class="btn-setbtm border-top pd-10-lr bg-white">
+                    <button class="btn bg-main" type="button" id="finish-btn" @click="editAgain()">
+                        <span class="fz-bg fc-white">再次编辑并派发</span>
+                    </button>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="btnIndex == 2">
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub">
+                    <button class="btn bg-main ub-f1" id="problemReceive" type="button" style="margin-right: 0.25em;">
+                        <span class="fz-bg fc-white">接收</span>
+                    </button>
+                    <button class="btn bg-abnormal ub-f1" id="problemSendback" type="button" style="margin-left: 0.25em; color: #F7B55E;">
+                        <span class="fz-bg fc-white">退回</span>
+                    </button>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="btnIndex == 3">
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub">
+                    <button class="btn bg-main ub-f1" id="problemFinish" type="button" style="margin-right: 0.25em;">
+                        <span class="fz-bg fc-white">完成</span>
+                    </button>
+                    <button class="btn bg-abnormal ub-f1" id="problemDisabled" type="button" style="margin-left: 0.25em; color: #F7B55E;">
+                        <span class="fz-bg fc-white">无法整改</span>
+                    </button>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="btnIndex == 4" data-multi>
+                <div class="btn-setbtm border-top pd-10-lr bg-white">
+                    <button class="btn bg-main mg-box" id="problemDistSendback" type="button">
+                        <span class="fz-bg fc-white">不是本区域的问题，我要退回</span>
+                    </button>
+                    <button class="btn mg-box" id="problemDistOther" type="button" style="background-color: #4CB8B5; color: #4CB8B5;">
+                        <span class="fz-bg fc-white">接收并转派给其他单位处理</span>
+                    </button>
+                    <button class="btn bg-abnormal" id="problemDistReceive" type="button" style="color: #F7B55E;">
+                        <span class="fz-bg fc-white">是本单位的问题，我要自己处理</span>
+                    </button>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="btnIndex == 5">
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub">
+                    <button class="btn bg-main ub-f1" id="problemCheck" type="button" style="margin-right: 0.25em;">
+                        <span class="fz-bg fc-white">验收通过</span>
+                    </button>
+                    <button class="btn bg-abnormal ub-f1" id="problemCheckNot" type="button" style="margin-left: 0.25em; color: #F7B55E;">
+                        <span class="fz-bg fc-white">验收不通过</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent">
+                <!-- <div class="nonetwork" :class="nonet?'':'hide'"></div> -->
+                <div class="pd-10-lr bg-white border-btm mg-box">
+                    <div class="dure-li-item">
+                        <div class="dure-li-center ub">
+                            <div class="dure-li-title ub-f1 ub ub-ac">
+                                <div class="fz-lg fz-lg-set fc-title" v-html="problemDetail.content"></div>
+                            </div>
+                        </div>
+                        <div class="dure-essay dure-item ub" v-if="problemDetail.hasOwnProperty('sendpic') && problemDetail.sendpic.length > 0">
+                            <div class="dure-li-pic" v-for="(item, index) in problemDetail.sendpic">
+                                <div :style="{backgroundImage: 'url('+item+')'}" class="dure-li-imgs" @click="previewPic(problemDetail.sendpic, index)"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="dure-li-bottom ub ub-ac">
+                            <div class="dure-li-desc ub-f1" v-if="entryIndex == 0">
+                                <span class="fz-sm fz-sm-set fc-text">报送人：{{problemDetail.tibaoren}}</span>
+                                <span class="fz-sm fz-sm-set fc-text">&nbsp;&nbsp;发现时间：{{problemDetail.find_time}}</span>
+                            </div>
+                            <div class="dure-li-desc ub-f1" v-if="entryIndex==1 || entryIndex==2">
+                                <span class="fz-sm fz-sm-set fc-text">报送单位：{{problemDetail.tibao}}</span>
+                                <span class="fz-sm fz-sm-set fc-text">&nbsp;&nbsp;报送时间：{{problemDetail.send_time}}</span>
+                            </div>
+                        </div> -->
+                        <div class="dure-li-dashed">
+                            <div class="dure-li-dashed-line ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md fz-md-set">报送单位</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <span class="fz-md fz-md-set">{{problemDetail.tibao}}</span>
+                                    <span class="fz-md fz-md-set" v-if="problemDetail.tibaoren && problemDetail.tibaoren != '' ">（{{problemDetail.tibaoren}}）</span>
+                                </div>
+                            </div>
+                            <div class="dure-li-dashed-line ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md fz-md-set">报送时间</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <span class="fz-md fz-md-set">{{problemDetail.find_time}}</span>
+                                </div>
+                            </div>
+                            <div class="dure-li-dashed-line ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md fz-md-set">当前状态</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <span class="fz-md fz-md-set" :class="'text-' + problemDetail.colour">{{problemDetail.stateString}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set">归属区域</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-lg fz-lg-set">{{problemDetail.guishu}}</span>
+                                <!-- <span class="fz-lg fz-lg-set" v-if="problemDetail.zhipairen && problemDetail.zhipairen != '' ">（{{problemDetail.zhipairen}}）</span> -->
+                            </div>
+                            <div class="lists-item-right">
+                                <!-- <i class="icon-20-g-goto"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set">责任单位</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-lg fz-lg-set">{{problemDetail.zeren}}</span>
+                                <!-- <span class="fz-lg fz-lg-set" v-if="(problemDetail.dangban && problemDetail.dangban != '')&&(problemDetail.stateString != '待转派' )">（{{problemDetail.dangban}}）</span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set">预计完成</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-lg fz-lg-set">{{problemDetail.estimate_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set">实际完成</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-lg fz-lg-set">{{problemDetail.finish_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" v-if="problemDetail.hasOwnProperty('finishpic') && problemDetail.finishpic.length != 0">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set" style="width: 6em;">整改后图片</div>                 
+                        </div>
+                        <div class="dure-essay dure-item pd-10-lr ub">
+                            <div class="dure-li-pic" v-for="(item, index) in problemDetail.finishpic">
+                                <div :style="{backgroundImage: 'url('+item+')'}" class="dure-li-imgs" @click="previewPic(problemDetail.finishpic, index)"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title fz-lg fz-lg-set">备注</div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-lg fz-lg-set fc-text" v-html="problemDetail.note"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lists mg-box" id="progress">
+                    <template v-if="progress.length != 0">
+                        <div class="lists-box bg-white">
+                            <div class="lists-item pd-10-lr ub ub-ac">
+                                <div class="lists-item-center task-tab-box ub-f1 ub">
+                                    <div class="task-tab">
+                                        <span class="fz-lg fz-lg-set fc-main">动态&nbsp;{{progress.length}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lists-box task-tab-con bg-white">
+                            <div class="lists-item-free pd-10-lr border-btm">
+                                <div class="task-prog">
+                                    <div class="task-prog-item ub" v-for="(item, index) in progress" :class="{'hide': !progMore && index >= progMoreMax}">
+                                        <div class="task-prog-left tx-r">
+                                            <div class="task-prog-dept">
+                                                <span class="fz-md fz-md-set fc-title">{{item.dept}}</span>
+                                            </div>
+                                            <div class="task-prog-time fz-sm fz-sm-set fc-text">{{item.time}}</div>
+                                        </div>
+                                        <div class="task-prog-center ub ub-ver">
+                                            <i :class="item.flagclass"></i>
+                                            <div class="task-prog-line ub-f1" v-show="index!=progress.length-1"></div>
+                                        </div>
+                                        <div class="task-prog-right ub-f1">
+                                            <div class="task-prog-status">
+                                                <!-- <span class="fz-md fz-md-set fc-main" v-if="!item.reply">{{item.status = item.status.substr(0, item.status.length - 1) + '。'}}</span> -->
+                                                <span class="fz-md fz-md-set fc-main">{{item.status}}</span>
+                                            </div>
+                                            <div class="task-prog-detail">
+                                                <div class="task-prog-detail-text fz-md fz-md-set fc-title" v-html="item.reply"></div>
+                                            </div>
+                                            <div class="task-prog-detail-more hide">
+                                                <span class="fz-sm fz-sm-set fc-main">更多&gt;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dure-more ub ub-ac ub-pc fc-main" @click="progressShowMore()" v-if="progress.length > progMoreMax">
+                                        <div class="fz-md fz-md-set">{{progMoreText}}</div>
+                                        <div class="dure-more-arr" :class="progMoreArr"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center task-tab-box ub-f1 ub">
+                                <div class="task-tab">
+                                    <span class="fz-lg fz-lg-set fc-main">回复&nbsp;{{comment.length}}</span>
+                                </div>
+                            </div>
+                            <div class="lists-item-right">
+                                <button class="btn btn-sm bg-main" @click="commentReply" type="button">
+                                    <i class="icon-20-reply"></i>
+                                    <span class="fz-md fz-md-set">回复</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lists-box task-tab-con bg-white pd-10-lr">
+                            <div class="listContent bg-white" v-for="(item, index) in comment" :class="{'hide': !cmmtMore && index >= cmmtMoreMax}">
+                                <div class="list task-tab-con bg-white">
+                                   <div class="lists-items ub-ver">
+                                       <div class="task-re">
+                                           <span class="fz-md fz-md-set fc-main task-re-name">{{item.departname}}-{{item.sendname}}</span>
+                                           <span class="fz-md fz-md-set fc-title task-re-text" v-html="item.content"></span>
+                                           <span class="fz-sm fz-sm-set fc-text task-re-date">{{item.time}}</span>
+                                       </div>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="dure-more ub ub-ac ub-pc fc-main" @click="commentShowMore()" v-if="comment.length > cmmtMoreMax">
+                                <div class="fz-md fz-md-set">{{cmmtMoreText}}</div>
+                                <div class="dure-more-arr" :class="cmmtMoreArr"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-problem-detail.js"></script>
+    </body>
+</html>

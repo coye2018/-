@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/dragula.min.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-list.css">
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <!-- <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">申请换班</h1> -->
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub">
+                                <div class="tab-pill-text" v-for="(item, index) in banci"  :class="item.id==banciid?'actives':'' " @click="changeBan(index,item.id)" v-cloak>
+                                    <span>{{item.shiftname}}</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                        <div id="nav-ins" class="nav-btn-dbl ub ub-pc">
+                            <i class="icon-20-h-instrution"></i>
+                        </div>
+                        <div id="nav-history" class="nav-btn-dbl ub ub-pc">
+                            <i class="icon-20-h-date"></i>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer">
+                <div class="btn-setbtm border-top pd-10-lr bg-white">
+                    <button class="btn bg-main" @click="submitBtn">
+                        <span class="fz-bg fc-white">确定</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="shade" :class="{ 'shade-hide': !shade }"></div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/dragula.min.js"></script>
+        <script src="js/duty-switch.js"></script>
+    </body>
+</html>

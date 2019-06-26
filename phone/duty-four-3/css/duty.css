@@ -1,0 +1,134 @@
+.switch-head{
+    height: 2.4167em;
+    line-height: 2.4167em;
+    overflow: hidden;
+}
+.switch-body{
+    position: relative;
+    overflow: hidden;
+    padding: 0.75em 0;
+}
+.duty-table-sm{
+    padding: 0;
+}
+.switch-item{
+    float: left;
+    width: 14.28%;
+    text-align: center;
+}
+.switch-unit{
+    margin: 0.0625em 0;
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 99999999px;
+    border: 1px solid transparent;
+    position: relative;
+}
+.switch-unit.sm{
+    width: 2.7em;
+    padding-top: 2.7em;
+}
+.switch-item.current .switch-unit{
+    color: #52A6FF;
+    border-color: #52A6FF;
+}
+.switch-item.drag .switch-unit{
+    color: #52A6FF;
+    border-color: #52A6FF;
+    border-style: dashed;
+}
+.switch-item.actives .switch-unit{
+    color: #FFF;
+    background-color: #52A6FF;
+    border-color: #52A6FF;
+}
+.switch-item.checked .switch-unit{
+    color: #333;
+    background-color: #A7E3FF;
+    border-color: #A7E3FF;
+}
+.switch-unit-box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.switch-day{
+    /*margin-bottom: 5%;*/
+}
+.switch-mask{
+    position: relative;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3D(0,0,0);
+    transform: translate3D(0,0,0);
+}
+.switch-disabled{
+    pointer-events: none;
+}
+
+/*指引动画*/
+[class^="duty-switch-shade"]{
+    display: block;
+}
+.switch-shade-box-1,
+.switch-shade-box-2,
+.switch-shade-box-btn{
+    opacity: 0;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.switch-shade-box-1.actives,
+.switch-shade-box-2.actives,
+.switch-shade-box-btn.actives{
+    opacity: 1;
+}
+.switch-shade-box-1,
+.switch-shade-box-2{
+    position: relative;
+    width: 100%;
+    max-width: 25.875em;
+    min-width: 20em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.switch-shade-box-1{
+    /*margin-top: 3.45em;*/
+   margin-top: 0;
+}
+.uh_ios7 .switch-shade-box-1{
+    margin-top: -1em;
+}
+.switch-shade-box-2{
+    margin-top: 14.28%;
+}
+.duty-switch-shade-1-1,
+.duty-switch-shade-2-1{
+    height: 1.5em;
+    margin-left: 1em;
+}
+.duty-switch-shade-ani-1,
+.duty-switch-shade-ani-2{
+    margin-top: 2em;
+    margin-left: 14.28%;
+    width: 68%;
+}
+.duty-switch-shade-1-2,
+.duty-switch-shade-2-2{
+    width: 92%;
+    margin-left: 3%;
+    margin-right: 5%;
+    margin-top: 1%;
+}
+.switch-shade-box-btn{
+    margin-top: 2em;
+}
+.duty-switch-shade-btn{
+    height: 2.8125em;
+    margin: 0 auto;
+}
+/*指引动画END*/

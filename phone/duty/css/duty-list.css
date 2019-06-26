@@ -1,0 +1,34 @@
+#Footer ~ #ScrollContent {
+    padding-bottom: 3.96em;
+}
+
+.appr{
+    overflow: hidden;
+    box-shadow: 0 0.1em 0.25em #E1E1E1;
+}
+.appr-noshadow{
+    box-shadow: none;
+}
+.appr-status{
+    padding: 0.96875em 0;
+    border-bottom: 1px dashed #E1E1E1;
+}
+.appr-detail-box{
+    width: 25%;
+}
+.appr-detail{
+    padding: 0.25em 0;
+    position: relative;
+    border-bottom: 1px dashed #E1E1E1;
+}
+.appr-icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.appr-detail,
+.appr-reason{
+    margin-bottom: 0.6667em;
+}

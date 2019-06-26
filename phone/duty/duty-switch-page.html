@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/dragula.min.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-list.css">
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div class="bc-bg" tabindex="0" id="duty-switch" v-cloak>
+            <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <!-- <div class="scrollbox"> -->
+                    <div :class="juese==1?'':'hide'" class="lists mg-box">
+                        <div class="lists-box bg-white" id="switch-company">
+                            <div class="lists-item pd-10-lr ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md">换班单位</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <span class="fz-md" v-cloak>{{company.name}}</span>
+                                </div>
+                                <div class="lists-item-right">
+                                    <i class="icon-20-g-goto"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="switch-content border-top border-btm mg-box">
+                        <div class="switch-box bg-white">
+                            <div class="switch-body duty-table-sm">
+                                <div class="switch-item ub ub-pc" v-for="(item, index) in monthlist" :class="index==monthlistindex?'actives':'' " @click="changeMonth(index)" v-cloak>
+                                    <div class="switch-unit sm">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">{{item.month}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="switch-content mg-box">
+                        <div class="switch-box bg-white">
+                            <div class="switch-head border-top border-btm">
+                                <div class="switch-item">
+                                    <span class="fz-md">日</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">一</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">二</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">三</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">四</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">五</span>
+                                </div>
+                                <div class="switch-item">
+                                    <span class="fz-md">六</span>
+                                </div>
+                            </div>
+                            <div class="switch-body border-btm" v-cloak id="switch-body">
+                                <div class="switch-item ub ub-pc" v-for="b in blanknum">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc" 
+                                    v-for="(item, index) in dutytable"
+                                    @touchstart="singleSwitch(item, index)" 
+                                    @touchend="singleSwitchCancel(item, index)" 
+                                    @mousedown="singleSwitch(item, index)" 
+                                    @mouseup="singleSwitchCancel(item, index)" 
+                                    :data-date="item.duty_timestamp" 
+                                    :class="[item.duty_timestamp==today?'current':'',
+                                            item.duty_da ==today?'current':'',
+                                            item.checked?'checked':'', 
+                                            flags?'switch-disabled':'', 
+                                            pickindex==index?'drag':'' ]" >
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">{{item.duty_da}}</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <template v-if="item.dutyPeoples.length>1">
+                                                <span class="fz-md" v-if="banciid==item.dutyPeoples[banciindex].detail_id" >{{item.dutyPeoples ? item.dutyPeoples[banciindex].realname : "--"}}</span>
+                                                <span class="fz-md" v-else>--</span>
+                                                </template>
+                                                <template v-if="item.dutyPeoples.length==1">
+                                                    <span class="fz-md" v-if="banciid==item.dutyPeoples[0].detail_id" >{{item.dutyPeoples ? item.dutyPeoples[0].realname : "--"}}</span>
+                                                    <span class="fz-md" v-if="banciid!=item.dutyPeoples[0].detail_id">--</span>
+                                                </template>
+                                                <template v-if="item.dutyPeoples.length==0">
+                                                    <span class="fz-md">--</span>
+                                                </template>
+
+                                                <!--<span class="fz-md">{{item.dutyPeoples ? item.dutyPeoples[banciindex].realname : "&#45;&#45;"}}</span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nothing" v-show="dutytable.length==0"></div>
+                                
+                                <!-- <div class="switch-item ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">1</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">张利</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">2</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">骆杰峰</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc current">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">3</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">薄素荣</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">4</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">叶卫东</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">5</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">骆杰峰</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">6</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">石嵘</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">7</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">麦钊明</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">8</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">薄素荣</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">9</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">李丹</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">10</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">关华</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switch-item switch-draggable ub ub-pc">
+                                    <div class="switch-unit">
+                                        <div class="switch-unit-box ub ub-ver ub-pc">
+                                            <div class="switch-day">
+                                                <span class="fz-md">11</span>
+                                            </div>
+                                            <div class="switch-name">
+                                                <span class="fz-md">张清文</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lists mg-box">
+                        <!-- <div class="lists-box bg-white" id="switch-company">
+                            <div class="lists-item pd-10-lr ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md">换班单位</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <span class="fz-md" v-cloak>{{company.name}}</span>
+                                </div>
+                                <div class="lists-item-right">
+                                    <i class="icon-20-g-goto"></i>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="lists-box bg-white">
+                            <div class="lists-item pd-10-lr ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md">操作换班</span>
+                                </div>
+                                <div class="lists-item-center ub-f1">
+                                </div>
+                                <div class="lists-item-right">
+                                    <button class="btn btn-sm bg-main" @click="resetTable()">
+                                        <i class="icon-20-reset"></i>
+                                        <span class="fz-sm">重置</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lists-box bg-white">
+                            <div class="lists-item pd-10-lr ub ub-ac">
+                                <div class="lists-item-title fc-title">
+                                    <span class="fz-md">换班原因</span>
+                                </div>
+                                <div class="lists-item-center inaline fc-text ub-f1">
+                                    <input type="text" name="" id="" v-model="dutyreason" class="lists-item-ipt">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!-- </div> -->
+                    
+            </div>
+            
+            <div class="shade shade-hide">
+                <div class="shade-box">
+                    <div class="switch-shade-box-1">
+                        <img src="img/switch-11.png" class="duty-switch-shade-1-1" />
+                        <img src="img/switch-ani-1.gif" class="duty-switch-shade-ani-1" />
+                        <img src="img/switch-12.png" class="duty-switch-shade-1-2" />
+                    </div>
+                    <div class="switch-shade-box-2">
+                        <img src="img/switch-21.png" class="duty-switch-shade-2-1" />
+                        <img src="img/switch-ani-2.gif" class="duty-switch-shade-ani-2" />
+                        <img src="img/switch-22.png" class="duty-switch-shade-2-2" />
+                    </div>
+                    <div class="switch-shade-box-btn">
+                        <img src="img/get.png" class="duty-switch-shade-btn" />
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/dragula.min.js"></script>
+        <script src="js/duty-switch-page.js"></script>
+    </body>
+</html>

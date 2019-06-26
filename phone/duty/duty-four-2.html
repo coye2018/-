@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-four.css">
+        <link rel="stylesheet" href="css/duty-four-2.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="duty_four" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">{{dutyDate}}</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i class="icon-20-h-instrution"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="!isSubmit">
+                <div class="btn-setbtm border-top pd-10-lr bg-white" id="handin">
+                    <button class="btn bg-main" @click="jiaoban()">
+                        <span class="fz-bg fc-white">交班</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver du4" data-control="FLEXBOXVER" id="ScrollContent" v-cloak>
+                <div class="scrollbox">
+                    
+                    <div class="du4-box">
+                        <div class="du4-title bg-white pd-10-lr border-btm ub ub-ac">
+                            <div class="du4-title-text du4-title-text-zhiban">
+                                <span class="fz-md fc-title">值班人</span>
+                            </div>
+                            <div class="du4-title-main du4-zhiban ub-f1 ub">
+                                <div class="du4-zhiban-box ub-f1 ub ub-pc cli" v-for="(value, key) in dutyPerson" @click="personInfo(value)">
+                                    <div class="myli-headpic-lg">
+                                        <div class="myli-headpic-box-lg">
+                                            <img class="myli-headpic-img-lg" v-if="value.hashead" v-lazy="value.headurl" />
+                                            <div class="myli-headpic-txt-lg" v-else :class="value.headbgclass">{{value.headtext}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="du4-zhiban-text ub ub-ver ub-ac ub-pj">
+                                        <div class="">
+                                            <span class="fz-md fc-title">{{value.userName}}</span>
+                                        </div>
+                                        <div class="">
+                                            <span class="fz-sm fc-text">{{value.shiftname}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="du4-box">
+                        <div class="du4-title bg-white pd-10-lr border-btm ub ub-ac">
+                            <div class="du4-title-text du4-title-text-hasprog">
+                                <span class="fz-md fc-title">必到时间、地点</span>
+                            </div>
+                            <div class="du4-title-main ub-f1 ub">
+                                <div class="du4-prog-mg">
+                                    <span class="fz-sm fc-title">完成进度</span>
+                                </div>
+                                <div class="ub-f1">
+                                    <div class="prog prog-place"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list4">
+                            <div class="list4-item bg-white ub ub-ac clickable" v-for="(value, key) in mustTimePlace" @click="duty4place(value, key)" :class="value.status">
+                                <div class="list4-item-icon ub ub-ver ub-ac">
+                                    <div class="list4-item-icon-box">
+                                        <i class="icon-list4-flag"></i>
+                                    </div>
+                                    <div class="list4-item-icon-box" v-if="!isSubmit && value.mustTimePlaceData == null">
+                                         <i class="icon-list4-caogao"></i>
+                                    </div>             
+                                </div>
+                                <div class="list4-item-detail ub-f1">
+                                    <div class="list4-item-detail-top">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必到时间：</span>
+                                            </div>
+                                            <div class="ub-f1">
+                                                <span class="fz-md fc-text">{{value.startTime}}-{{value.endTime}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub" v-if="value.mustTimePlaceData">
+                                            <div>
+                                                <i class="icon-list4-time"></i>
+                                                <span class="fz-sm fc-title">实际时间：</span>
+                                            </div>
+                                            <div class="ub-f1">
+                                                <span class="fz-sm fc-actualtime">{{value.mustTimePlaceData.create_time_format}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list4-item-detail-btm">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必到地点：</span>
+                                            </div>
+                                            <div class="ub-f1 inaline">
+                                                <span class="fz-md fc-text">{{value.place}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub" v-if="value.mustTimePlaceData">
+                                            <div>
+                                                <span class="fz-md fc-title">巡查照片：</span>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-box" data-gallery="Place">
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustTimePlaceData.check_image1" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustTimePlaceData.check_image1" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustTimePlaceData.check_image2" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustTimePlaceData.check_image2" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustTimePlaceData.check_image3" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustTimePlaceData.check_image3" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list4-item-label">
+                                    <i class="icon-list4-label"></i>
+                                </div>
+                            </div>
+                            <!-- <div class="list4-item bg-white ub ub-ac clickable normal">
+                                <div class="list4-item-icon ub ub-ver ub-ac">
+                                    <div class="list4-item-icon-box">
+                                        <i class="icon-list4-flag"></i>
+                                    </div>
+                                    <div class="list4-item-draft list4-item-draft-down">
+                                        <span class="fz-sm fc-white">草稿</span>
+                                    </div>
+                                </div>
+                                <div class="list4-item-detail ub-f1">
+                                    <div class="list4-item-detail-top">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必到时间：</span>
+                                            </div>
+                                            <div class="ub-f1">
+                                                <span class="fz-md fc-text">08:30-10:30</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <i class="icon-list4-time"></i>
+                                                <span class="fz-sm fc-title">实际时间：</span>
+                                            </div>
+                                            <div class="ub-f1">
+                                                <span class="fz-sm fc-actualtime">09:00:00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list4-item-detail-btm">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必到地点：</span>
+                                            </div>
+                                            <div class="ub-f1 inaline">
+                                                <span class="fz-md fc-text">国内出发、国际出发、what the 1234546789 test test!!!</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">巡查照片：</span>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-box">
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-none inaline hide">
+                                                <span class="fz-md fc-text">暂无</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list4-item-label">
+                                    <i class="icon-list4-label"></i>
+                                </div>
+                            </div> -->
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="du4-box">
+                        <div class="du4-title bg-white pd-10-lr border-btm ub ub-ac">
+                            <div class="du4-title-text du4-title-text-hasprog">
+                                <span class="fz-md fc-title">必见人、必问问题</span>
+                            </div>
+                            <div class="du4-title-main ub-f1 ub">
+                                <div class="du4-prog-mg">
+                                    <span class="fz-sm fc-title">完成进度</span>
+                                </div>
+                                <div class="ub-f1">
+                                    <div class="prog prog-people"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list4">
+                            <div class="list4-item bg-white ub ub-ac clickable" v-for="(value, key) in mustPersonQuestion" @click="duty4question(value, key)" :class="value.status">
+                                <div class="list4-item-icon ub ub-ver ub-ac">
+                                    <div class="list4-item-icon-box">
+                                        <i class="icon-list4-qa"></i>
+                                    </div>
+                                    <div class="list4-item-icon-box" v-if="!isSubmit && value.mustPersonQuestionDate == null">
+                                        <i class="icon-list4-caogao"></i>
+                                    </div>
+                                    <!-- <div class="list4-item-draft list4-item-draft-down">
+                                        <span class="fz-sm fc-white">草稿</span>
+                                    </div> -->
+                                </div>
+                                <div class="list4-item-detail ub-f1">
+                                    <div class="list4-item-detail-top">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必见人：</span>
+                                            </div>
+                                            <div class="ub-f1 inaline">
+                                                <span class="fz-md fc-text">{{value.person}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必问问题：</span>
+                                            </div>
+                                            <div class="inaline ub-f1">
+                                                <span class="fz-md fc-text">{{value.question}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub" v-if="value.mustPersonQuestionDate">
+                                            <div>
+                                                <span class="fz-md fc-title">人员照片：</span>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-box" data-gallery="Ques">
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustPersonQuestionDate.check_image1" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustPersonQuestionDate.check_image1" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustPersonQuestionDate.check_image2" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustPersonQuestionDate.check_image2" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc" v-if="value.mustPersonQuestionDate.check_image3" @click.stop="openImg($event, key)">
+                                                    <img class="list4-thumbnail" v-lazy="value.mustPersonQuestionDate.check_image3" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list4-item-label">
+                                    <i class="icon-list4-label"></i>
+                                </div>
+                            </div>
+                            <!-- <div class="list4-item bg-white ub ub-ac todo clickable">
+                                <div class="list4-item-icon ub ub-ver ub-ac">
+                                    <div class="list4-item-icon-box">
+                                        <i class="icon-list4-qa"></i>
+                                    </div>
+                                    <div class="list4-item-draft list4-item-draft-down">
+                                        <span class="fz-sm fc-white">草稿</span>
+                                    </div>
+                                </div>
+                                <div class="list4-item-detail ub-f1">
+                                    <div class="list4-item-detail-top">
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必见人：</span>
+                                            </div>
+                                            <div class="ub-f1">
+                                                <span class="fz-md fc-text"></span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">必问问题：</span>
+                                            </div>
+                                            <div class="in3line ub-f1">
+                                                <span class="fz-md fc-text"></span>
+                                            </div>
+                                        </div>
+                                        <div class="list4-item-detail-line ub">
+                                            <div>
+                                                <span class="fz-md fc-title">人员照片：</span>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-box">
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                                <div class="list4-pic ub ub-ac ub-pc">
+                                                    <img class="list4-thumbnail" src="img/add-block.png" />
+                                                </div>
+                                            </div>
+                                            <div class="ub-f1 list4-pic-none inaline hide">
+                                                <span class="fz-md fc-text">暂无</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list4-item-label">
+                                    <i class="icon-list4-label"></i>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="du4-box" @click="duty4special()">
+                        <div class="du4-title bg-white pd-10-lr ub ub-ac" id="special">
+                            <div class="du4-title-text ub-f1">
+                                <span class="fz-md fc-title">其他需反馈情况</span>
+                                <div class="list4-item-draft list4-item-draft-right">
+                                     <i class="icon-list4-caogao"></i>
+                                </div>
+                                <!-- <div class="list4-item-draft list4-item-draft-right">
+                                    <span class="fz-sm fc-white">草稿</span>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="du4-fbnew bg-white">
+                            <div class="du4-fbnew-text in3line">
+                                <span class="fz-md fc-text">{{specialInfo?specialInfo.content:'暂无'}}</span>
+                            </div>
+                            <div class="ub-f1 list4-pic-box" v-if="specialInfo" data-gallery="Spec">
+                                <div class="list4-pic ub ub-ac ub-pc" v-if="specialInfo.image1" @click.stop="openImg($event, 0)">
+                                    <img class="list4-thumbnail" v-lazy="specialInfo.image1" />
+                                </div>
+                                <div class="list4-pic ub ub-ac ub-pc" v-if="specialInfo.image2" @click.stop="openImg($event, 0)">
+                                    <img class="list4-thumbnail" v-lazy="specialInfo.image2" />
+                                </div>
+                                <div class="list4-pic ub ub-ac ub-pc" v-if="specialInfo.image3" @click.stop="openImg($event, 0)">
+                                    <img class="list4-thumbnail" v-lazy="specialInfo.image3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/vue-lazyload.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/prog.js"></script>
+        <script src="js/duty-four-2.js"></script>
+    </body>
+</html>

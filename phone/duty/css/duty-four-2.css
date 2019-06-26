@@ -1,0 +1,185 @@
+/*新的四个必 详情页*/
+.fc-actualtime{
+    color: #4a90e2;
+}
+.du4-zhiban-box{
+    padding-bottom: 0.5em;
+}
+.du4-zhiban-box:nth-child(2){
+    border-left: 1px solid #E1E1E1;
+}
+.du4-title-text-zhiban{
+    width: 3em;
+}
+.du4-zhiban{
+    padding: 1em 0 0.6667em;
+}
+.du4-zhiban-text{
+    padding-left: 0.8333em;
+}
+.du4-title-text-hasprog{
+    width: 8em;
+}
+.du4-prog-mg{
+    margin-right: 0.625em;
+}
+.list4-item{
+    margin: 0.625em;
+    border-radius: 0.25em;
+    border-style: solid;
+    border-width: 1px 1px 1px 0.5em;
+    border-color: #E1E1E1;
+    position: relative;
+}
+.list4-item.todo{
+    border-left-color: #999999;
+}
+.list4-item.normal{
+    border-left-color: #35D0D9;
+}
+.list4-item.abnormal{
+    border-left-color: #FFA603;
+}
+.list4-item-icon{
+    width: 3.75em;
+    height: 100%;
+    text-align: center;
+}
+.list4-item-detail{
+    margin-right: 3.5em;
+}
+.list4-item-detail-top{
+    padding-bottom: 0.4375em;
+}
+.list4-item-detail-btm{
+    border-top: 1px solid #E1E1E1;
+    margin-bottom: 0.625em;
+}
+.list4-item-detail-line{
+    padding-top: 0.625em;
+}
+.list4-pic-box{
+    overflow: hidden;
+}
+.list4-pic-none{
+    margin-bottom: 0.625em;
+}
+.list4-pic{
+    float: left;
+    width: 2.25em;
+    height: 2.25em;
+    border-radius: 0.25em;
+    border: 1px solid #E1E1E1;
+    margin-right: 0.75em;
+    margin-bottom: 0.625em;
+}
+.list4-thumbnail{
+    max-width: 100%;
+    max-height: 100%;
+}
+.list4-item-label{
+    position: absolute;
+    top: -1px;
+    right: 1.375em;
+}
+.icon-list4-flag{
+    width: 1.6875em;
+    height: 1.5em;
+}
+.list4-item.todo .icon-list4-flag{
+    background-image: url(../img/duty-four-2/flag-grey.png);
+}
+.list4-item.normal .icon-list4-flag,
+.list4-item.abnormal .icon-list4-flag{
+    background-image: url(../img/duty-four-2/flag.png);
+}
+.icon-list4-qa{
+    width: 1.625em;
+    height: 1.5em;
+}
+.list4-item.todo .icon-list4-qa{
+    background-image: url(../img/duty-four-2/qa-grey.png);
+}
+.list4-item.normal .icon-list4-qa{
+    background-image: url(../img/duty-four-2/qa.png);
+}
+.icon-list4-time{
+    width: 0.75em;
+    height: 0.75em;
+}
+.list4-item.todo .icon-list4-time{
+    display: none !important;
+}
+.list4-item.normal .icon-list4-time{
+    background-image: url(../img/duty-four-2/time-green.png);
+}
+.list4-item.abnormal .icon-list4-time{
+    background-image: url(../img/duty-four-2/time-orange.png);
+}
+.icon-list4-label{
+    width: 2.1875em;
+    height: 2.6875em;
+}
+.list4-item.normal .icon-list4-label{
+    background-image: url(../img/duty-four-2/label-green.png);
+}
+.list4-item.abnormal .icon-list4-label{
+    background-image: url(../img/duty-four-2/label-orange.png);
+}
+.list4-item-draft{
+    display: inline-block;
+    line-height: 1em;
+    border-radius: 0.25em;
+    padding: 0 0.375em;
+    background-color: #35D0D9;
+}
+.list4-item-draft-down{
+    margin-top: 0.25em;
+}
+.list4-item-draft-right{
+    margin-left: 0.875em;
+}
+.du4-fbnew{
+    margin: 0.625em;
+    padding: 1.5em 1.3125em 0.75em;
+    border: 1px solid #E1E1E1;
+    border-radius: 0.25em;
+    line-height: 1.25em;
+}
+.du4-fbnew-text{
+    word-wrap: break-word;
+    word-break: normal;
+    margin-bottom: 0.75em;
+}
+.layer-a .layui-m-layerbtn span[yes],
+.layer-a .layui-m-layerbtn span[no]{
+    width: 50%;
+}
+
+.duty-four-br{
+    padding-bottom: 1em;
+}
+.duty-four-txa{
+    display: block;
+    font-size: 0.875em;
+    width: 100%;
+    height: 10em;
+    line-height: 1.25;
+    border-radius: 0.2381em;
+    border: 1px solid #52A6FF;
+    padding: 1em 0.8571em;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.duty-four-pic{
+    margin-top: -0.628em;
+}
+.icon-list4-caogao{
+     width: 2.3em;
+     height: 1.5em;
+     background-image: url(../img/duty-four-2/caogao.png);
+}
+.duty-text{
+    word-wrap:break-word; 
+    word-break:break-all;
+}

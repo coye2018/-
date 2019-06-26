@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>巡查单详情</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="inspect/css/inspect-submit.css">
+    <style>
+        [data-control="FLEXBOXVER"]{
+            padding:0 0 3.75em 0;
+        }
+        .pd-10-r{
+            padding-right: 0.625em!important;
+        }
+    </style>
+</head>
+<body ontouchstart>
+    <div class="bc-bg"  data-control="PAGE" id="Page" v-cloak>
+        <div class="bc-bg ub ub-ver myfb list" data-control="FLEXBOXVER">
+            <div v-for="(item,index) in items.standardList">
+                <div class="catalog fz-sm fz-sm-set border-btm">{{item.catalog}}</div>
+                <ul>
+                    <li v-for="(li,i) in item.list">
+                        <div class="content border-btm" :class="{'pd-10-r':save=='false'}">
+                            <span class="fz-sm">{{li.code | numFmt}}</span>
+                            <span class="fz-sm fz-sm-set">{{li.standardDetail}}</span>
+                            <div v-show="save=='true'" class="switcher" @click="toggle(index,i)" :class="{'open':li.isSuitable=='符合','close':li.isSuitable=='不符合','inactive':items.status=='2'||li.exit}">
+                                <span class="pass" v-show="li.isSuitable=='符合'">符合</span>
+                                <span class="nopass" v-show="li.isSuitable=='不符合'">不符</span>
+                                <span :class="{'left': li.isSuitable=='符合', 'right': li.isSuitable=='不符合'}" class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="discrepancy" v-show="li.isSuitable=='不符合'">
+                            <div class="add">
+                                <div>
+                                    <span>图片</span>
+                                    <!--<span>{{li.pictureList.length}}/3</span>-->
+                                </div>
+                                <div>
+                                    <div class="pic" v-for="(img,k) in li.pictureList">
+                                        <span :style="{backgroundImage: 'url('+ path + img + ')'}" @click="openPic(index,i,k)"></span>
+                                        <img v-if="!li.exit" @click="delPic(index,i,k)" class="del" src="../icon/20/delete-p.png" alt="">
+                                    </div>
+                                    <div v-if="!li.exit" class="addPic" @click="uploadPic(index,i)" v-show="li.pictureList.length<3">
+                                        <img src="../img/addpic.png" alt="">
+                                    </div>
+                                </div>
+                                <!--v-show="item.picArr.length<3"上传三张图以上隐藏添加图片按钮-->
+
+                            </div>
+                            <div class="des">
+                                <p>事件描述</p>
+                                <textarea v-if="!li.exit" name="" placeholder="输入事件描述" v-model.trim="li.described"></textarea>
+                                <p v-else class="fz-sm fz-sm-set described">{{li.described}}</p>
+                                <span v-show="!li.exit">最多不超过3500个字</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div v-show="save=='true'" class="footer" id="Footer">
+            <div v-show="items.status=='3'" class="submit" @click="submit">提交</div>
+            <div v-show="items.status=='3'" class="write" @click="write">开整改单</div>
+            <div v-show="items.status=='2'" class="receive" @click="receive">接收</div>
+        </div>
+    </div>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    <!--<script src="../../js/vue.min.js"></script>-->
+    <script src="js/vue2513.min.js" type="text/javascript"></script>
+    <script src="js/plug-in.js" type="text/javascript"></script>
+    <!--<script src="../../js/mescroll.min.js"></script>-->
+    <script src="../js/common.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/config.js" type="text/javascript"></script>
+    <script src="inspect/js/inspect-submit-content.js" type="text/javascript"></script>
+</body>
+</html>

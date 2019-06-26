@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>标准库</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="criterion/css/criterion.css" />
+		<style type="text/css">
+			#ScrollContent .contentlist {
+				position: fixed;
+				top: 5.875em;
+				bottom: 0;
+				height: auto;
+				width: 100%;
+				overflow-y: auto;
+			}
+			
+			.uh_ios7 #ScrollContent .contentlist {
+				top: 6.875em;
+			}
+			.slider li{text-align: center;}
+			.slider li span{margin-left:0;}
+			
+		</style>
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+			<!--header start-->
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">标准库</h1>
+					<div class="nav-btn" id="nav-right">
+						<i class="icon-20-h-search"></i>
+					</div>
+				</div>
+				<!--tab start-->
+				<ul class="slider">
+					<li :class="{'cur':tab == 0}" @click="changeTab(0)">
+						<span class="fz-md fz-md-set">服务类({{data.serviceTotal}})</span>
+					</li>
+					<li :class="{'cur':tab == 1}" @click="changeTab(1)">
+						<span class="fz-md fz-md-set">安全类({{data.securityTotal}})</span>
+					</li>
+					<li :class="{'cur':tab == 2}" @click="changeTab(2)">
+						<span class="fz-md fz-md-set">设备类({{data.equipmentTotal}})</span>
+					</li>
+				</ul>
+				<!--tab end-->
+			</div>
+			<!--header end-->
+
+			<div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent">
+				<!-- list start -->
+				<div class="contentlist">
+				<!-- 服务类 start -->
+				<div class="alists" v-show="tab == 0">
+					<div v-for="serviceItem in data.service" class="alists-box bg-white" @click="openDetail(serviceItem.criterionID,serviceItem.criterionGrade,1,serviceItem.isLast,serviceItem)">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-center fc-title ub-f1 ut-s">
+								<span class="fz-md fz-md-set">{{serviceItem.title}}</span>
+							</div>
+							<div class="lists-item-right">
+								<span class="fz-md fc-main fz-md-set">{{serviceItem.total}}</span><i class="icon-20-g-goto"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clists" v-show="tab == 0" :class="sericeNothing?'':'hide'">
+					<div class="nothing ub ub-ac">
+					</div>
+				</div>
+				<!-- 服务类 end -->
+				<!-- 安全类 start -->
+				<div class="alists" v-show="tab == 1">
+					<div v-for="securityItem in data.security" class="alists-box bg-white" @click="openDetail(securityItem.criterionID,securityItem.criterionGrade,2,securityItem.isLast,securityItem)">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-center fc-title ub-f1 ut-s">
+								<span class="fz-md fz-md-set">{{securityItem.title}}</span>
+							</div>
+							<div class="lists-item-right">
+								<span class="fz-md fz-md-set fc-main">{{securityItem.total}}</span><i class="icon-20-g-goto"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clists" v-show="tab == 1" :class="securityNothing?'':'hide'">
+					<div class="nothing ub ub-ac">
+					</div>
+				</div>
+				<!-- 安全类 end -->
+				<!-- 设备类 start -->
+				<div class="alists" v-show="tab == 2">
+					<div v-for="equipmentItem in data.equipment" class="alists-box bg-white" @click="openDetail(equipmentItem.criterionID,equipmentItem.criterionGrade,3,equipmentItem.isLast,equipmentItem)">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-center fc-title ub-f1 ut-s">
+								<span class="fz-md fz-md-set">{{equipmentItem.title}}</span>
+							</div>
+							<div class="lists-item-right">
+								<span class="fz-md fz-md-set fc-main">{{equipmentItem.total}}</span><i class="icon-20-g-goto"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clists" v-show="tab == 2" :class="equipmentNothing?'':'hide'">
+					<div class="nothing ub ub-ac">
+					</div>
+				</div>
+				<!-- 设备类 end -->
+				<div class="nonetwork" :class="nonet?'':'hide'"></div>
+				</div>
+				<!-- list end -->
+			</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+		<script src="criterion/js/criterion.js"></script>
+	</body>
+
+</html>

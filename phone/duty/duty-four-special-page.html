@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-four-question.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg ub-con" tabindex="0" data-control="PAGE" id="Page">
+            <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER" id="ScrollContent">
+                
+                <div class="du4-ques-form bg-white mg-box" v-cloak>
+                    <div class="du4-ques-form-textarea border-btm pd-10-lr">
+                        <textarea v-model="specialInfo.content" class="du4-ques-form-txa fz-md fc-title" placeholder="请描述特殊情况"></textarea>
+                    </div>
+                </div>
+                
+                <div class="addpic addpic-jb border-top border-btm bg-white">
+                    <div class="addpic-box" :class="specialInfo.imgURL==''?'hide':''" >
+                        <div class="addpic-item">
+                            <div class="addpic-item-con tx-c">
+                                <img :src="specialInfo.imgURL" class="addpic-con" />
+                            </div>
+                        </div>
+                        <div class="addpic-del" @click="deletimg()"></div>
+                    </div>
+                    <div class="addpic-btn" onclick="addPic(this)">
+                        <div class="addpic-item">
+                            <div class="addpic-item-con tx-c">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-four-special-page.js"></script>
+    </body>
+</html>

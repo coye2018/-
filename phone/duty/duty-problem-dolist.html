@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+         <link rel="stylesheet" href="css/duty-problem-detail.css">
+    </head>
+    <body class="noscale" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="dolist">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">完成情况</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="tab-con">
+                    <div class="tab-box actives">
+                        
+                        <ul class="myli">
+                            <li class="myli-item" v-for="item in doyes" v-cloak>
+                            	<div class="lists-box bg-white">
+			                        <div class="lists-item pd-10-lr ub ub-ac">
+			                        	<div class="lists-item-left fc-main myli-headpic-box-lg">
+		                               		<img :src="item.backup3" class="myli-headpic-txt-lg" /> 
+		                            	</div>
+			                            <div class="lists-item-t fc-title inaline">
+			                                <span class="fz-md fz-md-set">{{item.departname}}</span>
+			                            </div>
+			                            <div class="lists-item-center inaline fc-text ub-f1">
+			                                <span class="fz-md fz-md-set">{{item.text}}</span>
+			                            </div>
+			                        </div>
+                    			</div>
+                            </li>
+                        </ul>
+                        <div class="nothing ub ub-ac" :class="doyes.length==0?'':'hide'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-problem-dolist.js"></script>
+    </body>
+</html>

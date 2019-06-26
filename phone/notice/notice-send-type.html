@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="sendtype_container">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">发送模式</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="lists lists-radio">
+                    <div class="lists-box bg-white" v-for="(item, index) in sendtypeData" v-if="item.total!=0" :data-value="item.groupName" @click="returnPickData(item)" v-cloak>
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md">{{item.groupName}}</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                                <span class="fz-md" v-if="item.total>0">共<span>{{item.total}}</span>人</span>
+                            </div>
+                            <div class="lists-item-right hide">
+                                <i class="icon-20-choose actives"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="lists-box bg-white" data-value="只发给值班人员">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md">只发给值班人员</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                                <span class="fz-md">共<span id="num_zb">22</span>人</span>
+                            </div>
+                            <div class="lists-item-right hide">
+                                <i class="icon-20-choose actives"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" data-value="我要自己选择">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md">我要自己选择</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                                <span class="fz-md"></span>
+                            </div>
+                            <div class="lists-item-right hide">
+                                <i class="icon-20-choose actives"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="js/notice-send-type.js"></script>
+    </body>
+</html>

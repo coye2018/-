@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget appId="sdk10028" channelCode="0000" height="480" pid="" sreensize="4.5" version="00.00.0000" viewmode="application" widgetId="" width="320">
+    <name>掌汇机场</name>
+    <description>掌汇</description>
+    <author email=""/>
+    <icon src="icon.png"/>
+    <license href=""/>
+    <content encoding="utf-8" src="index.html"/>
+    <updateurl>http://10.10.11.122:8080/single/appVersionController.do?upgrade</updateurl>
+    <logserverip/>
+    <showmyspace>false</showmyspace>
+    <obfuscation>false</obfuscation>
+    <bgcolor>#fefefe</bgcolor>
+    <orientation>5</orientation>
+    <config desc="privacyConfig" type="AUTHORITY">
+        <permission platform="iOS" info="privacy" type="photoLibrary">
+            <string>App访问相册的权限</string>
+        </permission>
+        <permission platform="iOS" info="privacy" type="bluetooth">
+            <string>App使用蓝牙的权限</string>
+        </permission>
+        <permission platform="iOS" info="privacy" type="camera">
+            <string>App使用摄像头的权限</string>
+        </permission>
+        <permission platform="iOS" info="privacy" type="microphone">
+            <string>App话筒的权限</string>
+        </permission>
+        <permission platform="iOS" info="privacy" type="locationAlways">
+            <string>App定位权限用于百度定位</string>
+        </permission>
+    </config>
+    <error src=""/>
+    <removeloading/>
+    <debug/>
+    <partobfuscation/>
+    <webapp>false</webapp>
+    <config desc="uexJPush" type="ENTITLEMENTS">
+        <entitlement type="apns" value=""/>
+    </config>
+    <config desc="uexJPush" type="KEY">
+        <param name="$UEXJPUSH_PACKAGE$" platform="android" value="org.gbiac.widgetone"/>
+        <param name="$UEXJPUSH_APPKEY$" platform="android" value="d5314b6122ba4ec29b09e280"/>
+        <param file="uexGroupfolder/PushConfig.plist" name="$UEXJPUSH_APP_KEY$" platform="ios" value="d5314b6122ba4ec29b09e280"/>
+        <param file="uexGroupfolder/PushConfig.plist" name="$UEXJPUSH_PUSH_CHANNEL$" platform="ios" value="0000"/>
+        <param file="uexGroupfolder/PushConfig.plist" name="$UEXJPUSH_APS_ENVIRONMENT$" platform="ios" value="0"/>
+    </config>
+    <config desc="uexHuaweiPush" type="KEY">
+        <param name="org.zywx.wbpalmstar.plugin.uexhuaweipush.MyReceiver" platform="android" value="com.hyphenate.chat.EMHuaweiPushReceiver"/>
+    </config>
+    <config desc="uexBaiduMap" type="KEY">
+        <param name="$uexBaiduMap_APIKey$" platform="android" value="fazeDOel3Dp7rFsVLSWTZPimY4VZ472n"/>
+        <param name="$uexBaiduMap_APIKey$" platform="ios" value="xC2LMGVkcs9fB4vzkkX45i17S4XBVGZq"/>
+    </config>
+</widget>

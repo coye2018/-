@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-problem-multi.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="duty-problem-district" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c">区域问题</h1>
+                    <div id="nav-right" @click="searchToggle()">
+                        <i class="icon-20-h-search"></i>
+                    </div>
+                </div>
+                <div class="ub-f1 ut-s tx-c bc-bg">
+                    <span class="tab-pill bg-white">
+                        <div class="tab-pill-box ub">
+                            <div class="tab-pill-text" @click="tabSwitch(0)" :class="{'actives': tagIndex == 0}">
+                                <span>待转派</span>
+                            </div>
+                            <div class="tab-pill-text" @click="tabSwitch(1)" :class="{'actives': tagIndex == 1}">
+                                <span>待验收</span>
+                            </div>
+                            <div class="tab-pill-text" @click="tabSwitch(2)" :class="{'actives': tagIndex == 2}">
+                                <span>已关闭</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="search-box bc-bg" :class="hasSearch?'':'hide' ">
+                    <div class="search" @click="searchToInput()">
+                        <div class="search-main ub-con ub ub-ac ub-pc" :class="isToInput?'':'hide' ">
+                            <div class="search-main-center ub-f1">
+                                <input class="search-ipt fix-search-ipt" v-model="searchIpt" v-focus="isToInput" @input="searchFilter()" @blur="searchToText()" />
+                            </div>
+                            <div class="search-main-right" @click="searchEmpty()">
+                                <i class="search-del-icon"></i>
+                            </div>
+                        </div>
+                        <div class="search-note ub-con ub ub-ac ub-pc" :class="isToInput?'hide':'' ">
+                            <i class="icon-20-h-search"></i>
+                            <span class="search-note-text fz-md fc-text">请输入搜索内容</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent" :class="hasSearch?'hasSearch':'' ">
+                <div id="mescroll0" class="mescroll" :class="{'actives': tagIndex == 0}"> 
+                    <ul class="dure-li">
+                        <li :data-id="item.id" @click="enterProblemDetail(item, index)" v-for="(item,index) in listleftData">
+                            <div class="dure-li-item bg-white border-btm pd-10-lr ub clickable">
+                                <div class="dure-li-center ub-f1"> 
+                                    <div class="dure-li-center ub">
+                                        <div class="dure-li-title in3line ub-f1">
+                                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                                        </div>
+                                        <div class="dure-li-right">
+                                            <button class="btn btn-square btn-sm" :class="'text-'+item.colour" type="button">
+                                                <span class="fz-sm fz-sm-set">{{item.stateString}}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="dure-li-bottom ub">
+                                      	<div class="dure-li-form ub-f1">
+                              		        <span class="fz-sm fz-sm-set fc-text">报送单位：{{item.senddepartname}}</span>
+                                      	</div>
+                                        <div class="dure-li-desc">
+                                      		<span class="fz-sm fz-sm-set fc-text">报送于：{{item.sendtime_format}}</span>
+                                      	</div>   
+                                    </div> 
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="nothing" v-show="!hasdata[0] && !nonetRecive"></div>
+                    <div class="nonetwork" :class="nonetRecive?'':'hide'"></div>
+                </div>
+                <div id="mescroll1" class="mescroll" :class="{'actives': tagIndex == 1}"> 
+                    <ul class="dure-li">
+                        <li :data-id="item.id" @click="enterProblemDetail(item, index)" v-for="(item,index) in listmiddleData">
+                            <div class="dure-li-item bg-white border-btm pd-10-lr ub clickable">
+                                <div class="dure-li-center ub-f1"> 
+                                    <div class="dure-li-center ub">
+                                        <div class="dure-li-title in3line ub-f1">
+                                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                                        </div>
+                                        <div class="dure-li-right">
+                                            <button class="btn btn-square btn-sm" :class="'text-'+item.colour" type="button">
+                                                <span class="fz-sm">{{item.stateString}}</span>
+                                            </button>
+                                        </div>                                   
+                                    </div>
+                                    <!-- <div class="dure-li-pic">
+                                        <img src="img/check.png"/>
+                                    </div> -->
+                                    <div class="dure-li-bottom ub">
+                                      	<div class="dure-li-form ub-f1">
+                                  		    <span class="fz-sm fz-sm-set fc-text">责任单位：{{item.dodepartname}}</span>
+                                      	</div>
+                                        <div class="dure-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text" v-if="item.state == 7">接收于：{{item.receivetime_format}}</span>
+                                  		    <span class="fz-sm fz-sm-set fc-text" v-else>完成于：{{item.finishtime_format}}</span>
+                                  	    </div>   
+                                    </div> 
+                                </div> 
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="nothing" v-show="!hasdata[1] && !nonetRecive"></div>
+                    <div class="nonetwork" :class="nonetRecive?'':'hide'"></div>
+                </div>
+                <div id="mescroll2" class="mescroll" :class="{'actives': tagIndex == 2}"> 
+                    <ul class="dure-li">
+                        <li :data-id="item.id" @click="enterProblemDetail(item, index)" v-for="(item,index) in listrightData">
+                            <div class="dure-li-item bg-white border-btm pd-10-lr ub clickable">
+                                <div class="dure-li-center ub-f1"> 
+                                    <div class="dure-li-center ub">
+                                        <div class="dure-li-title in3line ub-f1">
+                                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                                        </div>
+                                        <div class="dure-li-right">
+                                            <button class="btn btn-square btn-sm " :class="'text-'+item.colour" type="button">
+                                                <span class="fz-sm">{{item.stateString}}</span>
+                                            </button>
+                                        </div>                                   
+                                    </div>
+                                    <div class="dure-li-bottom ub">
+                                        <div class="dure-li-form ub-f1">
+                                  		    <span class="fz-sm fz-sm-set fc-text">责任单位：{{item.dodepartname}}</span>
+                                  	    </div>
+                                        <div class="dure-li-desc">
+                                  		    <span class="fz-sm fz-sm-set fc-text">关闭于：{{item.finishtime_format}}</span>
+                                  	    </div>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="nothing" v-show="!hasdata[2] && !nonetRecive"></div>
+                    <div class="nonetwork" :class="nonetRecive?'':'hide'"></div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="js/duty-problem-district.js"></script>
+    </body>
+</html>

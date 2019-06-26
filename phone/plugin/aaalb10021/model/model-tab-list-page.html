@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/model-tab-list.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg ub-con" data-control="PAGE" id="Page" v-cloak>
+            <div class="tab">
+                <div class="tab-nav tab-fixtop mescroll-touch-x bg-header border-btm">
+                    <div class="tab-scroller" ref="tabScroll">
+                        <ul class="tab-box">
+                            <li class="tab-item" :class="{'actives': index == 0}" @click="tabSwitch(0)">
+                                <label class="tab-text">整改中</label>
+                            </li>
+                            <li class="tab-item" :class="{'actives': index == 1}" @click="tabSwitch(1)">
+                                <label class="tab-text">待验收</label>
+                            </li>
+                            <li class="tab-item" :class="{'actives': index == 2}" @click="tabSwitch(2)">
+                                <label class="tab-text">已关闭</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="swiper-container swiper-main">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div id="mescroll0" class="mescroll">
+                                    <div id="mes_wrap0">
+                                        <div class="bg-white border-btm" style="height: 5em;" v-for="(item, index) in li_0">
+                                            <!-- <img v-lazy="http://lorempixel.com/300/200" src="" /> -->
+                                            <span>列表1：{{item}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div id="mescroll1" class="mescroll">
+                                    <div id="mes_wrap1">
+                                        <div class="bg-white border-btm" style="height: 5em;" v-for="(item, index) in li_1">
+                                            <span>列表2：{{item}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div id="mescroll2" class="mescroll">
+                                    <div id="mes_wrap2">
+                                        <div class="bg-white border-btm" style="height: 5em;" v-for="(item, index) in li_2">
+                                            <span>列表3：{{item}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/swiper.min.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="js/model-tab-list-page.js"></script>
+    </body>
+</html>

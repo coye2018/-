@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-problem-modal.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+    </head>
+    <body class="bg-trans" ontouchstart>
+        <div class="dialog-shade" id="duty-problem-sendback" v-cloak>
+            <div class="dialog-modal" @click.stop="">
+                <div class="dialog-modal-box bg-white">
+                    <div class="dialog-modal-title bg-main">
+                        <span class="fz-lg fc-white">退回问题</span>   
+                    </div>
+                    <div class="dialog-modal-msg">
+                        <div class="lists mg-box">
+                            <div class="dialog-modal-desc pd-10-lr border-btm-sm">
+                                <span class="fz-sm fc-text">注：退回问题适用于此问题不属于本单位职责之内的情况，可退回给区域管理部门处理</span>
+                            </div>
+                            <div class="lists-item bg-white pd-10-lr ub ub-ac">
+                                <div class="lists-item-title">
+                                    <span class="fz-md fz-md-set">理由</span>
+                                </div>
+                            </div>
+                            <div class="bg-white">
+                                <div class="dialog-modal-textarea pd-10-lr">
+                                    <textarea class="dialog-modal-txa fc-title" v-model="text" :placeholder="'最多不超过'+ textMax +'字'"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dialog-footer ub ub-ac">
+                        <div class="dialog-btn fz-md fc-main" @click.stop="sendback()">确定</div>
+                        <div class="dialog-btn fz-md fc-main" @click.stop="modalClose()">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="js/duty-problem-sendback.js"></script>
+    </body>
+</html>

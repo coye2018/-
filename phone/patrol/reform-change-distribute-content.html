@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>改派</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" tabindex="0" id="Page">
+    <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER">
+        <ul class="ulList border-btm bg-white">
+            <li class="fz-md fz-md-set">
+                <span class="title fc-title">责任部门</span>
+                <span class="fc-text" v-text="oldDep" id="oldDep"></span>
+            </li>
+            <li class="fz-md fz-md-set" @click="chooseNewDep">
+                <span class="title fc-title">新责任部门</span>
+                <!--<input type="text" class="fc-text" placeholder="请选择新的部门" v-model="newDep" @click="chooseNewDep" id="name">-->
+                <span class="fc-text" v-text="newDep"  id="name"></span>
+                <i class="icon-20-g-goto ufr"></i>
+            </li>
+            <li class="fz-md fz-md-set bg-white">
+                <span class="title fc-title">备注</span>
+                <input type="text" placeholder="请填写备注信息" id="reason" class="fc-text" v-model.trim="items.message" ref="message" style="width: calc(100% - 7em)">
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script>
+    (function($) {
+        appcan.button("#nav-left", "btn-act",function() {
+            appcan.window.close(1);
+        });
+        appcan.button("#nav-right", "btn-act",function() {
+            appcan.window.close(1);
+        });
+
+        var vm = new Vue({
+            el:'#Page',
+            data:{
+                oldDep:'',
+                newDep:'请选择新的部门',
+                departId:'',
+                items:{
+                    message:''
+                },
+                isClick: 0 //0=可以点击提交，1=不可以点击提交。为了不让重复点击提交按钮
+            },
+            methods:{
+                chooseNewDep: function () {
+                    openWindow('patrol-choose-departname', 'patrol-choose-departname.html')
+                }
+            },
+            watch: {
+                items: {
+                    handler: function (val, oldval) {
+                        var that = this;
+                        var num = 3000; //字体限制为3000个
+                        that.$refs.message.setAttribute("maxlength", num);
+                    },
+                    deep: true
+                }
+            },
+            mounted: function() {
+                this.oldDep = appcan.locStorage.getVal('patrol-changDpartName');
+            }
+        });
+        appcan.ready(function() {
+            //点击确定按钮执行的通道
+            appcan.window.subscribe('patrol-sureChange', function (msg) {
+                var n = $('#name').text();
+                if(n == '请选择新的部门'){
+                    layerToast('请选择新的部门。', 2);
+                }else if(vm.isClick == 1){
+                    appcan.window.publish('patrol-changDistributeClick','changDistributeClick');
+                    return false;
+                }else if(vm.oldDep == vm.newDep){
+                    layerToast('新责任部门不能与原责任部门一样。', 2);
+                    return false;
+                }else {
+                    appcan.window.publish('patrol-changDistributeClick','changDistributeClick');
+                    vm.isClick = 1;
+                    addConfirm({
+                        content: '是否确认改派部门？',
+                        yes: function(i) {
+                            layerRemove(i);
+                            if(vm.items.message === ''){
+                                vm.items.message = '无'
+                            }
+                            var distribute = appcan.locStorage.getVal('patrol-distributeParams');
+                            var json = {
+                                path: mainPath + "reformApiController.do?aduitReform",
+                                data: {
+                                    "userId": appcan.locStorage.getVal("userID"),
+                                    "userName": appcan.locStorage.getVal("userName"),
+                                    "role": appcan.locStorage.getVal('patrol-role'),
+                                    "departId": vm.departId,
+                                    "reason": vm.items.message,
+                                    "type": JSON.parse(distribute).type,
+                                    "reformId":appcan.locStorage.getVal('patrol-reformId'),
+                                    "picList": [],
+                                    "title":JSON.parse(distribute).title,
+                                    "managerId":JSON.parse(distribute).managerId,
+                                    "loginDepartId":appcan.locStorage.getVal('deptId')
+                                }
+                            };
+                            ajaxPOST(json, function (data, e) {
+                                if (e == "success") {
+                                    vm.isClick = 1;
+                                    //成功后的提醒弹窗通道
+                                    appcan.window.publish("patrol-reform-layerTitle", "changeDep");
+
+                                    appcan.window.evaluateScript({
+                                        name: 'reform',
+                                        scriptContent: 'vm.ResetUpScroll()'
+                                    });
+                                    closeMultiPages([
+                                        'reform-rectification-details',
+                                        'reform-change-distribute'
+                                    ]);
+                                    //清除详情页缓存字段
+                                    var reformArr = ['patrol-status', 'patrol-reformId', 'patrol-role','patrol-distributeParams','patrol-changDpartName'];
+                                    reformArr.forEach(function(name){
+                                        appcan.locStorage.remove(name);
+                                    });
+                                } else {
+                                    appcan.window.publish('patrol-changDistributeClick','noChangDistributeClick');
+                                    vm.isClick = 0;
+                                    layerToast('网络错误，请检查网络环境', 2);
+                                }
+
+                            });
+                        },
+                        no: function(i) {
+                            appcan.window.publish('patrol-changDistributeClick','noChangDistributeClick');
+                            vm.isClick = 0;
+                        }
+                    });
+
+
+
+                }
+            });
+            //选择部门后跟换新部门
+            appcan.window.subscribe('patrol-chooseVal', function (msg) {
+                var obj = JSON.parse(msg);
+                vm.newDep = obj.departName;
+                vm.departId = obj.departId;
+            });
+        });
+    })($);
+</script>
+</body>
+</html>

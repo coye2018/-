@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-table2.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+        <style type="text/css">
+            html, body{
+                overflow: hidden;
+            }
+            .switch-unit{
+                margin: 0;
+            }
+            .switch-item{
+                padding: .187em; 
+            }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">值班表</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i class="icon-20-h-group"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver uinn-4a calendar-cover" data-control="FLEXBOXVER" id="ScrollContent" @click.stop="hideOption()">
+                <div class="ub ub-ver calendar-container">
+                    <div class="calendar-box visibility">
+                        <div class="calendar-inner">
+                            <div class="ub tx-c fz-md bc-bg fc-warn-blue calendar-month">
+                                <div class="visibility calendar-month-both">今天 </div>
+                                <div class="ub-f1">
+                                    <span class="js-select-date" id="ymym"></span>
+                                </div>
+                                <div class="js-return-today calendar-month-both">今天 </div>
+                            </div>
+                            <div class="switch-box border-top bg-white">
+                                <div class="switch-head">
+                                    <div class="switch-item" v-for="(item, index) in weekData">
+                                        <span class="fz-md">{{item}}</span>
+                                    </div>
+                                </div>
+                                <div class="swiper-container js-week">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide swiper-no-swiping" id="w1"></div>
+                                        <div class="swiper-slide" id="w2"></div>
+                                        <div class="swiper-slide swiper-no-swiping" id="w3"></div>
+                                    </div>
+                                </div>
+                                <div class="switch-body duty-table-sm">
+                                    <section class="calendar-day">
+                                        <div class="swiper-container js-month" style="height:0">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide" id="d1"></div>
+                                                <div class="swiper-slide" id="d2"></div>
+                                                <div class="swiper-slide" id="d3"></div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="ub calendar-slide-pointer">
+                                <span></span> 
+                            </div>
+                        </div>
+                        
+                        <div class="duty-list-banci ub" v-if="dutyPeopleType.length>0">
+                            <div class="duty-list-banci-item fz-md fz-md-set" v-for="(item,index) in dutyPeopleType">
+                                <span class="fc-title">{{item.shiftname}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="duty-list duty-table-one-list" v-cloak>
+                        <div class="scrollbox">
+                            <ul class="myli">
+                                <li class="myli-item" v-for="(item, index) in dutyPeople">
+                                    <div class="myli-headpic-lg duty-list-head ub ub-ac">
+                                        <div class="myli-headpic-box-lg">
+                                            <img class="myli-headpic-txt-lg bg-disabled" v-lazy="item.departHead" />
+                                        </div>
+                                        <div class="duty-list-head-text">
+                                            <span class="fz-md fc-main">{{item.description}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="myli-center-alt">
+                                        <div class="myli-center-alt-top ub ub-ac">
+                                            <div class="myli-center-alt-main ub-f1 ub">
+                                                <div class="myli-center-alt-item" v-for="(value, key) in item.dutyPeoples" @click.stop="showOption(item, index, value, key)">
+                                                    <div class="duty-list-fullname" :class="index==showIndex && value.detail_id==showKey ? 'actives':'' ">
+                                                        <span class="fz-md fz-md-set">{{value.realname}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="myli-option" :class="[showIndex!=index?'':showKey==31?'zhuban':'fuban']">
+                                            <div class="myli-opt">
+                                                <div class="myli-opt-item bg-main ub ub-ac ub-pc" @click.stop="getMonthDuty(item)">
+                                                    <div class="myli-opt-text fz-md">月表</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-sub ub ub-ac ub-pc" @click.stop="getTrackPosition(item)">
+                                                    <div class="myli-opt-text fz-md">位置</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-sub-light ub ub-ac ub-pc" @click.stop="getTrack(item)">
+                                                    <div class="myli-opt-text fz-md">轨迹</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-green ub ub-ac ub-pc" @click.stop="call(item)">
+                                                    <div class="myli-opt-text fz-md">电话</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <!--
+                                <li class="myli-item" v-for="(item,index) in dutyPeople">
+                                    <div class="myli-headpic-lg duty-list-head ub ub-ac">
+                                        <div class="myli-headpic-box-lg">
+                                            <img class="myli-headpic-txt-lg bg-disabled" v-lazy="item.departHead" />
+                                        </div>
+                                        <div class="duty-list-head-text">
+                                            <span class="fz-md fc-main">{{item.description}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="myli-center-lg ub ub-ac">
+                                        <div class="myli-headpic-lg">
+                                        </div>
+                                        <div class="myli-main duty-list-main ub-f1 ub">
+                                            <div class="fz-md fz-md-set" :class="[(key==0)?'duty-list-zb':'duty-list-fb',(item.dutyPeoples.length==1 && value.detail_id==32)?'mleft':'']" v-for="(value,key) in item.dutyPeoples">
+                                                <span :class="[key==0?'fc-title':'fc-text',value.detail_id==32?'fc-text':'fc-title']">{{value.realname}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="myli-right ub">
+                                        <div class="myli-btn bg-main ub ub-ac ub-pc inaline" @click="getMonthDuty(item)">
+                                            <span class="fz-md fz-md-set fc-white">月表</span>
+                                        </div>
+                                        <div class="myli-btn bg-sub-light ub ub-ac ub-pc inaline" @click="getTrack(item)">
+                                            <span class="fz-md fz-md-set fc-white">轨迹</span>
+                                        </div>
+                                        <div class="myli-btn bg-sub ub ub-ac ub-pc inaline" @click="getTrackPosition(item)">
+                                            <span class="fz-md fz-md-set fc-white">位置</span>
+                                        </div>
+                                        <div class="myli-btn bg-sub-icon ub ub-ac ub-pc inaline" @click="call(item)">
+                                            <span class="fz-md fz-md-set fc-white">电话</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            -->
+                            
+                            <!-- 
+                            <ul class="myli">
+                                <li class="myli-item">
+                                    <div class="myli-headpic-lg duty-list-head ub ub-ac">
+                                        <div class="myli-headpic-box-lg">
+                                            <img class="myli-headpic-txt-lg bg-disabled" src="http://58.63.114.227:8080/jeezz-single/upload/departImages/8a8a8bfc59977acf01599796e6fa0022.png" lazy="loaded">
+                                        </div>
+                                        <div class="duty-list-head-text">
+                                            <span class="fz-md fc-main">快线</span>
+                                        </div>
+                                    </div>
+                                    <div class="myli-center-alt">
+                                        <div class="myli-center-alt-top ub ub-ac">
+                                            <div class="myli-center-alt-main ub-f1 ub">
+                                                <div class="myli-center-alt-item">
+                                                    <div class="duty-list-fullname">
+                                                        <span class="fz-md fz-md-set">周永琴</span>
+                                                    </div>
+                                                </div>
+                                                <div class="myli-center-alt-item">
+                                                    <div class="duty-list-fullname">
+                                                        <span class="fz-md fz-md-set">朱昕</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="myli-option">
+                                            <div class="myli-opt">
+                                                <div class="myli-opt-item bg-main ub ub-ac ub-pc">
+                                                    <div class="myli-opt-text fz-md">月报</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-sub ub ub-ac ub-pc">
+                                                    <div class="myli-opt-text fz-md">位置</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-sub-light ub ub-ac ub-pc">
+                                                    <div class="myli-opt-text fz-md">轨迹</div>
+                                                </div>
+                                                <div class="myli-opt-item bg-green ub ub-ac ub-pc">
+                                                    <div class="myli-opt-text fz-md">电话</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                             -->
+                            
+                        </div>
+                        <div class="nothing" :class="nothing?'':'hide'"></div>
+                        <div class="nonetwork" :class="nonet?'':'hide'"></div>
+                    </div>        
+                </div>
+                
+            </div>
+            
+            <div class="shade shade-hide">
+                <div class="shade-box">
+                    <img src="img/note.png" class="duty-shade-1" />
+                    <img src="img/swipe.png" class="duty-shade-2" />
+                    <img src="img/get.png" class="duty-shade-3" />
+                </div>
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/touch-0.2.14.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/vue-lazyload.js"></script>
+        <script src="../js/LunarCalendar.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/swiper.jquery.min.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="js/duty-table-one-calendar.js"></script>
+        <script src="js/duty-table-one-2.js"></script>
+    </body>
+</html>

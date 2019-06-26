@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <zh-header @left="backto">
+                <span>信息展示列表</span>
+            </zh-header>
+            
+            <zh-content>
+                
+                <!-- 
+                    1.zh-info是实线边框分割而成的信息板块
+                    2.zh-info-box是虚线边框分割而成的信息段
+                    3.zh-info-item是每一项信息
+                 -->
+                
+                <zh-info v-margin-bottom v-hide-border-top>
+                    
+                    <zh-info-box>
+                        <!-- 常规 -->
+                        <zh-info-item :label="info_1.label" :value="info_1.value"></zh-info-item>
+                        <zh-info-item :label="info_2.label" :value="info_2.value"></zh-info-item>
+                    </zh-info-box>
+                    
+                    <zh-info-box>
+                        <!-- 上下排列的布局, 由d7n(direction)控制, 不填或默认h左右布局, v是上下布局 -->
+                        <zh-info-item :label="info_3.label" :value="info_3.value" :d7n="info_3.direction"></zh-info-item>
+                    </zh-info-box>
+                    
+                    <zh-info-box>
+                        <!-- 不填label就是纯正文结构的了 -->
+                        <zh-info-item :value="info_3.value"></zh-info-item>
+                    </zh-info-box>
+                    
+                    <zh-info-box>
+                        <!-- 自定义内容, 往zh-info-item传入内容, 不需传value -->
+                        <zh-info-item :label="info_4.label">
+                            <zh-img :img-id="info_4.imgId" :img-arr="info_4.imgArr"></zh-img>
+                        </zh-info-item>
+                    </zh-info-box>
+                    
+                    <zh-info-box>
+                        <!-- 右侧自定义内容, slot="right", 该区域内容不宜过多 -->
+                        <!-- 要加右侧箭头则arr-show为true -->
+                        
+                        <zh-info-item :label="info_5.label" :value="info_5.value" :arr-show="true">
+                            <div slot="right">2/3已读</div>
+                        </zh-info-item>
+                    </zh-info-box>
+                    
+                </zh-info>
+                
+                <zh-info v-margin-bottom>
+                    <zh-info-box>
+                        <!-- 标题 -->
+                        <zh-info-title :title="info_6.title"></zh-info-title>
+                    </zh-info-box>
+                    <zh-info-box>
+                        <zh-info-item :label="info_6.label" :value="info_6.value"></zh-info-item>
+                    </zh-info-box>
+                </zh-info>
+                
+                <zh-info v-margin-bottom>
+                    <zh-info-box>
+                        <!-- 标题带描述内容 -->
+                        <zh-info-title :title="info_6.title" :d7n="info_6.d7n"></zh-info-title>
+                    </zh-info-box>
+                    <zh-info-box>
+                        <zh-info-item :label="info_6.label" :value="info_6.value"></zh-info-item>
+                    </zh-info-box>
+                </zh-info>
+                
+                <zh-info v-margin-bottom>
+                    <zh-info-box>
+                        <!-- 标题右侧自定义内容 -->
+                        <zh-info-title :title="info_6.title">
+                            <zh-btn :color="'green'" :bg="true">整改中</zh-btn>
+                        </zh-info-title>
+                    </zh-info-box>
+                    <zh-info-box>
+                        <zh-info-item :label="info_6.label" :value="info_6.value"></zh-info-item>
+                    </zh-info-box>
+                </zh-info>
+                
+                <zh-info>
+                    <!-- 极个别info-box需要覆盖分割边框的样式,如[检查单详情页] -->
+                    <zh-info-box :border-class="'border-btm-md'">
+                        <zh-info-title :title="info_6.title" :arr-show="true"></zh-info-title>
+                    </zh-info-box>
+                    <zh-info-box>
+                        <zh-info-item :label="info_6.label" :value="info_6.value"></zh-info-item>
+                    </zh-info-box>
+                </zh-info>
+                
+            </zh-content>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/swiper.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js-model/info.js"></script>
+    </body>
+</html>

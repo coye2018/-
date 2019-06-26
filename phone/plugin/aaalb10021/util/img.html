@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <zh-header @left="backto">
+                <span>图片预览、图片上传</span>
+            </zh-header>
+            
+            <!--
+                1. img-id仅仅是初始化swiper用的, 要操作swiper数据和方法可以用ref
+                2. img-arr是图片数组, 存放完整图片地址的字段是url
+             -->
+            <zh-content>
+                <zh-img :img-id="imgId" :img-arr="imgArr"></zh-img>
+                <zh-img-upload :img-id="uploadId" :img-arr="uploadArr" :upload-url="url" ref="upload"></zh-img-upload>
+            </zh-content>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/swiper.min.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js-model/img.js"></script>
+    </body>
+</html>

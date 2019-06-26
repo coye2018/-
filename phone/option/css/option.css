@@ -1,0 +1,57 @@
+.banner{
+    /*height: 7.375em;*/
+    padding-top: 30.9333%;
+    /*background: url(../img/banner.png) center no-repeat #A7E2FE;*/
+    background: url(../img/banner_newyear_2019.png) center no-repeat;
+    background-size: auto 100%;
+}
+
+.option-type{
+    position: relative;
+}
+.option-type:first-of-type:before,
+.option-type:after{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    height: 1px;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+    background-color: #E1E1E1;
+}
+.option-type:after{
+    left: 0.625em;
+    right: 0.625em;
+}
+.option-type:first-of-type:before,
+.option-type:last-of-type:after{
+    left: 0;
+    right: 0;
+}
+.option-type:first-of-type:before{
+    top: 0;
+}
+.option-type:last-of-type:after{
+    bottom: 0;
+}
+.option-icon{
+    position: relative;
+}
+.option-title{
+    height: 2.9375em;
+    line-height: 2.9375em;
+}
+.option-item{
+    float: left;
+    width: 25%;
+    margin-bottom: 1em;
+}
+.option-item-text{
+    margin-top: 0.25em;
+    text-align: center;
+}
+.option-reddot{
+    position: absolute;
+    top: 0;
+    right: 0;
+}

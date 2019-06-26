@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/delay-getmsg-status.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg address-page" tabindex="0" data-control="PAGE" id="Page"  v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub" v-cloak>
+                                <div class="tab-pill-text" 
+                                    v-for="(item, index) in toggleText" 
+                                    :class="type == item.type ? 'actives' : '' " 
+                                    @click="type = item.type">
+                                    <span>{{item.text}}</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                       <!-- <i class="icon-20-h-date"></i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+            
+                <!-- 通知列表 -->
+                <div class="delay-container">
+                    <div class="ub ub-ac delay-list" v-for="item in dataList">
+                        <div class="delay-hd">
+                            <img src="../icon/35/switch-left.png"/>
+                        </div>
+                        <div class="ub-f1 delay-primary">
+                            <h3>
+                                <span class="fz-md fz-md-set">{{item.a}}</span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nonetwork" v-if="nonet ? 'hide': '' "></div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/delay-getmsg-status.js"></script>
+    </body>
+</html>

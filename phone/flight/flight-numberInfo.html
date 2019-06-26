@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+         <link rel="stylesheet" href="css/flight-numberInfo.css">
+    </head>
+    <body class="noscale" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="details" v-cloak >
+                <div class="uh" data-control="HEADER" id="Header">
+                    <div class="ub ub-ac header">
+                        <div class="nav-btn" id="nav-left">
+                            <i class="icon-20-h-backto"></i>
+                        </div>
+                        <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">航班号：{{lists.flightno}}</h1>
+                        <div class="nav-btn" id="nav-right">
+                            <div class="fa fa-1g ub-img1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                    <div class="main-content ub">
+                        <div class="city-item-box uc-t bg-white">
+                            <h5 class="city-item-title uc-t title-clor">
+                                <!--<span>{{lists.twocharcode}}</span>-->
+                                <img :src="lists.twocharcode" @error="changePic(lists)">
+                                <span class="china">{{lists.airlinescn}}</span>
+                            </h5>
+                                <div class="right-b ub pd-10-lr">
+                                <div class="b1 ub-f1">
+                                    <h2>{{lists.starstationcn}}</h2>
+                                    <!-- <h2>加利福尼亚州一</h2> -->
+                                    <p class="p1">{{lists.sst}}</p>
+                                    <p class="p2">&nbsp;计划</p>
+                                </div>
+                                <div class="b2 ub-f1">
+                                    <img src="./img/icon-arrive.png" alt="">
+                                </div>
+                                <div class="b3 ub-f1">
+                                    <h2>{{lists.terminalstationcn}}</h2>
+                                    <!-- <h2>加利福尼亚州</h2> -->
+                                        <p class="p2">&nbsp;计划</p>
+                                    <p class="p1">{{lists.est}}</p>
+                                    <!--<p class="p2">&nbsp;计划</p>-->
+                                </div>
+                            </div>
+                            <!--点状分割线  -->
+                            <div class="divide-line">
+                                <i class="radius-left"></i>
+                                <ul class="u-lists">
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                    <li class="list-lis"></li>
+                                </ul>
+                                <i class="radius-right"></i>
+                            </div>
+                            <div class="list pd-10-lr">
+                                <div class="lists-box bg-white">
+                                    <div class="lists-item  ub ub-ac">
+                                        <div class="lists-item-right-btn ub-f1 pd-10-lr flight-data">
+                                            <span class="fz-lg data" id="data1"></span>
+                                            <span class="fz-md cc">航班日期</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data tx-l alignl alignleft">{{lists.craftsite}}</span>
+                                            <span class="fz-md cc tx-l alignl alignleft">机位</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data tx-l alignl alignleft">{{lists.crafttype}}</span>
+                                            <span class="fz-md cc tx-l alignl alignleft">机型</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- sec -->
+                                <div class="lists-box bg-white">
+                                    <div class="lists-item1  ub ub-ac">
+                                        <div class="lists-item-right-btn ub-f1 pd-10-lr leftw">
+                                            <span class="fz-lg data1">{{lists.craftno}}</span>
+                                            <span class="fz-md cc">机号</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data1 tx-l alignl alignleft">{{lists.terminal}}</span>
+                                            <span class="fz-md cc tx-l alignl alignleft">候机楼</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data1 alignl alignleft tx-l">{{lists.gate}}</span>
+                                            <span class="fz-md cc alignl alignleft tx-l">登机口</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--three  -->
+                                <div class="lists-box bg-white">
+                                    <div class="lists-item1  ub ub-ac">
+                                        <div class="lists-item-right-btn" id="xlzp" style="width: 35%;padding-left: 0.625em;">
+                                            <span class="fz-lg" style="font-weight: 700;">{{lists.belt}}</span>
+                                            <span class="fz-md cc">行李转盘</span>
+                                        </div>
+                                        <div class="lists-item-right-btn tx-c" style="border-right:0; width: 65%;"id="ddk">
+                                            <span class="fz-md tx-l" style="font-weight: 700;margin-left: 5%;">{{lists.exits}}</span>
+                                            <span class="fz-md cc tx-l" style="margin-left: 5%;">到达口</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--共享航班号-->
+                                <div class="lists-box bg-white">
+                                    <div class="lists-item1">
+                                        <span class="shareflight">{{lists.shareflightno}}</span>
+                                        <div class="sharef fz-md cc">共享航班号</div>
+                                    </div>
+                                </div>
+                                <!--航班状态  -->
+                                <div class="lists-box bg-white">
+                                    <h3 class="list-item_title">
+                                        <span class="icon-20-h-status airplane tx-c"></span>
+                                        <span class="fz-xl fz-md-set" style="font-size: 1em">航班状态</span>
+                                    </h3>
+                                    <div class="lists-item1  ub ub-ac">
+                                        <div class="lists-item-right-btn ub-f1 pd-10-lr leftw">
+
+                                                <span class="fz-lg" style="font-weight: 700">计划</span>
+                                                <span class="fz-md cc" id="plan"></span>
+
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c"style="border-right:0;">
+                                            <span class="fz-lg alignl alignleft tx-l" style="font-weight: 700;" id="deLay"></span>
+                                            <span class="fz-md cc alignl alignleft tx-l">异常</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--航班时刻  -->
+                                <div class="lists-box bg-white">
+                                    <h3 class="list-item_title">
+                                        <span class="icon-20-h-time airplane tx-c"></span>
+                                        <span class="fz-lg fz-md-set" id="flightTime">航班时刻-本站起飞</span>
+                                    </h3>
+                                    <div class="lists-item1  ub ub-ac">
+                                        <div class="lists-item-right-btn ub-f1">
+                                            <span class="fz-lg data1" id="timeOne"></span>
+                                            <span class="fz-md cc">计划时间</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data1" id="timeTwo"></span>
+                                            <span class="fz-md cc">预计时间</span>
+                                        </div>
+                                        <div class="lists-item-right-btn ub-f1 tx-c">
+                                            <span class="fz-lg data1" id="timeThree"></span>
+                                            <span class="fz-md cc">实际时间</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--航班时刻 end-->
+
+                                <!--鱼骨图  -->
+                                <!-- <div class="lists-box bg-white"> -->
+                                <div class="flight-detail">
+                                    <div class="fd-head ub">
+                                        <div class="ub-f1 tx-l">
+                                            <span class="icon-20-h-speed airplane tx-c"></span>
+                                            <span class="fz-lg">整体保障进度</span>
+                                        </div>
+                                        <!-- <div class="ub-f1 tx-r">
+                                            <span class="ensure-name fz-md" style="color: #999999">保障标准：</span>
+                                            <span class="ensure-value fz-md" style="color: #999999">30min</span>
+                                        </div> -->
+                                    </div>
+                                    <div v-if="!isshow" class="tx-c" style="margin-top: 1em">暂无保障数据...</div>
+                                    <div class="fishbone ub ub-ac" v-else>
+                                        <div class="fishbone-container">
+                                            <!-- 箭头单元 已完成done 正在进行doing 未进行则为空 -->
+                                            <div class="fishbone-arrow done" v-for="item in fishboneData" ref="fishBone">
+                                                <!-- 弹出框 -->
+                                                <div class="fishbone-detail ub ub-ver ">
+                                                    <div class="node ub ">
+                                                        <div class="mask-serve ub-f1">{{item.name}}</div>
+                                                    </div>
+                                                    <div class="plane ub">
+                                                        <div class="mask-plane ub-f2">预计:</div>
+                                                        <div class="mask-planeTime ub-f1">{{item.estt}}</div>
+                                                    </div>
+                                                    <div class="actual ub">
+                                                        <div class="mask-actual ub-f2">实际:</div>
+                                                        <div class="mask-actualTime ub-f1">{{item.rstt}}</div>
+                                                    </div>
+                                                    <div class="triangle"></div>
+                                                </div>
+                                                <!--弹出框end-->
+                                                <div class="fishbone-text ub">
+                                                    <div class="fishbone-time ub-f1">{{item.estt}}</div>
+                                                    <div class="fishbone-time ub-f2">/</div>
+                                                    <div class="fishbone-time ub-f1">{{item.rstt}}</div>
+                                                </div>
+                                                <div class="fishbone-con ub ub-ver ub-pj ub-ac">
+                                                    <div class="fishbone-tag">{{item.name}} </div>
+                                                    <div class="fishbone-dot"></div>
+                                                </div>
+                                            </div>
+                                            <!-- 箭头单元 END -->
+                                        
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- <div> -->
+                                <!--鱼骨图end  -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/flight-numberInfo.js"></script>
+    </body>
+</html>

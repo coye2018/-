@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>驳回</title>
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+
+	<body ontouchstart>
+		<div class="bc-bg" data-control="PAGE" id="Page">
+			<!--header-->
+			<div class="uh" data-control="HEADER" id="Header">
+			    <div class="ub ub-ac header">
+				<div id="nav-left" class="nav-btn">
+					<i class="icon-20-h-backto"></i>
+				</div>
+				<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" >请填写驳回理由</h1>
+				<div id="nav-right" class="nav-btn">
+					<div class="fz-md fc-title">取消</div>
+				</div>
+				</div>
+			</div>
+			<!--end header-->
+			<div class="bc-bg ub ub-ver" data-control="FLEXBOXVER">
+
+			</div>
+			<!--底部按钮 start-->
+			<div class="uf" data-control="FOOTER" id="Footer">
+				<div class="btn-setbtm border-top pd-10-lr bg-white" id="sureBtn">
+					<button class="btn bg-main">
+                        <span class="fz-bg fc-white">确定</span>
+                    </button>
+				</div>
+			</div>
+			<!--底部按钮 end-->
+		</div>
+
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+			(function($) {
+				appcan.button("#nav-left", "btn-act", function() {
+					appcan.window.close(1);
+				});
+				appcan.button("#nav-right", "btn-act", function() {
+					appcan.window.close(1);
+				});
+				appcan.button("#sureBtn", "btn-act", function() {
+					//点击确定发送给浮动页面的通道
+					appcan.window.publish('patrol-punish-reject-sure', '0')
+				});
+				appcan.ready(function() {
+					var punishNopassData = appcan.locStorage.getVal("patrol-punishNopassData");
+					var json = JSON.parse(punishNopassData);
+					if(json.type =="2"){
+						$("#Header h1").text("请填写审核不通过的理由");
+					}
+					//打开子浮动窗口
+					createPopover('punish-reject-content', 'punish-reject-content.html');
+				})
+
+			})($);
+		</script>
+	</body>
+
+</html>

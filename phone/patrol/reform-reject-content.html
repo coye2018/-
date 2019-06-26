@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>驳回</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" tabindex="0" id="Page">
+    <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER">
+
+        <div class="pd-10-lr bg-white tex-pd-tb border-btm">
+            <textarea id="reason" placeholder="请详细描述驳回理由(选填)..." class="fc-title fz-md fz-md-set reason-tax" v-model.trim="items.reason" ref="reason" ></textarea>
+            <p class="fc-disabled fz-sm fz-sm-set" v-cloak>还能输入{{number}}个字</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script>
+    (function($) {
+        appcan.button("#nav-left", "btn-act",function() {
+            appcan.window.close(1);
+        });
+        appcan.button("#nav-right", "btn-act",function() {
+            appcan.window.close(1);
+        });
+
+        var vm = new Vue({
+            el:'#Page',
+            data:{
+                number: '3000',
+                items: {
+                    reason: ''
+                },
+                isClick: 0 //0=可以点击提交，1=不可以点击提交。为了不让重复点击提交按钮
+            },
+            watch: {
+                items: {
+                    handler: function (val, oldval) {
+                        var that = this;
+                        var num = 3000; //字体限制为3000个
+                        that.$refs.reason.setAttribute("maxlength", num);
+                        that.number = num - that.$refs.reason.value.length;
+                    },
+                    deep: true
+                }
+            }
+        });
+        appcan.ready(function() {
+            appcan.window.subscribe('patrol-sureReject', function () {
+
+                if(vm.isClick == 1){
+                    appcan.window.publish('patrol-hideRejectClick','hideRejectClick');
+                    return false;
+                }else {
+                    appcan.window.publish('patrol-hideRejectClick','hideRejectClick');
+                    vm.isClick = 1;
+                    addConfirm({
+                        content: '是否提交驳回？',
+                        yes: function(i) {
+                            layerRemove(i);
+                            var reject = appcan.locStorage.getVal('patrol-rejectParams');
+                            var str = vm.items.reason;
+                            if(str === ''){
+                                str = '无'
+                            }
+                            var json = {
+                                path: mainPath + "reformApiController.do?aduitReform",
+                                data: {
+                                    "userId": appcan.locStorage.getVal("userID"),
+                                    "userName": appcan.locStorage.getVal("userName"),
+                                    "role": appcan.locStorage.getVal('patrol-role'),
+                                    "departId": JSON.parse(reject).departId,
+                                    "reason": str,
+                                    "type": JSON.parse(reject).type,
+                                    "reformId":appcan.locStorage.getVal('patrol-reformId'),
+                                    "picList": [],
+                                    "title":JSON.parse(reject).title,
+                                    "managerId":JSON.parse(reject).managerId,
+                                    "loginDepartId":appcan.locStorage.getVal('deptId')
+                                }
+                            };
+                            ajaxPOST(json, function (data, e) {
+                                if (e == "success") {
+                                    vm.isClick = 1;
+                                    //成功后的提醒弹窗通道
+                                    appcan.window.publish("patrol-reform-layerTitle", "reject");
+                                    appcan.window.evaluateScript({
+                                        name: 'reform',
+                                        scriptContent: 'vm.ResetUpScroll()'
+                                    });
+                                    closeMultiPages([
+                                        'reform-reject',
+                                        'reform-rectification-details'
+                                    ]);
+                                    //清除详情页缓存字段
+                                    var reformArr = ['patrol-status', 'patrol-reformId', 'patrol-role','patrol-rejectParams'];
+                                    reformArr.forEach(function(name){
+                                        appcan.locStorage.remove(name);
+                                    });
+                                } else {
+                                    appcan.window.publish('patrol-hideRejectClick','showRejectClick');
+                                    vm.isClick = 0;
+                                    layerToast('网络错误，请检查网络环境', 2);
+                                }
+
+                            });
+
+                        },
+                        no: function(i) {
+                            vm.isClick = 0;
+                            appcan.window.publish('patrol-hideRejectClick','showRejectClick');
+                        }
+                    });
+
+                }
+            })
+        });
+    })($);
+</script>
+</body>
+</html>

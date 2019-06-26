@@ -1,0 +1,98 @@
+.tbg-bg{
+    background-color: #686F77;
+}
+.tbg-content{
+    overflow: hidden;
+    padding: 0.3125em;
+}
+.tbg-box{
+    float: left;
+    position: relative;
+    width: 33%;
+    padding-top: 33%;
+}
+.tbg-item{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.3125em;
+}
+.tbg-item-con{
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.4167em;
+    overflow: hidden;
+}
+.tbg-color{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+.tbg-tick{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 18.73%;
+    border-radius: 0 0 0.4167em 0.4167em;
+    overflow: hidden;
+    background: url(../../icon/20/choose-active.png) center no-repeat #52A6FF;
+    background-size: auto 100%;
+    opacity: 0;
+    -webkit-transition: .15s;
+    transition: .15s;
+}
+.tbg-tick.actives{
+    opacity: 1;
+}
+.tbg-item-pic{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.bg-tbg-0{
+    background-image: -webkit-linear-gradient(top, #31b5c5 0%,#fadcba 100%);
+    background-image: linear-gradient(to bottom, #31b5c5 0%,#fadcba 100%);
+}
+.bg-tbg-1{
+    background-image: -webkit-linear-gradient(top, #3e49a1 0%,#fed2c1 100%);
+    background-image: linear-gradient(to bottom, #3e49a1 0%,#fed2c1 100%);
+}
+.bg-tbg-2{
+    background-image: -webkit-linear-gradient(top, #cfad6b 0%,#c5a260 100%);
+    background-image: linear-gradient(to bottom, #cfad6b 0%,#c5a260 100%);
+}
+.bg-tbg-3{
+    background-image: -webkit-linear-gradient(top, #cccfcf 0%,#a0a3a4 100%);
+    background-image: linear-gradient(to bottom, #cccfcf 0%,#a0a3a4 100%);
+}
+.bg-tbg-4{
+    background-image: -webkit-linear-gradient(top, #3b393c 0%,#1e1b1f 100%);
+    background-image: linear-gradient(to bottom, #3b393c 0%,#1e1b1f 100%);
+}
+.bg-tbg-5{
+    background-image: -webkit-linear-gradient(top, #fd9ea2 0%,#c1f7e9 100%);
+    background-image: linear-gradient(to bottom, #fd9ea2 0%,#c1f7e9 100%);
+}
+.bg-tbg-6{
+    background-image: -webkit-linear-gradient(top, #b4ec51 0%,#429321 100%);
+    background-image: linear-gradient(to bottom, #b4ec51 0%,#429321 100%);
+}
+.bg-tbg-7{
+    background-image: -webkit-linear-gradient(top, #fde3ea 0%,#fcbef9 100%);
+    background-image: linear-gradient(to bottom, #fde3ea 0%,#fcbef9 100%);
+}

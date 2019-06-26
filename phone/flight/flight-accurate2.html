@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content=" width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="./css/flight-number.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+    </head>
+    <body class="bg" ontouchstart>
+        <div class="" tabindex="0" data-control="PAGE" id="searchFlight" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 tabindex="0" class="ub-f1 ulev-3 ut-s tx-c">航班查询</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i class=""></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="search-item">
+                    <!--航班号  -->
+                    <div class="items">
+                      <div class="item-box">
+                        <div class="lists-box bg-white">
+                          <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">航班号</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <!-- <span class="fz-md"></span> -->
+                                <input type="text" class="fz-md" id="flight-num" placeholder="CZ3101"/>
+                            </div>
+                        </div>
+                    </div>
+                       <div class="lists-box bg-white">
+                        	<div class="lists-item pd-10-lr ub ub-ac">
+                            	<div class="lists-item-title fc-title">
+                                <span class="fz-md">航空公司</span>
+                            	</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <input type="text" id="airline" placeholder="请输入航空公司" />
+                            </div>
+                        	</div>
+                     </div>
+                          <div class="lists-box bg-white">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">机号</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <input type="text" id="plane-No" placeholder="请输入机号"/>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="lists-box bg-white">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">机型</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <input type="text" id="model" placeholder="请输入机型"/>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="lists-box bg-white">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">登机口</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <input type="text" id="Gate" placeholder="请输入登机口"/>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="lists-box bg-white">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">起飞城市</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <input type="text" id="Departure-city" placeholder="请输入城市或机场名称"/>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="lists-box bg-white">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">到达城市</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <input type="text" id="arrival-city" placeholder="请输入城市或机场名称"/>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    <div class="uf" data-control="FOOTER">
+		                <div class="btn-setbtm border-top pd-10-lr bg-white">
+		                    <button class="btn bg-main" @click="query">
+		                        <span class="fz-bg fc-white">查询</span>
+		                    </button>
+		                </div>
+            		</div>
+           		</div>
+
+       			</div>
+    		</div>        
+		</div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="./js/flight-accurate2.js"></script>
+    </body>
+</html>

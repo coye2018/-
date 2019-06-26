@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>整改单</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/mescroll.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="reform/css/reform-lists.css">
+    <style type="text/css">
+        #ScrollContent {
+            padding-top: 5.75em;
+            height: 100%;
+        }
+        .mescroll1 {
+            position: fixed;
+            top: 5.75em;
+            bottom: 0;
+            height: auto;
+        }
+        .uh_ios7 .mescroll {
+            margin: 1em 0 0;
+        }
+    </style>
+</head>
+<body class="" ontouchstart>
+<div class="bc-bg" tabindex="0" data-control="PAGE" id="reformLists" v-cloak>
+    <div class="uh" data-control="HEADER" id="Header">
+        <div class="ub ub-ac header">
+            <div id="nav-left" class="nav-btn">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <h1 class="ub-f1 ut-s tx-c" tabindex="0" id="change"
+                @click="toggleNav(role)">
+                {{headerNav}}<img src="./img/angle.png" alt="" v-if="showChooseImg">
+            </h1>
+            <div id="nav-right" class="nav-btn">
+                <i class="icon-20-g-add" v-if= "showAdd" @click="addList"></i>
+                <div class="fa fa-1g ub-img1" v-else></div>
+            </div>
+            <div class="modal modalList" v-show="navShow">
+                <ul>
+                    <li v-for="(item,index) in navList" v-text="item" @click="choose(item,index)"></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="modal modalFloor" v-show="navShow" @click="hideModalFloor"  style="z-index: 90;"></div>
+
+        </div>
+
+        <div class="ut-s tx-c" tabindex="0" v-show="showTab" v-cloak>
+            <!--列表tab-->
+            <div class="tab-square border-btm ub">
+                    <div class="tab-square-text ub ub-pc ub-f1" :class="{'actives':noReceive.tab == 0}"
+                         @click="toggle(0)">
+                        <div class="ub ub-ac">
+                            <span class="ub"
+                                  :class="{'notReceive':noReceive.tab == 0,'notReceive-n':noReceive.tab == null}"></span>
+                        </div>&nbsp;
+                        <span class="ub ub-ac fz-md fz-md-set">未整改({{noReceive.msg}})</span>
+                    </div>
+                    <div class="tab-square-text ub ub-pc ub-f1" :class="{'actives':Changes.tab == 1}"
+                         @click="toggle(1)">
+                        <div class="ub ub-ac">
+                            <span class="ub"
+                                  :class="{'Changes':Changes.tab == 1,'Changes-n':Changes.tab == null}"></span>
+                        </div>&nbsp;
+                        <span class="ub ub-ac fz-md fz-md-set">整改中({{Changes.msg}})</span>
+                    </div>
+                    <div class="tab-square-text ub ub-pc ub-f1" :class="{'actives':Finish.tab == 2}"
+                         @click="toggle(2)">
+                        <div class="ub ub-ac">
+                            <span class="ub"
+                                  :class="{'finished':Finish.tab == 2,'finished-n':Finish.tab == null}"></span>
+                        </div>&nbsp;
+                        <span class="ub ub-ac fz-md fz-md-set">已完成({{Finish.msg}})</span>
+                    </div>
+            </div>
+            <!--end 列表tab-->
+        </div>
+    </div>
+    <div class="bc-bg ub" data-control="FLEXBOXVER" id="ScrollContent">
+        <!--list-->
+        <div class="ub-f1">
+            <div id="mescroll" class="mescroll mescroll1">
+                <ul id="reformList" class="reformList">
+                    <li class="ub pd-ref-tb clickable pd-10-lr border-btm" v-for="(val,index) in list" @click="openDetails(val,index)">
+                        <div class=" leftIcon ub-fv">
+                           <i class="icon-35-task"></i>
+                       </div>
+                        <div class="ub ub-ver ub-f1">
+                           <p class="fc-title fz-md fz-md-set ut-s" style="line-height: 1.2em">{{val.title}}</p>
+                           <p class="fc-text mg-dep-t inaline reform-center ub ub-ac">
+                               <span class="ub fz-sm fz-sm-set ub-f1 ut-s">责任部门：{{val.departName}}</span>&nbsp;
+                               <span class="ub fz-sm fz-sm-set ub-f1 ut-s">{{val.updateDate | getDate(5,16)}}</span>
+                           </p>
+                            <p class="fc-warn-red mg-dep-t "
+                               v-show="val.reason!='null'&&role=='0'&&val.status==2
+                               ||val.reason!='null'&&role==''&&val.status==2">
+                                <span class="fz-sm fz-sm-set ut-s active">申诉理由：{{val.reason}}</span>
+                            </p>
+                            <p class="fc-warn-red mg-dep-t"
+                               v-show="val.isReject=='1'&&role=='1'&&val.status==1
+                               ||val.isReject=='1'&&role==''&&val.status==1
+                               ||val.isReject=='1'&&role=='1'&&val.status==5
+                               ||val.isReject=='1'&&role==''&&val.status==5">
+                                <span class="fz-sm fz-sm-set ut-s active">驳回理由：{{val.reason}}</span>
+                            </p>
+                       </div>
+                        <div class="rightIcon">
+                            <button v-if="val.acceptanceStatus==0" class="btn btn-square btn-sm textColor" v-color="{statusCol:val.status,rejectCol:val.acceptanceStatus,part:role,isReject:val.isReject}">
+                                <span class="fz-sm">{{val.status | showStatus(val.reason,role,val.isReject)}}</span>
+                            </button>
+                            <button v-else class="btn btn-square btn-sm textColor" v-color="{statusCol:val.status,rejectCol:val.acceptanceStatus,part:role,isReject:val.isReject}">
+                                <span class="fz-sm">{{val.acceptanceStatus | showReject(val.reason,role,val.isReject)}}</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <div class="nonetwork" :class="none?'':'hide'"></div>
+            </div>
+        </div>
+        <!--end list-->
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.scrollbox.js"></script>
+<script src="../js/template.import.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/mescroll.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script src="reform/js/reform-lists.js"></script>
+</body>
+</html>

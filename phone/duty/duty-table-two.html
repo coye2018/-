@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-table.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">二级值班表</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i class="icon-20-h-group"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="switch-content mg-top mg-box">
+                    <div class="switch-month tx-c">
+                        <span class="fz-sm fc-text" v-cloak>{{today}}</span>
+                    </div>
+                    <div class="switch-box border-top border-btm bg-white">
+                        <div class="switch-head">
+                            <div class="switch-item" v-for="(item, index) in weekdays" v-cloak>
+                                <span class="fz-md">{{item.weekDay}}</span>
+                            </div>
+                            <!--
+                            <div class="switch-item">
+                                <span class="fz-md">一</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">二</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">三</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">四</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">五</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">六</span>
+                            </div>
+                            -->
+                        </div>
+                        <div class="switch-body duty-table-sm">
+                            <div class="switch-item ub ub-pc" 
+                                 :class="[item.fullDate==todayFull?'current':'', item.actives?'actives':''] " 
+                                 v-for="(item, index) in weekdays" 
+                                 @click="pick(item, index)" v-cloak>
+                                <div class="switch-unit">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">{{item.date}}</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">{{item.lunarDayName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">4</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十一</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">5</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十二</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc current">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">今</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十三</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">7</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十四</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">8</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十五</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">9</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十六</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="duty-ej-box border-top border-btm bg-white">
+                    <div class="duty-ej clickable pd-10-lr ub">
+                        <div class="duty-ej-dep fz-md ub ub-ac">
+                            <span class="fc-title">安检一大队</span>
+                        </div>
+                        <div class="duty-ej-con">
+                            <div class="duty-ej-row ub ub-ac">
+                                <div class="duty-ej-degree fc-white bg-main">
+                                    <span class="fz-sm">正班</span>
+                                </div>
+                                <div class="duty-ej-time fc-text">
+                                    <span class="fz-sm">08:00</span>
+                                    <span class="fz-sm">--</span>
+                                    <span class="fz-sm">02:00</span>
+                                </div>
+                                <div class="duty-ej-name fc-title">
+                                    <span coass="fz-md">张三</span>
+                                </div>
+                            </div>
+                            <div class="duty-ej-row ub ub-ac">
+                                <div class="duty-ej-degree fc-white bg-sub-icon">
+                                    <span class="fz-sm">副班</span>
+                                </div>
+                                <div class="duty-ej-time fc-text">
+                                    <span class="fz-sm">08:00</span>
+                                    <span class="fz-sm">--</span>
+                                    <span class="fz-sm">02:00</span>
+                                </div>
+                                <div class="duty-ej-name fc-title">
+                                    <span coass="fz-md">张三</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="duty-ej clickable pd-10-lr ub">
+                        <div class="duty-ej-dep fz-md ub ub-ac">
+                            <span class="fc-title">安检一大队</span>
+                        </div>
+                        <div class="duty-ej-con">
+                            <div class="duty-ej-row ub ub-ac">
+                                <div class="duty-ej-degree fc-white bg-main">
+                                    <span class="fz-sm">正班</span>
+                                </div>
+                                <div class="duty-ej-time fc-text">
+                                    <span class="fz-sm">08:00</span>
+                                    <span class="fz-sm">--</span>
+                                    <span class="fz-sm">02:00</span>
+                                </div>
+                                <div class="duty-ej-name fc-title">
+                                    <span coass="fz-md">张三</span>
+                                </div>
+                            </div>
+                            <div class="duty-ej-row ub ub-ac">
+                                <div class="duty-ej-degree fc-white bg-sub-icon">
+                                    <span class="fz-sm">副班</span>
+                                </div>
+                                <div class="duty-ej-time fc-text">
+                                    <span class="fz-sm">08:00</span>
+                                    <span class="fz-sm">--</span>
+                                    <span class="fz-sm">02:00</span>
+                                </div>
+                                <div class="duty-ej-name fc-title">
+                                    <span coass="fz-md">张三</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/LunarCalendar.js"></script>
+        <script src="../js/XDate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-table-one-getDay.js"></script>
+        <script src="js/duty-table-two.js"></script>
+    </body>
+</html>

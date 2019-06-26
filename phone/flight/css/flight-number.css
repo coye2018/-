@@ -1,0 +1,103 @@
+[v-cloak] {
+    display: none;
+}
+.bg{
+	background:#fafbfd;
+}
+#ScrollContent{
+    min-height: 100%;
+}
+
+#Footer ~ #ScrollContent {
+    padding-bottom: 3.96em;
+}
+.lists-item{
+    border-bottom: 1px solid #E1E1E1;
+}
+.city-item-box{
+    width: 100%;
+    height: 100%;
+    margin-bottom:0.625em
+}
+.city-item-title{
+    padding:0.5em 0;
+    font-size:1.2em; 
+}
+.city-item-title{
+    border-bottom: 1px dashed #E1E1E1;
+}
+.city-item-dec{
+    width: 100%;
+    height: 100%;
+    padding: 0.8125em 1em;
+    border-bottom: 1px dashed #E1E1E1;
+    margin-bottom: 1em;
+    padding-bottom: 1.6em;
+}
+.city-item-middle{
+    height:100%;
+    /*margin: 0em 0.625em;*/
+    width:12%;
+}
+.img{
+    display:block;
+    width: 3.2em;
+    margin: 0 auto;
+    margin-top: 0.2em;
+    height: 1.6em;
+}
+.pd-10-r{
+    /*padding-right: 1em;*/
+    width: 44%;
+    height: 0.2em;
+    margin-right: -0.2em;
+}
+.pd-10-r div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.city-item{
+    position: relative;
+}
+.city-item .cityName1{
+    max-width: 4.2em;
+    float: left;
+}
+.city-item .cityName2{
+    max-width: 4.2em;
+    float: right;
+}
+.city-item .start2{
+    position: absolute;
+    left:0;
+    bottom: -2.6em;
+}
+.city-item .end2{
+    position: absolute;
+    right:0.6em;
+    bottom: -2.6em;
+}
+.start{
+    float: left;
+    margin-top:0.3em;
+    font-size: 1.5em;
+    width: 0.3em;
+    height: 0.3em;
+    margin-left: 0.5em;
+    border-left: 0.2em solid transparent;
+    border-right: 0.2em solid transparent;
+    border-top: 0.2em solid #52A6FF;
+}
+.end{
+    float: right;
+    margin-top:0.3em;
+    font-size: 1.5em;
+    width: 0.3em;
+    height: 0.3em;
+    margin-left: 0.5em;
+    border-left: 0.2em solid transparent;
+    border-right: 0.2em solid transparent;
+    border-top: 0.2em solid #52A6FF;
+}
+.fz-xm{font-size:1.25em}

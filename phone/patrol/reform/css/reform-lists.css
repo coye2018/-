@@ -1,0 +1,152 @@
+/*tab*/
+.tab-square{
+	width: 100%;
+	height: 3.125em;
+	background-color: #fafbfd;
+}
+.tab-square .tab-square-text::after{
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 1px;
+	height: 100%;
+	background-color: #e1e1e1;
+	-webkit-transform: scaleX(0.33);
+	transform: scaleX(0.33);
+}
+.tab-square-text{
+	font-size: .875em;
+	color: #999;
+	height:100%;
+}
+.actives{
+	color: #333;
+}
+.actives::before{
+	content: "";
+	position: absolute;
+	height: 2px;
+	background-color: #52A6FF;
+	-webkit-transform: scaleY(0.33);
+	transform: scaleY(0.33);
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.tab-square-text>span{
+	vertical-align: middle;
+}
+
+.notReceive{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/appoint-act.png");
+	background-size: contain;
+}
+.notReceive-n{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/appoint.png");
+	background-size: contain;
+}
+.Changes{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/unfinished-act.png");
+	background-size: contain;
+}
+.Changes-n{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/unfinished.png");
+	background-size: contain;
+}
+.finished{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/finished-act.png");
+	background-size: contain;
+}
+.finished-n{
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("../../../icon/24/finished.png");
+	background-size: contain;
+}
+/*tab END*/
+.reformList{
+}
+.reformList li{
+	width: 100%;
+	background: #ffffff;
+}
+.leftIcon{
+	margin-right: 0.625em;
+}
+.reform-center span:first-child{
+	width: 65%;
+	display: block !important;
+}
+.reform-center span:last-child{
+	width: 35%;
+	display: block !important;
+}
+.pd-ref-tb{
+	padding-top:0.625em;
+	padding-bottom:0.625em;
+}
+.mg-dep-t{
+	margin-top: 0.3125em;
+}
+.rightIcon{
+	margin-left: 0.625em;
+	width: 5em;
+}
+.rangeText span:first-child{
+	padding-right: 0.625em;
+}
+.textColor>span{
+	color: inherit;
+}
+
+/*状态颜色*/
+.fc-green{color:#1dbd87;}/*待审核-完成-绿色*/
+.fc-blue{color:#52A6FF;} /*未接收-接收-整改中-申诉中-蓝色*/
+.fc-orange{color:#ff8b51;}/*接受超时-橙色*/
+.fc-red{color:#fe4344;}/*被申诉-驳回待接收-红色*/
+/*状态颜色结束*/
+
+.modal{
+	width: 100%;
+	height: 66em;
+	position: absolute;
+	left: 0;
+	top: 2.7em;
+	z-index: 99;
+	background-color: rgba(0,0,0,0.5);
+}
+.modal.modalList{
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	height: 5.4em;
+	border-bottom: none;
+	border-top: none;
+}
+.modal.modalFloor{
+	bottom: 0;
+}
+.modal ul{
+	background-color: #fff;
+	line-height: 2.7em;
+	text-align: center;
+	border-bottom: 1px solid #E1E1E1;
+}
+.modal ul li{
+	border-top: 1px solid #E1E1E1;
+}
+.clear{
+	clear:none;
+}

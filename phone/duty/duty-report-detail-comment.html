@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/duty-report.css">
+	</head>
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="duty_report_detail_comment" v-cloak>
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">评论</h1>
+					<div class="nav-btn" id="nav-right">
+						<div class="fa fa-1g ub-img1"></div>
+					</div>
+				</div>
+			</div>
+			<div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+				<div id="mescroll" class="mescroll"> 
+
+					<ul class="myli" v-for="(commentitem,index) in dutyComment">
+						<li class="myli-item">
+							<div class="myli-center ub">
+								<div class="myli-headpic-lg">
+									<div class="myli-headpic-box-lg">
+                                        <img class="myli-headpic-img-lg" v-if="commentitem.hashead" :src="commentitem.headurl" />
+                                        <div class="myli-headpic-txt-lg" v-else :class="commentitem.headbgclass">{{commentitem.headtext}}</div>
+									</div>
+								</div>
+								<div class="myli-main ub-f1">
+									<div class="dure-comment-top ub">
+										<div class="dure-comment-name ub-f1">
+											<span class="fz-sm fz-sm-set fc-text">{{commentitem.departname}} {{commentitem.username}}</span>
+										</div>
+										<div class="dure-comment-time">
+											<span class="fz-sm fz-sm-set fc-text">{{commentitem.create_time}}</span>
+										</div>
+									</div>
+									<div class="dure-comment-btm">
+										<div class="dure-comment-text">
+											<span class="fz-md fz-md-set fc-title" v-html="commentitem.briefing_content"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<!--
+					<ul class="myli">
+					<li class="myli-item">
+					<div class="myli-center ub">
+					<div class="myli-headpic-lg">
+					<div class="myli-headpic-box-lg">
+					<div class="myli-headpic-txt-lg bg-head-0">李四</div>
+					</div>
+					</div>
+					<div class="myli-main ub-f1">
+					<div class="dure-comment-top ub">
+					<div class="dure-comment-name ub-f1">
+					<span class="fz-sm fz-sm-set fc-text">信息公司 李四</span>
+					</div>
+					<div class="dure-comment-time">
+					<span class="fz-sm fz-sm-set fc-text">17-08-13 13:09</span>
+					</div>
+					</div>
+					<div class="dure-comment-btm">
+					<div class="dure-comment-text">
+					<span class="fz-md fz-md-set fc-title">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</span>
+					</div>
+					</div>
+					</div>
+					</div>
+					</li>
+					<li class="myli-item">
+					<div class="myli-center ub">
+					<div class="myli-headpic-lg">
+					<div class="myli-headpic-box-lg">
+					<img class="myli-headpic-img-lg" src="http://tvax1.sinaimg.cn/crop.0.0.600.600.50/005C1r36ly8fdrb0fkzrej30go0go7he.jpg" />
+					</div>
+					</div>
+					<div class="myli-main ub-f1">
+					<div class="dure-comment-top ub">
+					<div class="dure-comment-name ub-f1">
+					<span class="fz-sm fz-sm-set fc-text">股份01</span>
+					</div>
+					<div class="dure-comment-time">
+					<span class="fz-sm fz-sm-set fc-text">17-08-13 13:09</span>
+					</div>
+					</div>
+					<div class="dure-comment-btm">
+					<div class="dure-comment-text">
+					<span class="fz-md fz-md-set fc-title">旅客情绪平稳，对机场服务表示满意。</span>
+					</div>
+					</div>
+					</div>
+					</div>
+					</li>
+					</ul>
+					-->
+				</div>
+
+			</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/xdate.js"></script>
+		<script src="../js/mescroll.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/duty-report-detail-comment.js"></script>
+	</body>
+</html>

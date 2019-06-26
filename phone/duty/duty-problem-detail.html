@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-problem-detail.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="dutyProblemDetail" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">问题详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i class="icon-20-d-share" v-if="dutyFlag"></i>
+                    </div>
+                </div>
+            </div>
+            <!--状态为未接受显示该按钮且isSend为0-->
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="isCopy&&(Send==false)&&isDutyCount" >
+                <div class="btn-setbtm  border-top pd-10-lr bg-white" @click="accept()">
+                    <button class="btn bg-main" id="accept-btn">
+                        <span class="fz-bg fc-white">接受</span>
+                    </button>
+                </div>
+            </div>
+            <!--状态为整改中和已超时显示完成按钮且isSend为0,是否为值班账号-->
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="(isFinish||isTimeout)&&(Send==false)&&isDutyCount">
+                <div class="btn-setbtm border-top pd-10-lr bg-white" @click="finish()">
+                    <button class="btn bg-main" id="finish-btn">
+                        <span class="fz-bg fc-white">完成</span>
+                    </button>
+                </div>
+            </div>
+            <!--状态为审核中且isSend为1，显示按钮  -->
+            <div class="uf" data-control="FOOTER" id="Footer" v-if="isView&&Send">
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub">
+                    <button class="btn btn1 bg-main ub-f1" id="check-btn" 
+                        @click="passCheck"
+                        >
+                        <span class="fz-bg fc-white">审核通过</span>
+                    </button>
+                    <button class="btn btn1 bg-main ub-f1" 
+                     @click="nopassCheck"
+                     >
+                        <span class="fz-bg fc-white">审核不通过</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent">
+                <div class="nonetwork" :class="nonet?'':'hide'"></div>
+                <div class="dure-essay pd-10-lr bg-white border-btm mg-box" :class="nonet?'hide':''">
+                    <div class="dure-li-item bg-white ub">
+                        <div class="dure-li-center ub-f1"> 
+                            <div class="dure-li-center ub">
+                                <div class="dure-li-title ub-f1 dure-text">
+                                    <span class="fz-md fz-md-set fc-title dure-text-content" v-html="problemDetail.content"></span>
+                                </div>
+                                <div class="dure-li-right">
+                                    <button class="btn btn-square btn-sm"
+                                    :class="{
+                                    'btn-border':isCopy,
+                                    'bg-main':islook,
+                                    'btn-danger':isTimeout,
+                                    'btn-green':isShow,
+                                    'btn-disabled':isClose,
+                                    }"
+                                    >
+                                        <span class="fz-sm fz-sm-set">{{problemDetail.statetext}}</span>
+                                    </button>
+                                </div>                                   
+                            </div>
+                            <!-- <div class="dure-li-pic">
+                                <img :src="item.file_path" v-if="item.file_path!=''&& item.file_path!='null'&& problemDetail.filesinfos!='null'" v-for="(item,index) in problemDetail.filesinfos" @click="openImg(problemDetail.filesinfos,index)" />
+                            </div> -->
+                            <div class="dure-li-bottom ub">
+                                <div class="dure-li-form ub-f1">
+                                     <span class="fz-sm fz-sm-set fc-text">指派人：{{problemDetail.createname}}</span>
+                                </div>
+                                <div class="dure-li-desc">
+                                    <span class="fz-sm fz-sm-set fc-text">指派于：{{problemDetail.create_time}}</span>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+                
+                <div class="lists mg-box" :class="nonet?'hide':''">
+                    <div class="lists-box bg-white" id="task-type">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">问题类别</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set">{{problemDetail.typename}}</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <!-- <i class="icon-20-g-goto"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" id="copylist">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">问题来源</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set">{{problemDetail.srcname}}</span>
+                            </div>
+                            <div class="lists-item-right fc-main">
+                                <!-- <i class="icon-20-g-goto"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" id="dolist" @click="unclick(problemDetail.recvdepartinfos)">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">责任单位</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set"
+                                    v-if="index<3"
+                                  v-for="(items,index) in problemDetail.recvdepartinfos"
+                                  >{{items.description}}&nbsp;&nbsp;</span>
+                            </div>
+                            <div class="lists-item-right fc-main">
+                                <span class="fz-md fz-md-set">{{recvdepartlength}}/{{allrecvdepartlength}}完成</span>
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" id="sendlist">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">预计完成</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set">{{problemDetail.pre_finish_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" v-if="isShow||isClose">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">实际完成</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set">{{problemDetail.finish_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bg-white" v-if="(isFinish||isShow||isClose)&&!picShow">
+                    <div class="lists-item pd-10-lr ub ub-ac">
+                        <div class="lists-item-title fc-title">
+                            <span class="fz-md fz-md-set fc-title">整改后</span>
+                        </div>                 
+                    </div>
+                <div class="dure-essay dure-scroll pd-10-lr bg-white border-btm" >
+                    <div class="dure-item bg-white ub">
+                        <div class="dure-li-pic dure-li-pig ub">
+                            <img :src="item.file_path"
+                            v-for="(item,index) in problemDetail.filesinfos"
+                             @click="openImg(problemDetail.filesinfos,index)"
+                            />
+                        </div>
+                    </div>
+                </div>
+               </div>
+                <div class="dure-essay bg-white border-btm mg-box" v-if="isShow||isClose">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md fz-md-set">问题状态</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md fz-md-set">{{stateShow.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lists mg-box" :class="nonet?'hide':''">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center task-tab-box ub-f1 ub">
+                                <div class="task-tab actives">
+                                    <span class="fz-md fz-md-set">进展</span>
+                                </div>
+                                <div class="task-tab">
+                                    <span class="fz-md fz-md-set">回复{{comment.length==0?'':comment.length}}</span>
+                                </div>
+                            </div>
+                            <div class="lists-item-right" @click="reply()"  v-if="targetIndex">
+                                <template v-if="isrecive||srcName" id="myComponent">
+                                <button class="btn btn-sm bg-main">
+                                    <i class="icon-20-reply"></i>
+                                    <span class="fz-sm fz-sm-set">进展</span>
+                                </button>
+                                </template>
+                            </div>
+                            <div class="lists-item-right" @click="commentReply" v-else>
+                                <button class="btn btn-sm bg-main" v-if="dutyFlag&&!isClose">
+                                    <i class="icon-20-reply"></i>
+                                    <span class="fz-sm fz-sm-set">回复</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lists-box task-tab-con bg-white">
+                        <div class="lists-item-free pd-10-lr">
+                            <div class="task-prog">
+                                <div class="task-prog-item ub" v-for="(item, index) in progress">
+                                    <div class="task-prog-left tx-r">
+                                        <div class="task-prog-dept">
+                                            <span class="fz-md fz-md-set fc-title">{{item.dept}}</span>
+                                        </div>
+                                        <div class="task-prog-time">
+                                            <span class="fz-sm fz-sm-set fc-text">{{item.time}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-prog-center ub ub-ver">
+                                        <i :class="item.flag==2?'icon-20-t-end': item.flag==1?'icon-20-t-run':'icon-20-t-begin' "></i>
+                                        <div class="task-prog-line ub-f1" v-show="index!=progress.length-1"></div>
+                                    </div>
+                                    <div class="task-prog-right ub-f1">
+                                        <div class="task-prog-status">
+                                            <span class="fz-md fz-md-set fc-main">{{item.status}}</span>
+                                            <span class="fz-md fz-md-set fc-title" v-if="item.status=='添加了' ">进展</span>
+                                            <span class="fz-md fz-md-set fc-title" v-else>问题</span>
+                                        </div>
+                                        <div class="task-prog-detail in3line">
+                                            <span class="task-prog-detail-text fz-md fz-md-set fc-title" v-html="item.reply"></span>
+                                        </div>
+                                        <div class="task-prog-detail-more hide">
+                                            <span class="fz-md fz-md-set fc-main">更多&gt;</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box task-tab-con bg-white pd-10-lr hide">
+                        <div class="listContent bg-white" v-for="(item,index) in comment">
+                            <div class="list task-tab-con bg-white">
+                               <div class="lists-items pd-10-lr ub-ver">
+                                   <div class="task-re" @click="replys(item.id,item.departId)">
+                                       <span class="fz-sm fz-sm-set fc-main task-re-name">{{item.departName}}</span>
+                                       <span class="fz-sm fz-sm-set fc-title task-re-text" v-html="item.reply"></span>
+                                       <span class="fz-sm fz-sm-set fc-text task-re-date">{{item.createTime}}</span>
+                                   </div>
+                                   <div class="dure-li-pic dure-li-pig ub" v-if="item.img">
+                                        <img class="dure-comment-pic" :src="item.img" @click="openImge(item.img)"/>
+                                    </div>
+                               </div>
+                            </div>
+                            <div class="listboxs bg-grey">
+                                <div class="listbox" @click="replys(item.id,itemList.departId)" v-for="(itemList,index) in item.pcidList">
+                                    <div class="list-items ub-ac lists-item-pd">
+                                        <div class="task-re">
+                                            <span class="fz-sm fz-sm-set fc-main">{{itemList.departName}}</span>
+                                            <span class="fz-sm fz-sm-set fc-title task-re-text">回复</span>
+                                            <span class="fz-sm fz-sm-set fc-main">{{itemList.picDepartName}}</span>
+                                            <span class="fz-sm fz-sm-set fc-title task-re-name"></span>
+                                            <span class="fz-sm fz-sm-set fc-title task-re-text" v-html="itemList.reply"></span>
+                                            <span class="fz-sm fz-sm-set fc-text">{{itemList.time}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-problem-detail.js"></script>
+    </body>
+</html>

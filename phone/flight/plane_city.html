@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/plane_city.css">
+</head>
+
+<body class="" ontouchstart>
+   <div class="bc-bg address-page" tabindex="0" data-control="PAGE" id="cityData_list">
+    <div class="uh" id="Header" data-control="HEADER">
+        <div class="ub ub-ac header">
+            <div class="nav-btn" id="nav-left">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <div class="ub-f1 ut-s tx-c" tabindex="0">
+                <span class="tab-pill">
+                    <div class="tab-pill-box ub">
+                        <div class="tab-pill-text actives">
+                            <span>国内</span>
+                        </div>
+                        <div class="tab-pill-text">
+                            <span>国际</span>
+                        </div>
+                    </div>
+                </span>
+                    </div>
+            <div class="nav-btn" id="nav-right"> 
+                <div class="ub-img1">
+                    <i class="icon-20-h-search"></i>
+                </div>
+            </div>
+        </div>
+        <div class="lists-box bg-white">
+          <div class="lists-item pd-10-lr ub ub-ac">
+                <div class="lists-item-title fc-title">
+                 <span class="fz-md">定位城市</span>
+                </div>
+                <div class="lists-item-center inaline fc-text ub-f1">
+                 <span class="fz-md" id="locationCity">广州市</span>
+                </div>
+          </div>
+        </div>
+    </div>
+    <div id="search" data-control="PAGE">
+        <div class="ub ub-ac header" data-control="HEADER">
+            <div class="ub ub-ac content">
+                <div class="icon-left"><img src="img/search_left.png" style="width:1em;height:1em" /> </div>
+                <div>
+                    <input id="searchText" :autofocus="isFocus" v-focus onpropertychange="search(this.value)" oninput="search(this.value)" type="text" placeholder="城市拼音/中文名/三字码"/>
+                </div>
+            </div>
+            <div id="close">取消</div>
+        </div>
+         <div class="bc-bg ub ub-ver" id="Scrollbox" class="uinn-4a">
+        	<div v-if="resultList.length>0" @click="chooseCity(r.cityName,r.cityCode)" v-for="r in resultList" style="height:2.75em;width:100%;line-height:2.75em;color:#666;background-color:#fff;margin-left:0.75em">{{r.cityName}}</div>
+    	 </div>
+    </div>
+    <!-- <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page"> -->
+       <div class="bc-bg ub ub-ver  bg-white" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+<!-- 国内城市 -->
+            <div id="national" class="bg-white" v-cloak>
+                <div class="national-list" @scroll="scrollSet(ffFlag)">
+                 <div class="scrollbox">
+                      <div id="sub-header-top">
+                         <div class="sub-header" style="font-weight: 700">热门搜索</div>
+                            <div class="hot">
+                                <div v-for="h in hotCity" :cityCode="h.cityCode" @click="chooseCity(h.cityName,h.cityCode)" class="hotCity city">
+                                    {{h.cityName}}
+                                </div>
+                            </div>
+                    </div>
+                <div id="list" style="padding-left:0.75em">
+                    <div class="lis" :id="l" v-for="(l,i) in letterList" :data-index="i">
+                        <div style="display: inline-block;
+                        width: 1.25em;
+                        height: 1.25em;
+                        background-color: #4a90e2;
+                        line-height: 1.25em;
+                        color: #fff;
+                        text-align: center;">{{l}}</div>
+                        <div class="city" @click = "chooseCity(c.display,c.cityCode)"  :cityCode="c.cityCode" :pinyinName="c.pinyinName" v-for="c in cityList[i]" style="padding: 0.9375em 0;font-size:0.875em;color:#333">
+                            {{c.display}}
+                        </div>
+                    </div>
+                </div> 
+               </div>
+                </div>
+           
+                  <!--索引  -->
+                <div class="address-index ub ub-ver ub-pc">
+                     <div class="address-index-box ub ub-ver" 
+                        @touchstart.stop="fastFind()" 
+                        @touchmove.stop="fastFind()" 
+                        @touchend.stop="fastFindEnd()" 
+                        @touchcancel.stop="fastFindEnd()"
+                        >
+	                    <ul>
+	                      <li v-for="(l,i) in letterList" class="address-index-item fz-md fc-title" 
+	                      :data-index="i"
+	                      >{{l}}</li>
+	                    </ul>
+                     </div>
+                 </div>
+             <!-- <div class="address-itemshow" v-show="fastFindText!='' " v-cloak>{{fastFindText}}</div> -->
+             <!-- end -->  
+            </div>
+<!-- 国际城市 -->
+            <div id="international" class="bg-white" style="display:none" v-cloak>
+               <div class="scrollbox">
+                       <div class="sub-header" style="font-weight: 700">热门搜索</div>
+                        <div class="hot">
+                            <div v-for="h in hotCity" :cityCode="h.cityCode" @click = "chooseCity(h.cityName,h.cityCode)" class="hotCity city">
+                                {{h.cityName}}
+                            </div>
+                        </div>
+                <div id="interList" style="padding-left:0.75em">
+                    <div :id="l" v-for="(l,i) in letterList" v-if="cityList[i].length>0">
+                        <div style="display: inline-block;
+                                width: 1.25em;
+                                height: 1.25em;
+                                background-color: #4a90e2;
+                                line-height: 1.25em;
+                                color: #fff;
+                                text-align: center;">{{l[0]}}</div>
+                        <div class="city" @click = "chooseCity(c.display,c.cityCode)" :cityCode="c.cityCode" :pinyinName="c.pinyinName" v-for="c in cityList[i]" style="padding: 0.9375em 0;font-size:0.875em;color:#333">
+                            {{c.display}}
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        
+        </div>
+  <!--</div> -->
+   </div>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    <script src="../js/appcan.scrollbox.js"></script>
+    <script src="../js/template.import.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/appcan.optionList.js"></script>
+    <script src="js/hotCity.js"></script>
+    <script src="js/cityList.js"></script>
+    <script src="js/inter_hotCity.js"></script>
+    <script src="js/inter_cityList.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/appcan.tab.js"></script>
+    <script src="../js/appcan.treeview.js"></script>
+    <script src="./js/plane_city.js"></script>
+</body>
+
+</html>

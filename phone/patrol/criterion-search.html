@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="criterion/css/criterion.css" />
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+			<!--header start-->
+			<div class="uh h_search" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<!-- search start -->
+					<div class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">
+						<div class="hsearch">
+							<div class="hsearch-main ub-con ub ub-ac ub-pc">
+								<div class="hsearch-main-left">
+									<i class="icon-20-h-search"></i></div>
+								<div class="hsearch-main-center ub-f1">
+									<input id="search" autofocus="autofocus" class="hsearch-ipt fix-search-ipt" placeholder="请输入关键字搜索" v-model="searchKeyword" />
+								</div>
+								<div class="hsearch-main-right" @click="searchEmpty()" v-show="hasDelBtn">
+									<i class="hsearch-del-icon"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="nav-btn" @click="search()">
+						搜索
+					</div>
+					<!-- search end -->
+				</div>
+			</div>
+			<!--header end-->
+
+			<div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent" >
+				<!-- 历史记录 start -->
+				<div class="alists" style="margin-top: 10px;" v-show="isShowHistory">
+					<div class="alists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-center fc-title ub-f1">
+								<span class="fz-md">历史记录</span>
+							</div>
+						</div>
+					</div>
+					<div class="blists-box bg-white" v-for="searchHistory in searchHistory" @click="searchHistroy(searchHistory)">
+						<div class="lists-item pd-10-lr ub ub-ac" >
+							<div class="lists-item-center fc-text ub-f1">
+								<span class="fz-md">{{searchHistory}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 历史记录 end -->
+				<!-- 搜索列表 start -->
+				<div id="mescroll" class="mescroll" v-show="!isShowHistory">
+					<div class="alist" id="list">
+						<div class="alists-box bg-white" v-for="item in list" @click="openDetail(item.catalog)">
+							<div class="search-item pd-10-lr ub ub-ac">
+								<div class="lists-item-center  ub-f1">
+									<p class="fz-lg fc-title fz-md fz-md-set">{{item.catalog}}</p>
+									<p class="fz-md fz-md-set fc-text in2line keyword" v-html="item.standardDetail"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="nonetwork" :class="nonet?'':'hide'"></div>
+				</div>
+			</div>
+			<!-- 搜索列表 end -->
+			<!-- footer start -->
+			<div class="uf" data-control="FOOTER" id="Footer" v-show="searchHistory.length != 0 && isShowHistory" style="display: none;">
+				<div class="btn-setbtm border-top pd-10-lr bg-white" @click="clearHistory()">
+					<button class="btn  btn-gray">
+							<i class="search-clear-icon"></i>
+		                    <span class="fz-bg fc-white">清空历史搜索</span>
+		                </button>
+				</div>
+			</div>
+			<!-- footer end -->
+		</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/mescroll.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+		<script src="criterion/js/criterion-search.js"></script>
+	</body>
+
+</html>

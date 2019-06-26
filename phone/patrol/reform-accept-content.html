@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title>整改措施</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content=" width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="reform/css/temporary.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+        <style>
+            .layui-m-layer0 .layui-m-layerchild {
+                width: 100%;
+                max-width: 18rem;
+            }
+          .layui-m-layercont{
+              padding:2rem 1.2rem
+          }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page">
+
+            <div class="bc-bg nopadding" data-control="FLEXBOXVER" id="content">
+                <ul class="contentList border-btm bg-white" v-cloak>
+                    <li class=" ub border-btm">
+                        <span class="title fc-title fz-md fz-md-set" style="width:7.25em;">预计完成时间</span>
+                        <span class="ub ub-f1 ub-ac fc-text fz-md fz-md-set" id="plantime" v-text="items.planTime" ref="time"></span>
+                        <i class="icon-20-g-goto"></i>
+                    </li>
+                    <li class="fz-md fz-md-set">
+                        <span class="title">整改措施</span>
+                        <p class="fc-text paddingT">
+                            <textarea rows="3" class="ub-fh" placeholder="请输入整改措施" v-model.trim="items.detail" ref="detail"></textarea>
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="uf" data-control="FOOTER" id="Footer">
+                    <div class="bg-white ub ub-ac ub-pc" @click="submit">
+                        <button class="btnFooter ">
+                            <span class="">确认提交</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/config.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script>
+            (function($) {
+               
+                var vm = new Vue({
+                    el : '#content',
+                    data : {
+                        items : {
+                            detail : '',
+                            planTime : '预计完成时间不能早于当天',//预计完成时间
+                        },
+                        isClick : 0 //0=可以点击提交，1=不可以点击提交。为了不让重复点击提交按钮
+                    },
+                    methods : {
+                        submit : function() {
+                            var that = this;
+                            if (that.items.planTime === '预计完成时间不能早于当天') {
+                                layerToast('请选择预计完成时间。', 2);
+                            } else if (!isDefine(that.items.detail)) {
+                                layerToast('请输入整改措施。', 2);
+                            } else if (that.isClick == 1) {
+                                return false;
+                            } else {
+
+                                layer.open({
+                                    title : '是否提交整改措施反馈?',
+                                    content : '<div class="layer-reform" style="word-wrap:break-word">' + '预计完成时间 : ' + that.items.planTime + '</br>' + '<div style="word-wrap:break-word">' + '整改措施 : ' + that.items.detail + '</div>' + '</div>',
+                                    btn : ['确定', '取消'],
+                                    yes : function(i) {
+                                        that.isClick = 1;
+                                        var json = {
+                                            path : mainPath + "reformApiController.do?callbackReform",
+                                            data : {
+                                                "userId" : appcan.locStorage.getVal("userID"),
+                                                "userName" : appcan.locStorage.getVal("userName"),
+                                                "reformId" : appcan.locStorage.getVal('patrol-reformId'),
+                                                "budgetTime" : that.items.planTime,
+                                                "solution" : that.items.detail,
+                                                "loginDepartId" : appcan.locStorage.getVal('deptId')
+                                            }
+                                        };
+                                        ajaxPOST(json, function(data, e) {
+                                            if (e == "success") {
+                                                that.isClick = 1;
+                                                appcan.window.publish("patrol-reform-layerTitle", "accept");
+                                                appcan.window.evaluateScript({
+                                                    name : 'reform',
+                                                    scriptContent : 'vm.ResetUpScroll()'
+                                                });
+                                                closeMultiPages(['reform-rectification-details', 'reform-accept']);
+                                                //清除详情页缓存字段
+                                                var reformArr = ['patrol-status', 'patrol-reformId', 'patrol-role', 'patrol-reform-headerNav'];
+                                                reformArr.forEach(function(name) {
+                                                    appcan.locStorage.remove(name);
+                                                });
+                                            } else {
+                                                that.isClick = 0;
+                                                layerToast('网络错误，请检查网络环境', 2);
+                                            }
+                  
+                                        });
+                                    },
+                                    no : function(i) {
+                                        that.isClick = 0;
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    watch : {
+                        items : {
+                            handler : function(val, oldval) {
+                                var that = this;
+                                var num = 3000;
+                                //字体限制为3000个
+                                that.$refs.detail.setAttribute("maxlength", num);
+                                //                        var timer = that.$refs.time;
+                            },
+                            deep : true
+                        }
+                    },
+                    mounted : function() {
+                        //预计完成时间控件初始化
+                        var now = new Date();
+                        var instance = mobiscroll.date('#plantime', {
+                            lang : 'zh',
+                            theme : 'ios',
+                            display : 'bottom',
+                            headerText : '日期选择',
+                            min : now,
+                            dayText : '',
+                            monthText : '',
+                            yearText : '', //面板中年月日文字
+                            minHeight : 500,
+                            minWidth : 60,
+                            dateFormat : 'yy-mm-dd',
+                            showLabel : true,
+                            onInit : function(evtObj, obj) {
+                            },
+                            onBeforeShow : function(evtObj, obj) {
+                            },
+                            onSet : function(evtObj, obj) {
+                                vm.items.planTime = evtObj.valueText;
+                            }
+                        });
+                    },
+                });
+                appcan.ready(function() {
+                })
+            })($);
+        </script>
+    </body>
+</html>

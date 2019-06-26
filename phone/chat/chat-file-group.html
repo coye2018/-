@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat-common.css">
+        <link rel="stylesheet" href="css/chat-group.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="chat-file-group" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">群组详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="chat-file-box pd-10-lr mg-box border-btm bg-white" v-cloak>
+                    <div class="chat-file-list">
+                        <div class="chat-file-item ub ub-ver ub-ac" 
+                            v-for="(value, key) in people" 
+                            v-if="(group.isManager==0&&key<15) || (group.isManager==1&&key<13)" 
+                            @click="seeFile(value)">
+                            <div class="chat-head">
+                                <div class="chat-head-box">
+                                    <img class="myli-headpic-img" v-if="value.hashead" :src="value.headurl" @error="headpicReplace(value)" />
+                                    <div class="myli-headpic-txt" v-else :class="value.headbgclass">{{value.userNameShort}}</div>
+                                </div>
+                            </div>
+                            <div class="chat-file-text inaline">
+                                <span class="fz-md fc-title">{{value.realname}}</span>
+                            </div>
+                        </div>
+                        <div class="chat-file-item ub ub-ver ub-ac" v-if="group.isManager==1"  @click="addGroupMe()" >
+                            <div class="chat-head">
+                                <div class="chat-head-box">
+                                    <img class="chat-head-img" src="img/chat-add.png" />
+                                </div>
+                            </div>
+                            <div class="chat-file-text">
+                                <span class="fz-md fc-title">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="chat-file-item ub ub-ver ub-ac" v-if="group.isManager==1" @click="kickGroupMe()"   >
+                            <div class="chat-head">
+                                <div class="chat-head-box">
+                                    <img class="chat-head-img" src="img/chat-remove.png" />
+                                </div>
+                            </div>
+                            <div class="chat-file-text">
+                                <span class="fz-md fc-title">&nbsp;</span>
+                            </div>
+                        </div>
+                        <!-- <div class="chat-file-item ub ub-ver ub-ac">
+                            <div class="chat-head">
+                                <div class="chat-head-box">
+                                    <img class="chat-head-img" src="../icon/24/fsize-head.png" />
+                                </div>
+                            </div>
+                            <div class="chat-file-text">
+                                <span class="fz-md fc-title">周杰伦</span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="chat-file-more ub ub-ac ub-pc" :class="people.length>16?'':'hide'" id="more">
+                        <span class="fz-md fc-text">查看更多群组成员</span>
+                        <i class="icon-20-g-goto"></i>
+                    </div>
+                </div>
+                
+                <div class="lists">
+                    <div class="lists-box bg-white" id="group-name">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md">群组名称</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                                <span class="fz-md">{{group.groupName}}</span>
+                            </div>
+                            <div class="lists-item-right" :class="group.isManager==0?'hide':'' ">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white" id="group-notice">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">群公告</span>
+                            </div>
+                            <div class="lists-item-right" :class="group.isManager==0?'hide':'' ">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-md fc-text">{{group.groupDescription}}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md">群主</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                                <span class="fz-md">{{managerName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md fc-text">仅群主可修改群组名称以及群公告</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="lists">
+                    
+                    <div class="lists-box bg-white" :data-value="group.isDisturb" v-if="platForm==0">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">消息免打扰</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <span class="btn-pill" :class="group.isDisturb==1?'on':'' " @click="updatePushServiceForGroup(group.isDisturb)">
+                                    <i></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <!--
+                    <div class="lists-box bg-white" :data-value="group.isOnTop" v-if="platForm==0">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">全天免打扰</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <span class="btn-pill" :class="group.isOnTop==0?'on':'' " @click="getNoPushGroup(group.isOnTop)">
+                                    <i></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                   
+                </div>
+                <div class="lists-title pd-10-lr mg-box"  v-if="platForm==0">
+                    <span class="fz-sm fc-text">开启后，在APP后台进程被关闭时，将不会收到此群的新消息推送提醒。</span>
+                </div>
+                  
+                <!--
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">清空聊天记录</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <div class="lists hide">
+                    <div class="lists-box bg-white"   id="clearGroupRecent" @click="clearGroupRecent()">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-warn-red ub-f1 tx-c">
+                                <span class="fz-lg" id="">清空该聊天记录</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lists">
+                    <div class="lists-box bg-white"   id="out" @click="outGroup()">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-warn-red ub-f1 tx-c">
+                                <span class="fz-lg" id="quikeGroupId"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/chat-file-group.js"></script>
+    </body>
+</html>

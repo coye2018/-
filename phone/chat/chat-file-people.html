@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat-file-people.css">
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="chat-file-people" v-cloak>
+            <div class="uh" data-control="HEADER">
+                <div class="ub ub-ac header header-trans">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">详细资料</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="uf" data-control="FOOTER" id="Footer">
+                <div class="btn-setbtm border-top pd-10-lr bg-white">
+                    <button class="btn bg-main" id="sendmsg" @click="sendMsg(file)">
+                        <span class="fz-bg fc-white">发送消息</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver chat-file" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="file-top mg-box border-btm bg-white ub ub-ac ub-pc">
+                    <img class="file-top-bg blur" v-if="file.hashead" :src="file.headurl" />
+                    <div class="file-top-bg blur" v-else :class="file.headbgclass"></div>
+                    <div class="file-top-head">
+                        <img class="file-top-head-img" v-if="file.hashead" :src="file.headurl" />
+                        <div class="file-top-head-txt" v-else :class="file.headbgclass">{{file.userNameShort}}</div>
+                    </div>
+                </div>
+                
+                
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">姓名</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{file.realname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">账号</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{file.username}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">性别</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{file.sex==0?'男':'女'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">邮箱</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{file.email}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">手机号码</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <a :href="file.mobilePhoneHr">{{file.mobilePhone}}</a>
+                                <!--<span class="fz-md">{{file.mobilePhone}}</span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">所属单位</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{file.departname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">个性签名</span>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-md fc-text">{{file.userSign}}</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/chat-file-people.js"></script>
+    </body>
+</html>

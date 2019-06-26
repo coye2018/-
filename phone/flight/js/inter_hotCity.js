@@ -1,0 +1,37 @@
+var inter_hotCity = [{
+    cityCode: "TPE",
+    cityName: "台北"
+}, {
+    cityCode: "HKG",
+    cityName: "香港"
+}, {
+    cityCode: "MFM",
+    cityName: "澳门"
+}, {
+    cityCode: "TYO",
+    cityName: "东京"
+}, {
+    cityCode: "SEL",
+    cityName: "首尔"
+}, {
+    cityCode: "NYC",
+    cityName: "纽约"
+}, {
+    cityCode: "SYD",
+    cityName: "悉尼"
+}, {
+    cityCode: "LON",
+    cityName: "伦敦"
+}, {
+    cityCode: "PAR",
+    cityName: "巴黎"
+}, {
+    cityCode: "BER",
+    cityName: "柏林"
+}, {
+    cityCode: "LAX",
+    cityName: "洛杉矶"
+}, {
+    cityCode: "YTO",
+    cityName: "多伦多"
+}]

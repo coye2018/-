@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>整改单详情</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" tabindex="0" id="Page">
+    <!--header-->
+    <div class="uh" data-control="HEADER" id="Header"  >
+        <div class="ub ub-ac header" v-cloak>
+            <div id="nav-left" class="nav-btn">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <!--<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" v-if="xunChaRole == '' && status == '2'" v-cloak>申诉审批</h1>-->
+            <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">整改单详情</h1>
+            <div id="nav-right" class="nav-btn">
+                <div class="fa fa-1g ub-img1" v-if="xunChaRole=='1'||xunChaRole=='2'"></div>
+                <div class="fz-md fc-title right-btn" @click="goPunishAdd"
+                     v-if="xunChaRole==''&&status=='1'
+                     ||xunChaRole==''&&status=='2'
+                     ||xunChaRole==''&&status=='5'
+                     ||xunChaRole==''&&status=='6'
+                     ||xunChaRole==''&&status=='9'
+                     ||xunChaRole == '0'&&status=='1'
+                     ||xunChaRole == '0'&&status=='2'
+                     ||xunChaRole == '0'&&status=='5'
+                     ||xunChaRole == '0'&&status=='6'
+                     ||xunChaRole == '0'&&status=='9'">升级</div>
+
+            </div>
+        </div>
+    </div>
+    <!--end header-->
+
+    <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER">
+
+    </div>
+
+
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script src="./reform/js/rectification.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.phone-box{
+    height: 16.875em;
+}
+.phone-img{
+    margin: 2.1875em auto 0;
+    width: 3.4375em;
+    height: 6.1875em;
+    background: url(../img/phone.png) center no-repeat;
+    background-size: 100%;
+}
+.phone-note{
+    margin-top: 1.8em;
+}
+.phone-btn-box{
+    padding-top: 1.5625em;
+    padding-bottom: 1.5625em;
+}
+.phone-title{
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+.lists-for-phone:before{
+    content: none;
+}
+.lists-for-phone .lists-box:active{
+    background-color: inherit;
+}

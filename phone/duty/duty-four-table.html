@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-table.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">各单位四必执行情况</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="switch-content mg-top">
+                    <div class="switch-month tx-c">
+                        <span class="fz-sm fc-text" v-cloak>{{today}}</span>
+                    </div>
+                    <div class="switch-box border-top border-btm bg-white">
+                        <div class="switch-head">
+                            <div class="switch-item" v-for="(item, index) in weekdays">
+                                <span class="fz-md">{{item.weekDay}}</span>
+                            </div>
+                            <!--<div class="switch-item">
+                                <span class="fz-md">一</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">二</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">三</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">四</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">五</span>
+                            </div>
+                            <div class="switch-item">
+                                <span class="fz-md">六</span>
+                            </div>-->
+                        </div>
+                        <div class="switch-body duty-table-sm">
+                            <div class="switch-item ub ub-pc"
+                                 :class="[item.fullDate==todayFull?'current':'', item.actives?'actives':''] " 
+                                 v-for="(item, index) in weekdays" 
+                                 @click="pick(item, index)">
+                                <div class="switch-unit">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">{{item.date}}</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">{{item.lunarDayName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">4</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十一</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">5</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十二</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc current">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">今</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十三</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">7</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十四</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">8</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十五</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="switch-item ub ub-pc">
+                                <div class="switch-unit sm">
+                                    <div class="switch-unit-box ub ub-ver ub-pc">
+                                        <div class="switch-day">
+                                            <span class="fz-md">9</span>
+                                        </div>
+                                        <div class="switch-name">
+                                            <span class="fz-md">十六</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="duty-list">
+                    <div class="duty-list-note-new ub">
+                        <div class="duty-list-note-zb-new">
+                            <span class="fz-sm fz-sm-set fc-text">是否提交</span>
+                        </div>
+                        <div class="duty-list-note-zb-new hide">
+                            <span class="fz-sm fz-sm-set fc-text">是否正常</span>
+                        </div>
+                    </div>
+                    <ul class="myli">
+                        <li class="myli-item" v-for="(item,index) in dutyFour" @click="unclick(item,index)">
+                            <div class="myli-center-lg ub ub-ac">
+                                <div class="myli-headpic-lg">
+                                    <div class="myli-headpic-box-lg">
+                                        <div class="myli-headpic-txt-lg bg-head-0">{{item.description}}</div>
+                                    </div>
+                                </div>
+                                <div class="myli-main ub-f1 ub">
+                                    <div class="duty-check" v-if="item.isFinish==1">
+                                        <i class="du4-term-icon-yes actives"></i>
+                                    </div>
+                                    <div class="duty-check" v-else>
+                                        <span class="fz-md fz-md-set fc-title">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/LunarCalendar.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-table-one-getDay.js"></script>
+        <script src="js/duty-four-table.js"></script>
+    </body>
+</html>

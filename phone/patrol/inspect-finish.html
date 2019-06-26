@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <!--<link rel="stylesheet" href="../../css/mescroll.min.css">-->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="punish/css/punish.css">
+    <link rel="stylesheet" href="inspect/css/inspect-common.css">
+    <style>
+        .num{
+            left: 0!important;
+        }
+        .list>.criterion{
+            padding-left: 4em;
+        }
+        .uh_ios7 #main{
+        	padding-top: 3.75em;
+        }
+        .task-prog {
+            padding-top: 1.5625em;
+        }
+    </style>
+    <title>公共引导标识巡查单</title>
+</head>
+<body ontouchstart style="background-color: #f6f7f9;">
+    <div class="bc-bg" data-control="PAGE" id="app" v-cloak tabindex="0">
+        <!--头部-->
+        <div class="uh" data-control="HEADER" id="Header">
+            <div class="ub ub-ac header">
+                <div id="nav-left" class="nav-btn" @click="back">
+                    <i class="icon-20-h-backto"></i>
+                </div>
+                <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" id="change">{{title}}</h1>
+                <div id="nav-right" class="nav-btn">
+                    <div class="fa fa-1g ub-img1"></div>
+                </div>
+            </div>
+        </div>
+        <div id="main" class="bc-bg ub ub-ver myfb nopadding" data-control="FLEXBOXVER">
+            <div v-for="(item,index) in items.standardList">
+                <div class="catalog fz-sm fz-sm-set border-btm">{{item.catalog}}</div>
+                <ul>
+                    <li v-for="(li,i) in item.list" class="list border-btm">
+                        <div class="criterion">
+                            <!--<span :class="{'choose':item.choose==false,'choose-act':item.choose==true}" @click="isChoose(index)"></span>-->
+                            <span class="num fz-sm">{{li.code | numFmt}}</span>
+                            <span class="fz-sm fz-sm-set">{{li.standardDetail}}</span>
+                            <span class="fz-sm fz-sm-set">{{li.isSuitable}}</span>
+                        </div>
+                        <div class="des" v-if="li.isSuitable=='不符合'">
+                            <div>
+                                <div>
+                                    <span class="fz-sm fz-sm-set">图片</span>
+                                </div>
+                                <div>
+                                    <div class="pic" v-for="(img,k) in li.pictureList">
+                                        <span :style="{backgroundImage: 'url('+ path + img + ')'}" @click="openPic(index,i,k)"></span>
+                                    </div>
+                                    <!--<div v-if="hasPic">暂无图片</div>-->
+                                </div>
+                            </div>
+                            <div>
+                                <p class="fz-sm fz-sm-set">事件描述</p>
+                                <p class="fz-sm fz-sm-set" v-if="li.described!= '' ">{{li.described}}</p>
+                                <p class="fz-sm fz-sm-set" v-else>暂无</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="stateAndDate border-top">
+                <li class="border-btm">
+                    <span class="title fz-md fz-md-set">状态</span>
+                    <span class="fc-warn-green fz-md fz-md-set">已完成</span>
+                </li>
+                <li class="border-btm">
+                    <span class="title fz-md fz-md-set">巡查日期</span>
+                    <span class="detail fz-md fz-md-set">{{items.patroDate | getDate(5,11)}}</span>
+                </li>
+                <li class="border-btm">
+                    <span class="title fz-md fz-md-set">完成日期</span>
+                    <span class="detail fz-md fz-md-set">{{items.compeleteDate | getDate(5,16)}}</span>
+                </li>
+            </ul>
+            <div id="state">
+                <div class="state">
+                    <ul class="ub border-btm" id="tab">
+                        <li class="ub-f1 fz-md fz-md-set" @click="toggle1" :class="{'current':stateDetailShow==true,'normal':stateDetailShow==false}">进展</li>
+                        <li class="ub-f1 fz-md fz-md-set" @click="toggle2" :class="{'normal':stateDetailShow==true,'current':stateDetailShow==false}">回复 {{items.replyList.length}}</li>
+                        <li class="ub-f4">
+                            <!--<div id="addState" v-show="stateDetailShow" @click="addDynamics(items.id)">
+                                <img src="../../icon/20/reply.png" alt="">
+                                <span>添加动态</span>
+                            </div>-->
+                            <div id="addReply" v-show="!stateDetailShow" @click="addComments(items.id)">
+                                <img src="../icon/20/reply.png" alt="">
+                                <span class="fz-sm fz-sm-set">回复</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lists-box task-tab-con bg-white" v-show="stateDetailShow">
+                    <div class="lists-item-free pd-10-lr">
+                        <div class="task-prog">
+                            <div v-for="(item1,j) in items.progressList" class="task-prog-item ub">
+                                <div class="task-prog-left tx-r">
+                                    <div class="task-prog-dept"><span class="fz-md fz-md-set fc-title">{{item1.createName}}</span></div>
+                                    <div class="task-prog-time"><span class="fz-sm fz-sm-set fc-text">{{item1.createDate | getDate(5,16)}}</span></div>
+                                </div>
+                                <div class="task-prog-center ub ub-ver">
+                                    <i :class="{'icon1':item1.iconStatus==1,'icon2':item1.iconStatus==2,'icon3':item1.iconStatus==3}"></i>
+                                    <div class="task-prog-line ub-f1" v-if="j!=items.progressList.length-1"></div>
+                                </div>
+                                <div class="task-prog-right ub-f1">
+                                    <div class="task-prog-status"><span class="fz-md fz-md-set fc-main"></span> <span class="fz-md fz-md-set fc-title">{{item1.content}}</span></div>
+
+                                    <div class="task-prog-detail-more hide"><span class="fz-md fz-md-set fc-main">更多&gt;</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lists-box task-tab-con bg-white pd-10-lr" v-show="!stateDetailShow">
+                    <div class="listContent bg-white listsbox">
+                        <div class="list task-tab-con bg-white" v-for="item2 in items.replyList">
+                            <div class="lists-items pd-10-lr ub ub-ac">
+                                <div class="task-re"><span class="fz-sm fz-sm-set fc-main task-re-name">{{item2.createName}}</span> <span style="word-break: break-all" class="fz-sm fz-sm-set fc-title task-re-text">{{item2.content}}</span> <span class="fz-sm fz-sm-set fc-text task-re-date">{{item2.createDate | getDate(5,16)}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Footer" class="footer-finish">
+            <div @click="write">开整改单</div>
+        </div>
+    </div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<!--<script src="../../js/vue.min.js"></script>-->
+<script src="js/vue2513.min.js" type="text/javascript"></script>
+<script src="../js/mescroll.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/common1.js" type="text/javascript"></script>
+<script src="js/config.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="inspect/js/inspect-finish.js" type="text/javascript"></script>
+</body>
+</html>

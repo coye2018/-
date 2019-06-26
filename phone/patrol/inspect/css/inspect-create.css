@@ -1,0 +1,121 @@
+.catalog{
+    width: 100%;
+    /*height: 2.75em;*/
+    line-height: 2.5em;
+    color: #999;
+    background-color: #f6f7f9;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    padding: 0.625em;
+}
+.choose{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    background-image: url('../../../icon/20/choose.png');
+    background-position: center center;
+    background-size: cover;
+}
+.choose-act{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    background-image: url('../../../icon/20/choose-active.png');
+    background-position: center center;
+    background-size: cover;
+}
+ul{
+    border-bottom: 1px solid #E1E1E1;
+    padding-bottom:3.75em;
+}
+.list{
+    /*width: 100%;*/
+    border-bottom: 1px solid #E1E1E1;
+    padding:1em .625em 1em .625em;
+    font-size: .875em;
+    background-color: #fff;
+}
+.list>.criterion{
+    padding: 0 3.625em 1em 6.5em;
+    position: relative;
+    /*font-size: 1em;*/
+    border-bottom: 1px solid #E1E1E1;
+}
+.list>.criterion>.num{
+    position: absolute;
+    left: 1.5em;
+    top: 0.2em;
+}
+.list>.criterion>span:last-child{
+    position: absolute;
+    right: 0em;
+    top: -0.1em;
+    width: 3.6em;
+    height: 1.6em;
+    border:1px solid #FE4344;
+    color: #FE4344;
+    text-align: center;
+    line-height: 1.5em;
+    border-radius: .2em;
+}
+.list>.des{
+    padding: .75em 0 0em 0;
+}
+.list>.des>div:nth-child(1){
+    /*vertical-align: text-top;*/
+    padding-bottom: 1em;
+}
+.list>.des>div>div{
+    display: inline-block;
+    vertical-align: text-top;
+}
+.list>.des>div>div>span{
+    padding-right: 1.5em;
+}
+.list>.des>div>div>.pic{
+    display: inline-block;
+
+}
+.list>.des>div>div>.pic>span{
+    display: inline-block;
+    width: 4.375em;
+    height: 4.375em;
+    overflow: hidden;
+    border-radius: 0.625em;
+    border:1px solid #ccc;
+    background-size: cover;
+    background-position: center;
+}
+.list>.des>div:nth-child(2){
+
+}
+.list>.des>div:nth-child(2)>p:last-child{
+    margin-top: 1em;
+    color: #999;
+}
+.footer{
+    width: 100%;
+    height: 3.75em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #fcfcfc;
+    border-top: 1px solid #e1e1e1;
+    padding:.625em .625em .625em .625em;
+}
+.footer>div{
+    width: 100%;
+    height: 100%;
+    background-color: #52a6ff;
+    text-align: center;
+    color: white;
+    line-height: 2.5em;
+    border-radius: 3.75em;
+    font-size: 1em;
+}

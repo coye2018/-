@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/delay-start.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg address-page" tabindex="0" data-control="PAGE" id="delay-start">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" v-cloak>{{title}}</h1>
+                    <div class="nav-btn" id="nav-right">
+                       <!-- <i class="icon-20-h-date"></i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a" v-cloak>
+            
+                <!-- 启动预警 -->
+                <div class="delay-box bg-white mg-box">
+                    <h2 class="delay-title fz-md fz-md-set">请选择预警响应级别</h2>
+                    <div class="ub levels">
+                        <button class="ub-f1 btn-square fz-sm" 
+                            v-for="item in delayBtn"
+                            :class="[{active: item.val == level}, item.color]"
+                            @click="level = item.val">{{item.text}}</button>
+                    </div> 
+                </div>
+                
+                <!-- 通知内容 -->
+                <div class="delay-container">
+                    <div class="bg-white">
+                        <div class="pd-10-lr ub ub-ver delay-item-box">
+                            <h3 class="delay-item-title">
+                                <span class="fz-md fz-md-set">通知内容</span>
+                            </h3>
+                            <textarea 
+                                rows="5" 
+                                cols="100" 
+                                class="fc-text delay-item-textarea"
+                                v-model="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="bg-white border-top">
+                        <div class="lists-item pd-10-lr ub ub-ac" @click="contactsList(1)">
+                            <div class="lists-item-title fc-title  ub-f1">
+                                <span class="fz-md">通知人(应用内)</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text">
+                                <span class="fz-md">查看<span>
+                            </div>
+                            <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border-top">
+                        <div class="lists-item pd-10-lr ub ub-ac" @click="contactsList(2)">
+                            <div class="lists-item-right"  @click.stop="sendMsg">
+                                <i class="icon-20-choose" :class="{ actives: isSend}"></i>
+                            </div>
+                            <div class="lists-item-title fc-title  ub-f1" @click.stop="sendMsg">
+                                <span class="fz-md">发送短信给应用外联系人</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text"  >
+                                <span class="fz-md">查看<span>
+                            </div>
+                            <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="uf" data-control="FOOTER" id="Footer">
+                    <div class="btn-setbtm border-top pd-10-lr bg-white">
+                        <button class="btn bg-main" @click="startDelay">
+                            <span class="fz-bg fc-white">{{title}}</span>
+                        </button>
+                    </div>
+                </div>                
+                
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/delay-start.js"></script>
+    </body>
+</html>

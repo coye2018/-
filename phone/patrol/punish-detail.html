@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="punish/css/punish.css" />
+		<style>
+			.punish-content{
+				position: fixed;
+				width: 100%;
+				top: 2.75em;
+				bottom: 0em;
+				overflow-y: auto;
+			}
+			.uh_ios7 .punish-content{
+				top: 3.75em;
+			}
+			.wordbreak{
+				word-break: break-all;
+			}
+			.bg-red{
+				background-color: #FE4344;
+				border:1px solid #FE4344
+			}
+		</style>
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+			<!--header start-->
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">处罚单详情</h1>
+					<div class="nav-btn" id="nav-right">
+						取消
+					</div>
+				</div>
+			</div>
+			<!--header end-->
+			<div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent">
+				<div class="punish-content" v-bind:style="{bottom:bottomh+'em'}">
+				<!-- detail start -->
+				<div class="lists mg-box">
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">单号</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1">
+								<span class="fz-md fz-md-set">{{data.number}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">标题</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1">
+								<span class="fz-md fz-md-set" >{{data.title}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">{{timetitle}}</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1">
+								<span class="fz-md fz-md-set">{{data.createDate | getDate(0,16)}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">巡督人员</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1">
+								<span class="fz-md fz-md-set">{{data.managerName}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">事件概况</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea fc-text">
+									<span class="fz-md fz-md-set wordbreak">{{data.content}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">原因分析</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea fc-text">
+									<span class="fz-md fz-md-set wordbreak">{{data.reason}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">事件结论</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea fc-text">
+									<span class="fz-md fz-md-set wordbreak">{{data.conclusion}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">处罚建议</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea fc-text">
+									<span class="fz-md fz-md-set wordbreak">{{data.proposal}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">被处罚单位</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1"><span class="fz-md fz-md-set">{{data.departName}}</span></div>
+							<div class="lists-item-right">
+								<!--<i class="icon-20-g-goto"></i>--></div>
+						</div>
+					</div>
+					 <div class="lists-box bg-white" @click="toCopyDepart()">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">抄送</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1"><span class="fz-md fz-md-set">{{data.copydepartText}}</span></div>
+							<div class="lists-item-right"><i class="icon-20-g-goto"></i></div>
+						</div>
+					</div> 
+
+					<div class="lists-box-pic bg-white" v-if="data.picList != null">
+						<div class="lists-item-free pd-10-lr ub">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">图片</span></div>
+							<div class="lists-item-center haspic ub-f1">
+								<div class="add-pic-box" v-for="(img,index) in data.picList">
+									<div class="add-pic-item">
+										<div class="add-pic-item-con tx-c" :style="{backgroundImage: 'url(' + path + img + ')'}" @click="openPic(index)">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box bg-white" v-else>
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">图片</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1">
+								<span class="fz-md fz-md-set">暂无图片</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="lists-box bg-white" :class="{'hide':role == 1}">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">状态</span></div>
+							<div class="lists-item-center inaline  ub-f1">
+								<span class="fz-md fz-md-set" :class="{'fc-warn-blue':isBlue,'fc-warn-green':isGreen,'fc-warn-red':isRed}">{{status_txt}}</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="lists-box-node bg-white" :class="{'hide':role == 1}">
+						<div class="lists-item-free pd-10-lr ub">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">审核节点</span></div>
+							<div class="lists-item-center ub-f1">
+								<!--审核节点-->
+								<div v-for="nodeItem in data.checkedListData" v-show="nodeItem.isShow">
+								<div class="node-item" >
+									<div class="node-item-con">
+										<div class="node-item-header" v-if="nodeItem.iSaduitImage">
+											<img :src="nodeItem.aduitImage" class="node-item-img" />
+										</div>
+										<div class="node-item-header" v-else>
+											<div class="myli-headpic-txt bg-head-1">{{nodeItem.shortName}}</div>
+										</div>
+										<div class="node-item-status">
+											<i class="icon-pass" v-if="nodeItem.status"></i>
+											<i class="icon-nopass" v-else></i>
+										</div>
+									</div>
+									<div class="node-item-name fc-title ut-s"><span class="fz-md">{{nodeItem.aduitName}}</span></div>
+								</div>
+								<div class="node-iten-arrows" v-show="nodeItem.iSnodeShow">
+									<i class="icon-arrows-act" v-if="nodeItem.nodes"></i>
+									<i class="icon-arrows" v-else></i>
+								</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- detail end -->
+				<!--进展与回复 start-->
+				<div class="lists mg-box" :class="{'hide':role == 1 && isCopy == 0}">
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-center task-tab-box ub-f1 ub">
+								<div class="task-tab" :class="{'actives':tab == 0}" @click="changeTab(0)"><span class="fz-md fz-md-set">进展</span></div>
+								<div class="task-tab" :class="{'actives':tab == 1}" @click="changeTab(1)"><span class="fz-md fz-md-set">回复 {{replyNum}}</span></div>
+							</div>
+							<div class="lists-item-right" :class="{'hide':tab == 0}"><button class="btn btn-sm bg-main" @click="addDynamics(data.id)"><i class="icon-20-reply" ></i> <span class="fz-sm fz-sm-set">回复</span></button></div>
+						</div>
+					</div>
+					<div class="lists-box task-tab-con bg-white" :class="{'hide':tab == 1}">
+						<div class="lists-item-free pd-10-lr">
+							<div class="task-prog">								
+								<div class="task-prog-item ub" v-for="proitem in data.progressList">
+									<div class="task-prog-left tx-r">
+										<div class="task-prog-dept"><span class="fz-md fz-md-set fc-title">{{proitem.createName}}</span></div>
+										<div class="task-prog-time"><span class="fz-sm fz-sm-set fc-text">{{proitem.createDate | getDate(5,16)}}</span></div>
+									</div>
+									<div class="task-prog-center ub ub-ver">
+										<i class="icon-20-t-begin" v-if="proitem.iconStatus == 1"></i>
+										<i class="icon-20-t-run" v-if="proitem.iconStatus == 2"></i>
+										<i class="icon-20-t-end" v-if="proitem.iconStatus == 3"></i>
+										<div class="task-prog-line ub-f1" v-show="proitem.iconStatus == 2 || proitem.iconStatus == 3"></div>
+									</div>
+
+									<div class="task-prog-right ub-f1">
+										<div class="task-prog-status"><span class="fz-md fz-md-set fc-main"></span> <span class="fz-md fz-md-set fc-title wordbreak">{{proitem.content}}</span> </div>
+
+										<div class="task-prog-detail-more hide"><span class="fz-md fz-md-set fc-main">更多&gt;</span></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="lists-box task-tab-con bg-white pd-10-lr " :class="{'hide':tab == 0}">
+						<div class="listContent bg-white listsbox">
+							<div class="list task-tab-con bg-white" v-for="repitem in data.replyList">
+								<div class="lists-items pd-10-lr ub ub-ac">
+									<div class="task-re"><span class="fz-sm fz-sm-set fc-main task-re-name">{{repitem.createName}}</span> <span class="fz-sm fz-sm-set fc-title task-re-text wordbreak">{{repitem.content}}</span> <span class="fz-sm fz-sm-set fc-text task-re-date">{{repitem.createDate | getDate(5,16)}}</span></div>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+				<!--进展与回复 end-->
+				</div>
+			</div>
+			<!--底部按钮 start-->
+			<!--审核通过 驳回 审核不通过 按钮 -->
+			<div class="uf" data-control="FOOTER" id="Footer" v-show="hasCheckBtn">
+				<div class="btn-setbtm border-top  bg-white ub ub-ac">
+					<div class="ub-f1 pd-10-lr">
+						<button class="btn btn-sm bg-main btn-sr" id="punish-pass">
+                        <span class="fz-bg fc-white">审核通过</span>
+                    </button>
+					</div>
+					<div class="ub-f1 pd-10-lr">
+						<button class="btn btn-sm bg-main btn-sr" id="punish-nopass">
+                        <span class="fz-bg fc-white">驳回</span>
+                    </button>
+					</div>
+					<div class="ub-f1 pd-10-lr">
+                        <button class="bg-red btn btn-sm bg-main btn-sr" id="punish-nopass-end">
+                        <span class="fz-bg fc-white">审核不通过</span>
+                    </button>
+                    </div>
+
+				</div>
+
+			</div>
+            <!-- 修改按钮 -->
+			<div class="uf" data-control="FOOTER" id="Footer" v-show="hasModifyBtn">
+				<div class="btn-setbtm border-top pd-10-lr bg-white" >
+					<button class="btn bg-main" id="punish-modify">
+                        <span class="fz-bg fc-white">修改</span>
+                    </button>
+				</div>
+			</div>
+			<!-- 降级按钮 -->
+			<div class="uf" data-control="FOOTER" id="Footer" v-show="hasDemotionBtn">
+                <div class="btn-setbtm border-top pd-10-lr bg-white" >
+                    <button class="btn bg-main" id="punish-demotion">
+                        <span class="fz-bg fc-white">降级</span>
+                    </button>
+                </div>
+            </div>
+			<!--底部按钮 end-->
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+		<script src="punish/js/punish-detail.js"></script>
+	</body>
+
+</html>

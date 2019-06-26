@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg ub-con" data-control="PAGE" id="Page" v-cloak>
+            <div id="mescroll" class="mescroll">
+                <div id="mescroll_content">
+                    
+                    <!--
+                        1.单选, type="radio", 同一条勾选项里input的name要一致
+                        2.记得用vue来控制默认选中第一项, 这里我在页面上写死了
+                    -->
+                    
+                    <!-- 
+                        0.折叠collapse无任何js操作
+                        1.collapse的第一个子元素是个checkbox, 要指定name和id的值, 避免多个折叠项操作混淆
+                        2.点击区域必须是label标签, for的值与前面checkbox的id值一致
+                        3.折叠区域加上类collapse-content
+                     -->
+                    
+                    <div class="collapse">
+                        <input name="collapse0" id="collapse0" type="checkbox" class="collapse-ctrl">
+                        <label class="forum" for="collapse0">
+                            <div class="forum-main">
+                                <span class="forum-title">单选</span>
+                            </div>
+                        </label>
+                        <div class="collapse-content">
+                            <div class="list bg-white">
+                                <div class="list-item">
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-title">1. 所有施工人员证件齐全</div>
+                                        <div class="checkbox-main">
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q0" value="1" checked>
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">符合</div>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q0" value="0">
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">不符合</div>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q0" value="-1">
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">不适用</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-title">2. 所有施工人员按规定身着反光衣</div>
+                                        <div class="checkbox-main">
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q1" value="1" checked>
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">符合</div>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q1" value="0">
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">不符合</div>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <div class="checkbox-cell">
+                                                    <input type="radio" class="checkbox" name="q1" value="-1">
+                                                    <i class="icon-20 checkbox-icon"></i>
+                                                </div>
+                                                <div class="checkbox-name">不适用</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--
+                        1.多选, type="checkbox", 同一条勾选项里input的name要一致
+                        2.记得用vue来控制默认选中第一项, 这里我在页面上写死了
+                    -->
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">多选</span>
+                        </div>
+                    </div>
+                    <div class="list bg-white">
+                        <div class="list-item">
+                            <div class="checkbox-item">
+                                <div class="checkbox-title">1. 所有施工人员证件齐全</div>
+                                <div class="checkbox-main">
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="checkbox" class="checkbox" name="q2" value="1" checked>
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">符合</div>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="checkbox" class="checkbox" name="q2" value="0">
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">不符合</div>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="checkbox" class="checkbox" name="q2" value="-1">
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">不适用</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--
+                        1.行内显示, 在checkbox-item上加inline, checkbox-label的margin-top也没有了
+                        2.记得用vue来控制默认选中第一项, 这里我在页面上写死了
+                    -->
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">行内显示</span>
+                        </div>
+                    </div>
+                    <div class="list bg-white">
+                        <div class="list-item">
+                            <div class="checkbox-item inline">
+                                <div class="checkbox-title">有无携带外来物</div>
+                                <div class="checkbox-main">
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="radio" class="checkbox" name="q3" value="1" checked>
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">有</div>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="radio" class="checkbox" name="q3" value="0">
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">无</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="checkbox-item inline">
+                                <div class="checkbox-title">是否翻新胎</div>
+                                <div class="checkbox-main">
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="radio" class="checkbox" name="q4" value="1" checked>
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">有</div>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <div class="checkbox-cell">
+                                            <input type="radio" class="checkbox" name="q4" value="0">
+                                            <i class="icon-20 checkbox-icon"></i>
+                                        </div>
+                                        <div class="checkbox-name">无</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">跑道标志</span>
+                        </div>
+                    </div>
+                    <div class="picker border-top border-btm bg-white">
+                        <div class="picker-main">
+                            <span class="label">
+                                <div class="label-text">跑道号码标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道入口前标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道入口标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道入口内移标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">接地带标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">瞄准点标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道中线标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道边线标志</div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">滑行道标志</span>
+                        </div>
+                    </div>
+                    <div class="picker border-top border-btm bg-white">
+                        <div class="checkbox-item inline">
+                            <div class="checkbox-main">
+                                <label class="checkbox-label">
+                                    <div class="checkbox-cell">
+                                        <input type="checkbox" class="checkbox" name="q5" value="1">
+                                        <i class="icon-20 checkbox-icon"></i>
+                                    </div>
+                                    <div class="checkbox-name">跑道等待位置标志</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="picker-main">
+                            <span class="label">
+                                <div class="label-text">跑道号码标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道入口前标志</div>
+                            </span>
+                        </div>
+                        <div class="checkbox-item inline">
+                            <div class="checkbox-main">
+                                <label class="checkbox-label">
+                                    <div class="checkbox-cell">
+                                        <input type="checkbox" class="checkbox" name="q6" value="1">
+                                        <i class="icon-20 checkbox-icon"></i>
+                                    </div>
+                                    <div class="checkbox-name">强制性指令标志</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="picker-main">
+                            <span class="label">
+                                <div class="label-text">跑道入口标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">瞄准点标志</div>
+                            </span>
+                            <span class="label">
+                                <div class="label-text">跑道中线标志</div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/model-form-2-page.js"></script>
+    </body>
+</html>

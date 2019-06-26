@@ -1,0 +1,260 @@
+#Footer ~ #ScrollContent {
+    padding-bottom: 3.96em;
+}
+
+/*标题栏*/
+.du4-title-text{
+    height: 2.75em;
+    line-height: 2.75em;
+}
+.du4-title-text-sm {
+    font-weight: bold;
+    height: 2.1875em;
+    line-height: 2.1875em;
+}
+.du4-title-text-setwidth{
+    width: 5.4375em;
+}
+.du4-title-arr{
+    text-align: right;
+}
+.du4-title-arr-setwidth{
+    width: 4.1875em;
+}
+/*标题栏END*/
+
+/*进度条版块*/
+.du4-prog{
+    padding-bottom: 0.625em;
+}
+.du4-prog-left{
+    width: 10.1408%;
+    min-width: 2.25em;
+}
+.du4-prog-left-box,
+.du4-prog-mid-box{
+    margin-top: 1.3125em;
+}
+.du4-prog-left-text{
+    line-height: 1;
+    text-align: center;
+}
+.du4-prog-mid{
+    position: relative;
+}
+.du4-prog-mid-box{
+    position: relative;
+    z-index: 1;
+}
+.du4-prog-dot{
+    width: 1em;
+    height: 1em;
+    background: url(../img/prog-dot.png) center no-repeat;
+    background-size: 100%;
+}
+.du4-prog-line{
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 0.1875em;
+    height: 100%;
+    background-color: #E1E1E1;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+.du4-prog-item:last-of-type .du4-prog-line{
+    height: 1.8125em;
+}
+.du4-prog-right-box{
+    position: relative;
+    min-height: 2em;
+    margin-top: 0.625em;
+    margin-left: 0.375em;
+    border: 1px solid #E1E1E1;
+    border-radius: 0.4167em;
+}
+.du4-prog-right-box:before{
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: -0.3125em;
+    top: 0.8125em;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0.3125em 0.3125em 0.3125em 0;
+    border-color: transparent #E1E1E1 transparent transparent;
+}
+.du4-prog-right-box:after{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: -0.25em;
+    top: 0.875em;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0.25em 0.25em 0.25em 0;
+    border-color: transparent #FFF transparent transparent;
+}
+.du4-prog-right-icon{
+    width: 19%;
+    margin-bottom: 1.0625em;
+}
+.du4-prog-right-con{
+    padding-right: 0.75em;
+}
+.du4-prog-right-item{
+    padding: 0.6875em 0;
+}
+.du4-prog-patrol{
+    height: 1.0625em;
+    line-height: 1.0625em;
+}
+.du4-prog-patrol-text{
+    float: left;
+    padding-right: 0.125em;
+}
+.du4-prog-patrol-divide{
+    float: left;
+    padding: 0 0.5em 0 0.25em;
+}
+/*进度条版块END*/
+
+/*饼状图*/
+.pie {
+    display: inline-block;
+    font-size: 2.75em;
+    width: 1em;
+    text-align: center;
+}
+.pie-container {
+    padding-bottom: 100%;
+    position: relative;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+.pie-container.hides {
+    display: none;
+}
+.pie-content-left,
+.pie-content-right {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    border-radius: 100%;
+    background-color: #35D0D9;
+}
+.pie-left,
+.pie-right {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #D7D7D7;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.pie-content-left,
+.pie-left {
+    z-index: 1;
+    -webkit-clip-path: polygon(50% 0, 50% 100%, 0 100%, 0 0);
+}
+.pie-content-right,
+.pie-right {
+    z-index: 0;
+    -webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+.pie-stars,
+.pie-text-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    -webkit-transform: translate3d(-50%, -50%, 0);
+}
+.pie-stars {
+    z-index: 2;
+    width: 40%;
+    height: 40%;
+    /*background: url(../../duty-four-3/img/star.png) no-repeat center/100%;*/
+   background-image: url(../../duty-four-3/img/star.png);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 100%;
+}
+.pie-text-content {
+    z-index: 3;
+    width: 100%;
+    color: #4A4A4A;
+    font-size: 24%;
+    word-break: break-all;
+}
+.pie-text-no {
+    color: #4A4A4A;
+}
+.pie-text-yes {
+    color: #fff;
+}
+/*饼状图END*/
+
+/*反馈展示*/
+.du4-fbshow-box{
+    padding-bottom: 0.625em;
+}
+.du4-fbshow-text{
+    line-height: 1.25;
+}
+.du4-fbshow-pic>img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 20em;
+    padding: 0.25em 0;
+}
+/*反馈展示END*/
+
+/*进度条*/
+.prog{
+    display: -webkit-box;
+    display: box;
+    -webkit-box-align: center;
+    box-align: center;
+    position: relative;
+    min-height: 1em;
+}
+.prog-case{
+    position: relative;
+    -webkit-box-flex: 1; 
+    box-flex: 1;
+    background-color: #E1E1E1;
+    height: 0.6875em;
+    line-height: 0.6875em;
+    border-radius: 0.34375em;
+    overflow: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.prog-item{
+    float: left;
+    width: 0;
+    height: 100%;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.prog-text{
+    margin-left: 0.25em;
+    min-width: 2.5em;
+    text-align: center;
+}
+/*进度条END*/
+
+.du4-place-page{
+    height: 100%;
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat-common.css">
+        <link rel="stylesheet" href="../my/css/my-bg.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bg-chat"></div>
+        <script src="js/chatbg-set.js"></script>
+        <div class="" id="chat-dialog" v-cloak>
+            <div class="uh"  id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">
+                        <template v-if="file.chatType=='0'">{{file.groupName}}</template>
+                        <template v-if="file.chatType=='1'">{{file.groupName}}</template>
+                    </h1>
+                    <div class="nav-btn" id="nav-right">
+                        <i :class="file.chatType=='1'?'icon-20-h-group':'icon-20-h-single' "></i>
+                    </div>
+                </div>
+            </div>
+            　
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l bc-bg">
+        
+            </div>
+            
+        </div>
+        
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/vue-lazyload.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script>
+        var vm = new Vue({
+            el: '#chat-dialog',
+            data: {
+                file: {}
+            },
+            methods: {
+            }
+        });
+        appcan.ready(function () {
+            var titHeight = $('#Header').offset().height;
+            appcan.frame.open("content", "chat-dialog-ci.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function () {
+                appcan.frame.resize("content", 0, titHeight);
+            };
+            var file = appcan.locStorage.getVal('chat-file-group');
+            if(isDefine(file)){
+                var fileJson = JSON.parse(file);
+                vm.file = $.extend({}, fileJson);
+            }
+            appcan.window.subscribe("changGroupName",function(msg){
+                Vue.set(vm.file,"groupName",msg);
+            });
+            appcan.window.subscribe("reloadChatZhu",function(msg){
+                //Vue.set(vm.file,"groupName",msg);
+                //Vue.set(vm.file,"chatType",'0');
+                var file = appcan.locStorage.getVal('chat-file-group');
+                if(isDefine(file)){
+                    var fileJson = JSON.parse(file);
+                    vm.file = $.extend({}, fileJson);
+                }
+            });
+            
+            var bodyHeight = parseFloat($('body').height()),
+                bodyWidth = parseFloat($('body').width());
+            appcan.window.subscribe('chat-dialog-scale-open', function(msg){
+                appcan.window.openPopover({
+                    name: 'chat-dialog-scale',
+                    url: "chat-dialog-scale.html",
+                    top: 0,
+                    left: 0,
+                    width: bodyWidth,
+                    height: bodyHeight
+                });
+            });
+        });
+    
+        appcan.button("#nav-left", "ani-act", function () {
+            appcan.window.evaluatePopoverScript({
+                name:'chat-dialog',
+                popName:'content',
+                scriptContent:'checkTexttDraft()'
+            });
+            appcan.window.publish("loadRecent","loadRecent");
+            appcan.window.publish("reloadUnread","reloadUnread");
+            appcan.locStorage.remove('chatcontent');
+            //将未读消息数清零
+            var resetReadparam = {
+                username:appcan.locStorage.getVal("chat-dialog-groupChatId")
+            };
+            uexEasemob.resetUnreadMsgCount(resetReadparam);
+            var closeArr = ['chat-file-people','chat-dialog'];
+            closeArr.forEach(function(name){
+                appcan.window.evaluateScript({
+                    name:name,
+                    scriptContent:'appcan.window.close(13);'
+                });
+            });
+        });
+        appcan.button("#nav-right", "ani-act", function () {
+            if(vm.file.chatType=="1"){
+                appcan.locStorage.setVal('thisgroupfile', JSON.stringify(vm.file));
+                var platForm=appcan.locStorage.getVal("platForm");
+                var aniId=0;
+                //Android
+                if(platForm=="1"){
+                    appcan.window.open('chat-file-group', 'chat-file-group.html', 2);
+                }else{
+                    appcan.window.open({
+                        name:'chat-file-group',
+                        dataType:0,
+                        data:'chat-file-group.html',
+                        aniId:aniId,
+                        type:1024
+                    });  
+                }
+            }else{
+                appcan.locStorage.setVal('thispeoplefile', JSON.stringify(vm.file.people[0]));
+                var platForm=appcan.locStorage.getVal("platForm");
+                var aniId=0;
+                //Android
+                if(platForm=="1"){
+                    appcan.window.open('chat-file-people', 'chat-file-people.html', 2);
+                }else{
+                    appcan.window.open({
+                        name:'chat-file-people',
+                        dataType:0,
+                        data:'chat-file-people.html',
+                        aniId:aniId,
+                        type:1024
+                    });  
+                }
+            }
+        });
+        </script>
+    </body>
+</html>

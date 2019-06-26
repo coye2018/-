@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content=" width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="./css/flight-number.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+    </head>
+    <body class="bg" ontouchstart>
+        <div class="" tabindex="0" data-control="PAGE" id="searchFlight" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub">
+                                <div class="tab-pill-text actives">
+                                    <span>航班号</span>
+                                </div>
+                                <div class="tab-pill-text">
+                                    <span>城市名</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                        <i class=""></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="search-item">
+                    <!--航班号  -->
+                    <div class="items">
+                      <div class="item-box">
+                        <div class="lists-box bg-white">
+                          <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">航班号</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <!-- <span class="fz-md"></span> -->
+                                <input type="text" class="fz-md" id="flightNum" value="CZ" placeholder="CZ3101" v-model="inputValue"/>
+                            </div>
+                            <div class="lists-item-right-btn ub ub-ac ub-pe">
+                                <i class=""></i>
+                            </div>
+                        </div>
+                    </div>
+                       <div class="lists-box bg-white"  @click="pickTime">
+                        	<div class="lists-item pd-10-lr ub ub-ac">
+                            	<div class="lists-item-title fc-title">
+                                <span class="fz-md">日期</span>
+                            	</div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-lg" id="startTime">{{deadline.time}}</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                            <!--<input type="text" id="picktime" class="lists-hiddenipt" />-->
+                        </div>
+                     </div>         
+                    </div>
+                    <div class="uf" id="Footer" style="margin-top: 8em;">
+		                <div class="btn-setbtm border-top pd-10-lr bg-white">
+		                    <button class="btn bg-main" @click="newFlight_search()">
+		                        <span class="fz-bg fc-white">航班查询</span>
+		                    </button>
+		                </div>
+            		</div>
+                    <div class="search-h">
+                        <div class="fz-bg fc-text tx-c" style="margin-top: 1em;">查询历史</div>
+                        <ul v-if="list" class="search-history-list" style="margin-top: 1em;">
+                            <li v-for="item in list" class="tx-c fc-text" style="margin-top: 0.8em;">{{item}}</li>
+                        </ul>
+                    </div>
+           		</div>
+                    
+            <!--城市选择  -->
+                  <div class="items" style="display:none;">
+			          <div class="item-box ub ub-ver">
+	                       <div class="city-selected">
+		                        <div class="city-item-box pd-10-lr bg-white">
+			                        <h3 class="city-item-title">
+			                            <span class="fz-lg">选择城市</span>
+			                        </h3>
+			                 <div class="item">
+		                       	<div class="city-item-dec ub ">
+			                           <div class="city-item  city-item-left pd-10-r" @click="startCT">
+			                               <div class="fz-xm tx-l cityName1" id="cityNum1">{{cityData.cityName1}}</div>
+			                               <i class="icon-pr icon-20-t-run start"></i>
+			                               <div class="fz-md tx-l start2"><br>起始地</div>
+			                           </div>
+			                            <div class="city-item city-item-middle tx-c ub-img" @click="changeCity">
+			                                <img class="img" src="./img/icon-arrive.png"/>
+			                            </div>
+			                            <div class="city-item city-item-right pd-10-r" @click="endCT">
+			                                <i class="icon-pr icon-20-t-run end"></i>
+			                                <div class="fz-xm tx-r cityName2" id="cityNum2">{{cityData.cityName2}}</div>
+			                                <div class="fz-md tx-l end2"><br>目的地</div>
+			                            </div>
+		                            </div>
+		                          </div>
+		                        </div>                     
+	                    </div>
+			         <!--日期  -->
+                          <div class="lists-box bg-white"  @click="pickTime">
+                              <div class="lists-item pd-10-lr ub ub-ac">
+                                  <div class="lists-item-title fc-title">
+                                      <span class="fz-md">日期</span>
+                                  </div>
+                                  <div class="lists-item-center inaline fc-text ub-f1">
+                                      <span class="fz-lg">{{deadline.time}}</span>
+                                  </div>
+                                  <div class="lists-item-right">
+                                      <i class="icon-20-g-goto"></i>
+                                  </div>
+                                  <!--<input type="text" id="picktime" class="lists-hiddenipt" />-->
+                              </div>
+                          </div>
+                          <div class="uf" id="Footer" style="margin-top: 2.5em;">
+	            			<div class="btn-setbtm border-top pd-10-lr bg-white">
+				                <button class="btn bg-main" @click="newCity_search">
+				                    <span class="fz-bg fc-white">航班查询</span>
+				                </button>
+	            			</div>
+                            <div class="search-c">
+                                <div class="fz-bg fc-text tx-c" style="margin-top: 1em;">查询历史</div>
+                                <ul v-if="list" class="search-history-list" style="margin-top: 1em;" id="city-search">
+                                    <li v-for="item in listCity" class="tx-c fc-text" style="margin-top: 0.8em;">{{item}}</li>
+                                </ul>
+                            </div>
+	   					</div>           
+        			</div>
+       			</div>
+    		</div>        
+		</div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="./js/flight-number.js"></script>
+    </body>
+</html>

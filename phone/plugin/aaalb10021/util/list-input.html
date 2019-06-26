@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/iosSelect.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <zh-header @left="backto">
+                <span>简单的表单</span>
+            </zh-header>
+            
+            <zh-content>
+                <!-- 这里只做展示用途, 开发时还是要把含输入框的页面拆分成父子页面来做 -->
+                
+                <zh-list v-hide-border-top v-margin-bottom>
+                    <!-- 常规用法 -->
+                    <zh-list-item>
+                        <zh-input v-model="ipt1.value" v-bind="ipt1"></zh-input>
+                    </zh-list-item>
+                    
+                    <!-- 数值展示 -->
+                    <zh-list-item>
+                        <zh-input v-model="ipt2.value" v-bind="ipt2"></zh-input>
+                    </zh-list-item>
+                    
+                    <!-- 时间选择 -->
+                    <zh-list-item>
+                        <zh-datepick v-bind="ipt3" @datechange="datechangeHandle"></zh-datepick>
+                    </zh-list-item>
+                    
+                    <!-- 普通下拉选择, 这里用了简略写法, 也可以像上面那样全部展开写 -->
+                    <zh-list-item>
+                        <zh-listpick v-bind="ipt4" @listchange="listChangeHandle"></zh-listpick>
+                    </zh-list-item>
+                    
+                </zh-list>
+                <zh-btn :size="'large'" :bg="true" :color="'blue'" :radius="true" @click="test">js手动改变时间</zh-btn>
+                
+                <!-- 
+                    1. textarea大体上和input传的值类似
+                    2. max是最大字数限制, 可填可去掉
+                    3. holder放占位提示语, 如要显示'最多可输入1000字', max设为1000, holder设为'最多可输入**字'（两个星号）, 组件内部会还原回来的
+                 -->
+                 
+                <zh-textarea v-model="txa.value" v-bind="txa"></zh-textarea>
+                <span v-html="replaceEnter(txa.value)"></span>
+                
+                <!-- 
+                    1. index是问题前面的序号, 去掉则不显示
+                 -->
+                
+                <zh-forum :title="'这里单选这里单选这里单选'"></zh-forum>
+                <zh-list>
+                    <zh-list-item v-for="(item, index) in propsPick_1">
+                        <zh-pick :index="index" :item="item" :mode="'radio'" @optionschange="optionsHandle"></zh-pick>
+                    </zh-list-item>
+                </zh-list>
+                
+                <zh-forum :title="'这里多选这里多选这里多选'"></zh-forum>
+                <zh-list>
+                    <zh-list-item v-for="(item, index) in propsPick_2">
+                        <zh-pick :index="index" :item="item" :mode="'checkbox'" @optionschange="optionsHandle"></zh-pick>
+                    </zh-list-item>
+                </zh-list>
+                
+                <zh-forum :title="'横向(适合选项少答案短的)'"></zh-forum>
+                <zh-list>
+                    <zh-list-item v-for="(item, index) in propsPick_3">
+                        <zh-pick :item="item" :mode="'radio'" :d7n="'v'" @optionschange="optionsHandle"></zh-pick>
+                    </zh-list-item>
+                </zh-list>
+                
+            </zh-content>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/iosSelect.js"></script>
+        <script src="../js/autosize.min.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js-model/list-input.js"></script>
+    </body>
+</html>

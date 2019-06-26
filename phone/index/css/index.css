@@ -1,0 +1,21 @@
+#ContentFlexVer{top:0;right:0;bottom:3.1em;left:0}
+
+#Footer{background-color:#fff;border-color:#E1E1E1;z-index: 1000000000 !important;}
+#Footer .tab_m{height:3.0625em}
+#Footer .ulev{font-size:.75em !important; padding-top: 0.1667em;}
+#Footer .ulev-1{font-size:1em !important}
+#Footer .fa-2x{font-size:1em !important}
+#Footer .sc-text-tab,
+#Footer .sc-text-active{color:#333 !important}
+#Footer .sc-bg-alert{background-color:#FE4344;padding-top:0;font-size:.75em !important;width:1.82em;height:1.8em;line-height:1.8em;top:0}
+.icon-24{display:inline-block !important;vertical-align:middle;background:center no-repeat;background-size:100%;width:1.5em;height:1.5em}
+.icon-24-index{background-image:url(../../icon/24/index.png)}
+.icon-24-chat{background-image:url(../../icon/24/chat.png)}
+.icon-24-option{background-image:url(../../icon/24/option.png)}
+.icon-24-address{background-image:url(../../icon/24/address.png)}
+.icon-24-my{background-image:url(../../icon/24/my.png)}
+.sc-text-active .icon-24-index{background-image:url(../../icon/24/index-active.png)}
+.sc-text-active .icon-24-chat{background-image:url(../../icon/24/chat-active.png)}
+.sc-text-active .icon-24-option{background-image:url(../../icon/24/option-active.png)}
+.sc-text-active .icon-24-address{background-image:url(../../icon/24/address-active.png)}
+.sc-text-active .icon-24-my{background-image:url(../../icon/24/my-active.png)}

@@ -1,0 +1,23 @@
+.arti-title{
+    font-weight: bold;
+    padding: 0.75em 0;
+}
+.arti-text{
+    padding-bottom: 1em;
+}
+.arti-img-box{
+    padding-left: 1.875em;
+    padding-right: 1.875em;
+    padding-bottom: 1em;
+}
+.arti-img-box>img{
+    max-height: 10em;
+}
+.pd-10-lr .fz-md span {
+    font-family: SimHei;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+.pd-10-lr .fz-md img {
+    width: 10em;
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/option.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">功能</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a" v-cloak>
+                <div class="scrollbox">
+                <div class="banner mg-box border-btm"></div>
+                <div class="option-list bg-white fc-title">
+                    <div class="option-type pd-10-lr" v-for="(item, index) in options" v-if="options.length>0">
+                        <div class="option-title">
+                            <span class="fz-md fc-title">{{item.functionname}}</span>
+                        </div>
+                        <div class="option-box clearfix">
+                            <div class="option-item ub ub-ver ub-ac" v-for="(value, key) in item.jsonstr" @click="unclick(value)" >
+                                <div class="option-icon">
+                                    <i :class="value.function_icon"></i>
+                                    <div class="option-reddot" v-if="value.functionNum && value.functionNum > 0">
+                                        <div class="reddot-num">{{value.functionNumShow}}</div>
+                                    </div>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">{{value.functionname}}</span>
+                                </div>
+                            </div>
+                            <!--<div class="option-item ub ub-ver ub-ac">
+                                <div class="option-icon">
+                                    <i class="icon-62-flight-seat"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">机位</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac">
+                                <div class="option-icon">
+                                    <i class="icon-62-flight-data"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">运营数据</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                    <!--<div class="option-type pd-10-lr">
+                        <div class="option-title">
+                            <span class="fz-md fc-title">值班</span>
+                        </div>
+                        <div class="option-box ub">
+                            <div class="option-item ub ub-ver ub-ac" id="duty-table-one">
+                                <div class="option-icon">
+                                    <i class="icon-62-duty-table"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">值班表</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac" id="duty-switch">
+                                <div class="option-icon">
+                                    <i class="icon-62-duty-switch"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">申请换班</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac" id="duty-approve">
+                                <div class="option-icon">
+                                    <i class="icon-62-duty-approve"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">审批换班</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac" id="duty-report">
+                                <div class="option-icon">
+                                    <i class="icon-62-duty-report"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">值班简报</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="option-type pd-10-lr">
+                        <div class="option-title">
+                            <span class="fz-md fc-title">任务</span>
+                        </div>
+                        <div class="option-box ub">
+                            <div class="option-item ub ub-ver ub-ac" id="task">
+                                <div class="option-icon">
+                                    <i class="icon-62-task-my"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">我的任务</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac" id="task-send">
+                                <div class="option-icon">
+                                    <i class="icon-62-task-send"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">指派任务</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac">
+                                <div class="option-icon">
+                                    <i class="icon-62-task-form"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">任务报表</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="option-type pd-10-lr">
+                        <div class="option-title">
+                            <span class="fz-md fc-title">通知</span>
+                        </div>
+                        <div class="option-box ub">
+                            <div class="option-item ub ub-ver ub-ac" id="notice">
+                                <div class="option-icon">
+                                    <i class="icon-62-notice"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">通知</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac" id="notice-send">
+                                <div class="option-icon">
+                                    <i class="icon-62-notice-send"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">发通知</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="option-type pd-10-lr">
+                        <div class="option-title">
+                            <span class="fz-md fc-title">其他</span>
+                        </div>
+                        <div class="option-box ub">
+                            <div class="option-item ub ub-ver ub-ac">
+                                <div class="option-icon">
+                                    <i class="icon-62-other-knowledge"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">知识库</span>
+                                </div>
+                            </div>
+                            <div class="option-item ub ub-ver ub-ac">
+                                <div class="option-icon">
+                                    <i class="icon-62-other-weather"></i>
+                                </div>
+                                <div class="option-item-text">
+                                    <span class="fz-sm">天气</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="nothing" v-else></div>
+                    
+                </div>
+                <div class="nonetwork" :class="nonet?'':'hide'"></div>
+                
+              </div>  
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/option.js"></script>
+    </body>
+</html>

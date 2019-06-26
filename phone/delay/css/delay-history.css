@@ -1,0 +1,25 @@
+#ScrollContent{
+    padding-top: 2.75em;
+}
+
+.delay-list{
+    height: 3.854em;
+    background: #fff;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.delay-list .delay-hd{
+    padding: 0 0.416em;
+}
+
+.delay-list .delay-hd img{
+    display: block;
+    width: 2.187em;
+    height: 2.187em;
+}
+
+.delay-list .delay-primary p{
+    color: #999;
+    margin-top: 0.52em;
+}
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="contrail_content/css/main.css">
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/globalvariable.js"></script>
+        <script>
+            
+            //var entity_name="heshan";
+            //var entity_name="yanghuarui";
+            //var entity_name="13632102500";
+            //var entity_name="13822163246";
+            var entity_name="13922447598";
+            //var entity_name="18923090187";
+            var startTime=new Date("2017-8-24 16:00:10").getTime()/1000;
+            var endTime=new Date("2017-8-25 10:00:00").getTime()/1000;
+            var pageIndex=0;
+            
+            //是否进行纠偏，0为不纠偏，则返回所有原始位置点
+            var isProcess=0;
+            //纠偏选项，分别为：绑路、抽稀、降噪、交通方式、精度
+            var processOption='need_mapmatch=0,need_vacuate=1,need_denoise=1,transport_mode=walking,radius_threshold=100';
+            var param="http://yingyan.baidu.com/api/v3/track/gettrack?service_id=118934&"
+                       +"entity_name="+entity_name+"&"
+                       + "start_time="+startTime+"&"
+                       +"end_time="+endTime+"&"
+                       +"is_processed="+isProcess+"&"
+                       +"process_option="+processOption+"&"
+                       +"supplement_mode=walking&"
+                       +"sort_type=asc&"
+                       +"ak=b7cObkcgf54RyEXHrz9k2uvkfErRs8Du&"
+                       +"page_size=5000";
+                       
+            
+            var allData=new Array();
+            $.ajaxSettings.cache = false;  
+            $.ajaxSettings.async = false;            
+            for(var i=0;i<100;i++){
+                pageIndex++;
+                var data;
+                $.getJSON(param+"&page_index="+pageIndex,function(info){
+                    console.info(info);
+                    data=info;                                             
+               
+            });
+            
+                var points=data.points;
+                allData=allData.concat(points); 
+                
+            if(data.size==undefined||parseInt(data.size)<5000){
+                    break;
+                }
+                //console.info("循环了"+i);    
+               
+            } 
+                
+                var count=0;
+                var radiusCount=0;
+                var speedCount=0;
+                var timeCount=0;
+              for(var i=0;i<allData.length-1;i++){
+                  if(allData[i].latitude==allData[i+1].latitude&&allData[i].longitude==allData[i+1].longitude){
+                      count++;
+                  }
+                  //console.info(allData[i]);
+                  if(allData[i].radius>50){
+                    
+                    radiusCount++;  
+                  }
+                  
+                  if(allData[i].speed>100){
+                    
+                    speedCount++;  
+                  }
+                  
+                  if(allData[i].loc_time>allData[i+1].loc_time){
+                      timeCount++;
+                  }
+                  
+                  var createTime1=new Date(allData[i].create_time).getTime();
+                  var createTime2=new Date(allData[i+1].create_time).getTime();
+                  if(createTime1>createTime2){
+                      
+                      console.info(allData[i].create_time+" # "+allData[i+1].create_time);
+                  }
+                   
+                  if(allData[i].radius==76.513160705566) {
+                      //console.info(allData[i]);
+                      //console.info(new Date(allData[i].loc_time*1000).toLocaleString());
+                      //console.info("--"+new Date(allData[i].create_time).toLocaleString());
+                  } 
+                  
+                  if(allData[i].radius==67.502113342285) {
+                      //console.info(allData[i]);
+                      //console.info(new Date(allData[i].loc_time*1000).toLocaleString());
+                  }
+                  
+              }
+              //console.info(allData);
+              //console.info(data);
+              console.info("total:"+allData.length+",repeat:"+count+",percent:"+count/allData.length+" radiusCount="+radiusCount+" speedCount="+speedCount+" timeCount="+timeCount);
+            //alert(allData.length);       
+            
+            
+            
+            
+        </script>
+        
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+    </body>
+</html>

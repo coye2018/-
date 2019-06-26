@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat-common.css">
+        <link rel="stylesheet" href="../my/css/my-bg.css">
+        <link rel="stylesheet" href="../duty/css/duty-four.css">
+    </head>
+    <body class="bg-trans" ontouchstart>
+        <!-- <div class="bg-chat"></div> -->
+        <!-- <script src="js/chatbg-set.js"></script> -->
+        <!-- <div data-control="PAGE"> -->
+        <div class="" id="chat-dialog" v-cloak>
+            <div class="chat pd-10-lr" id="chat-box">
+                <template v-for="(item,index) in Chat">
+                    <!-- 以下未读 -->
+                    <div v-if="Chat.length-unReadCount==index && isunreadScroll" id="unreadLine" class="chat-unreadnote ub ub-ac ub-pc tx-c">
+                        <div class="chat-unreadnote-line ub-f1"></div>
+                        <div class="chat-unreadnote-text">
+                            <span class="fz-sm fz-sm-set fc-text">以下是未读消息</span>
+                        </div>
+                        <div class="chat-unreadnote-line ub-f1"></div>
+                    </div>
+                    <!-- 以下未读END -->
+                    <!-- 时间 -->
+                    <div v-if="item.sendMsgTimeHide" class="chat-date tx-c">
+                        <span class="fz-sm fz-sm-set">{{item.sendMsgTime}}</span>
+                    </div>
+                    <!-- 时间END -->
+                    
+                    <!-- 撤回 -->
+                    <div v-if="item.isRevoke" class="chat-drawback tx-c" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-drawback-item bg-divide">
+                            <span class="fz-sm fz-sm-set">{{item.chatFromUser}}撤回了一条消息</span>
+                        </div>
+                    </div>
+                    <!-- 撤回END -->
+                    
+                    
+                    
+                    <!-- 我方-文字 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='text'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac" >
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble bg-main fc-main" @click="unclick(item,0,$event)" v-doubletap="index" v-longtouch="index">
+                                    <div class="chat-text fz-md fc-white fz-md-set" v-html="item.messageBody.text"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-文字END -->
+                    
+                    <!-- 我方-视频预览 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='video'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac" >
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble chat-bubble-sm bg-main fc-main" @click="unclick(item,0,$event)" v-longtouch="index">
+                                    <div class="chat-video-box">
+                                        <img class="chat-video-img" :src="item.messageBody.thumbnailRemotePath" />
+                                        <div class="chat-video"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-视频预览END -->
+                    
+                    <!-- 我方-图片 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='image'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble chat-bubble-sm bg-main fc-main" @click="unclick(item,0,$event)" v-longtouch="index" :style="{height: item.messageBody.remoteH, width: item.messageBody.remoteW}">
+                                    <div class="chat-img-box">
+                                        <!-- <img class="chat-img" v-if='item.messageBody.width' :width="item.messageBody.width" :heigth="item.messageBody.heigth" v-lazy="item.messageBody.thumbnailRemotePath==''?item.messageBody.remotePath:item.messageBody.thumbnailRemotePath" />-->
+                                        <img class="chat-img" v-lazy="item.messageBody.remotePath==''?item.messageBody.thumbnailRemotePath:item.messageBody.remotePath" 
+                                        :style="{height: item.messageBody.remoteH, width: item.messageBody.remoteW, display: item.messageBody.hasOwnProperty('remoteShow')&&!item.messageBody.remoteShow?'none':'block'}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-图片END -->
+                    
+                    <!-- 我方-语音 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='audio'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble bg-main fc-main" @click="unclick(item,0,$event)" v-longtouch="index" :style="{width: item.audioL}">
+                                    <div class="chat-voice-box ub ub-ac ub-pj">
+                                        <audio :src="item.messageBody.remotePath"></audio>
+                                        <div class="fz-md fc-white fz-md-set">{{item.audioS}}''</div>
+                                        <div class="chat-voice-icon" :class="item.isPlay?'play':''"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-语音END -->
+                    
+                    <!-- 对方-文字 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='text'" class="chat-item chat-others ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub">
+                                <div class="chat-status hide">
+                                </div>
+                                <div class="chat-bubble bg-sub-lighter fc-sub-lighter" @click="unclick(item,1,$event)" v-doubletap="index" v-longtouch="index">
+                                    <div class="chat-text fz-md fc-title fz-md-set" v-html="item.messageBody.text"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-文字END -->
+                    
+                    <!-- 我方-语音 -->
+                    <!--
+                    <div class="chat-item chat-myself ub">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">我</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status hide">
+                                    <i class="icon-20-chat-refresh rotate"></i>
+                                </div>
+                                <div class="chat-bubble bg-main fc-main play">
+                                    <div class="chat-voice-box ub ub-ac ub-pj">
+                                        <audio src="#"></audio>
+                                        <div class="chat-voice-icon"></div>
+                                        <div class="fz-md fc-white fz-md-set">33''</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" src="../icon/24/fsize-head.png" />
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <!-- 我方-语音END -->
+                    
+                    <!-- 对方-语音 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='audio'" class="chat-item chat-others ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub">
+                                <div class="chat-status hide">
+                                </div>
+                                <div class="chat-bubble bg-sub-lighter fc-sub-lighter" @click="unclick(item,1,$event)" v-longtouch="index" :style="{width: item.audioL}">
+                                    <div class="chat-voice-box ub ub-ac ub-pj">
+                                        <audio :src="item.messageBody.remotePath"></audio>
+                                        <div class="fz-md fc-title fz-md-set">{{item.audioS}}''</div>
+                                        <div class="chat-voice-icon" :class="item.isPlay?'play':''"></div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-语音END -->
+                    
+                    <!-- 对方-视频预览 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='video'" class="chat-item chat-others ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub">
+                                <div class="chat-status hide">
+                                </div>
+                                <div class="chat-bubble chat-bubble-sm bg-sub-lighter fc-sub-lighter" @click="unclick(item,1,$event)" v-longtouch="index">
+                                    <div class="chat-video-box">
+                                        <img class="chat-video-img" :src="item.messageBody.thumbnailRemotePath" />
+                                        <div class="chat-video"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-视频预览END -->
+                    
+                    <!-- 对方-图片 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='image'" class="chat-item chat-others ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub">
+                                <div class="chat-status hide" >
+                                </div>
+                                <div class="chat-bubble chat-bubble-sm bg-sub-lighter fc-sub-lighter" @click="unclick(item,1,$event)" v-longtouch="index" :style="{height: item.messageBody.remoteH, width: item.messageBody.remoteW}">
+                                    <div class="chat-img-box">
+                                        <!--<img class="chat-img" v-if='item.messageBody.width'  :width="item.messageBody.width" :heigth="item.messageBody.heigth" v-lazy="item.messageBody.thumbnailRemotePath==''?item.messageBody.remotePath:item.messageBody.thumbnailRemotePath"/>-->
+                                        <img class="chat-img" v-lazy="item.messageBody.remotePath==''?item.messageBody.thumbnailRemotePath:item.messageBody.remotePath" 
+                                        :style="{height: item.messageBody.remoteH, width: item.messageBody.remoteW}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-图片END -->
+                    
+                    <!-- 对方-文件 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='file'" class="chat-item chat-others ub" :class="item.isHide?'hide':''" :id="item.messageId" :sendTime="item.messageTime">
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status hide">
+                                    <i class="icon-20-chat-refresh rotate"></i>
+                                </div>
+                                <div class="chat-bubble bg-sub-lighter fc-sub-lighter" v-longtouch="index" @click="fileclick(item,0,index)">
+                                    <div class="chat-docu ub ub-ac" :data-docu="item.messageBody.suffix">
+                                        <div class="chat-docu-con ub-f1 ub ub-ver">
+                                            <div class="chat-docu-title fc-title clearfix">
+                                                <div class="chat-docu-title-main fl inaline">
+                                                    <span class="fz-sm">{{item.messageBody.displayName}}</span>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="chat-docu-data fc-text clearfix">
+                                                <div class="fl">
+                                                    <span class="fz-sm">{{item.messageBody.fileSize}}</span>
+                                                </div>
+                                                <div class="chat-docu-status fr">
+                                                    <span class="fz-sm">{{item.messageBody.hasReciveText}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="prog prog-chat hide"></div>
+                                        </div>
+                                        <div class="chat-docu-type ub ub-ac ub-pc">
+                                            <span class="fz-sm fc-white">{{item.messageBody.suffix}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-文件END -->
+                    
+                    <!-- 我方-文件 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='file'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''"  :id="item.messageId" :sendTime="item.messageTime" >
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status hide">
+                                    <i class="icon-20-chat-refresh rotate"></i>
+                                </div>
+                                <div class="chat-bubble bg-sub-lighter fc-sub-lighter" v-longtouch="index"  @click="fileclick(item,1,index)">
+                                    <div class="chat-docu ub ub-ac" :data-docu="item.messageBody.suffix">
+                                        <div class="chat-docu-con ub-f1 ub ub-ver">
+                                            <div class="chat-docu-title fc-title clearfix">
+                                                <div class="chat-docu-title-main fl inaline">
+                                                    <span class="fz-sm">{{item.messageBody.displayName}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="chat-docu-data fc-text clearfix">
+                                                <div class="fl">
+                                                    <span class="fz-sm">{{item.messageBody.fileSize}}</span>
+                                                </div>
+                                                <div class="chat-docu-status fr hide">
+                                                    <span class="fz-sm">{{item.messageBody.hasReciveText}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="prog prog-chat hide"></div>
+                                        </div>
+                                        <div class="chat-docu-type ub ub-ac ub-pc">
+                                            <span class="fz-sm fc-white">{{item.messageBody.suffix}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-文件END -->
+                    
+                    <!-- 我方-分享-值班问题 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='dutyProblem'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''"  :id="item.messageId" :sendTime="item.messageTime" >
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble chat-share bg-white fc-white" v-longtouch="index" @click="openDutyProblem(item)">
+                                    <div class="chat-share-con">
+                                        <!--
+                                        <div class="chat-share-title">
+                                            <p class="fz-md fz-md-set fc-title inaline"></p>
+                                        </div>
+                                        -->
+                                        <div class="chat-share-summary">
+                                            <p class="fz-sm fz-sm-set fc-title in2line" v-html="item.messageBody.dutyText"></p>
+                                        </div>
+                                        <div class="chat-share-detail ub ub-ac">
+                                            <div class="chat-share-detail-item ub-f1 ub">
+                                                <div class="fz-sm fz-sm-set fc-text">责任部门:</div>
+                                                <div class="fz-sm fz-sm-set fc-text ub-f1 inaline">{{item.messageBody.dutyProblemRecvdepart}}</div>
+                                            </div>
+                                            <div class="chat-share-detail-item">
+                                                <div class="fz-sm fz-sm-set fc-text">{{item.messageBody.dutyProblemTime}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-分享-值班问题END -->
+                    
+                    <!-- 对方-分享-值班问题 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='dutyProblem'" class="chat-item chat-others ub" :class="item.isHide?'hide':''"  :id="item.messageId" :sendTime="item.messageTime" >
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status hide">
+                                    <i class="icon-20-chat-refresh rotate"></i>
+                                </div>
+                                <div class="chat-bubble chat-share bg-white fc-white" v-longtouch="index" @click="openDutyProblem(item)">
+                                    <div class="chat-share-con">
+                                        <!--
+                                        <div class="chat-share-title">
+                                            <p class="fz-md fz-md-set fc-title inaline"></p>
+                                        </div>
+                                        -->
+                                        <div class="chat-share-summary">
+                                            <p class="fz-sm fz-sm-set fc-title in2line" v-html="item.messageBody.dutyText"></p>
+                                        </div>
+                                        <div class="chat-share-detail ub ub-ac">
+                                            <div class="chat-share-detail-item ub-f1 ub">
+                                                <div class="fz-sm fz-sm-set fc-text">责任部门:</div>
+                                                <div class="fz-sm fz-sm-set fc-text ub-f1 inaline">{{item.messageBody.dutyProblemRecvdepart}}</div>
+                                            </div>
+                                            <div class="chat-share-detail-item">
+                                                <div class="fz-sm fz-sm-set fc-text">{{item.messageBody.dutyProblemTime}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-分享-值班问题END -->
+                    
+                    <!-- 我方-分享-任务 -->
+                    <div v-if="!item.isRevoke && !item.isOthers && item.ownerType=='taskShare'" class="chat-item chat-myself ub" :class="item.isHide?'hide':''"  :id="item.messageId" :sendTime="item.messageTime" >
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status" :class="item.chatStatus?'hide':''">
+                                    <i v-if="!item.chatStatus && !item.chatStatusWarning" class="icon-20-chat-refresh rotate"></i>
+                                    <i v-if="!item.chatStatus && item.chatStatusWarning" class="icon-20-chat-warning"></i>
+                                </div>
+                                <div class="chat-bubble chat-share bg-white fc-white" v-longtouch="index" @click="openTaskShare(item)">
+                                    <div class="chat-share-con">
+                                        <!--
+                                        <div class="chat-share-title">
+                                            <p class="fz-md fz-md-set fc-title inaline"></p>
+                                        </div>
+                                        -->
+                                        <div class="chat-share-summary">
+                                            <p class="fz-sm fz-sm-set fc-title in2line" v-html="item.messageBody.taskText"></p>
+                                        </div>
+                                        <div class="chat-share-detail ub ub-ac">
+                                            <div class="chat-share-detail-item ub-f1 ub">
+                                                <div class="fz-sm fz-sm-set fc-text">执行人:</div>
+                                                <div class="fz-sm fz-sm-set fc-text ub-f1 inaline">{{item.messageBody.taskReceiveInfoStr}}</div>
+                                            </div>
+                                            <div class="chat-share-detail-item">
+                                                <div class="fz-sm fz-sm-set fc-text">{{item.messageBody.taskSendTime}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <div class="chat-head">
+                            <div class="chat-head-box">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 我方-分享-任务END -->
+                    
+                    <!-- 对方-分享-任务 -->
+                    <div v-if="!item.isRevoke && item.isOthers && item.ownerType=='taskShare'" class="chat-item chat-others ub" :class="item.isHide?'hide':''"  :id="item.messageId" :sendTime="item.messageTime" >
+                        <div class="chat-box ub-f1">
+                            <div class="chat-title">
+                                <span class="fz-md fz-md-set">{{item.chatFromUser}}</span>
+                            </div>
+                            <div class="chat-content ub ub-ac">
+                                <div class="chat-status hide">
+                                    <i class="icon-20-chat-refresh rotate"></i>
+                                </div>
+                                <div class="chat-bubble chat-share bg-white fc-white" v-longtouch="index" @click="openTaskShare(item)">
+                                    <div class="chat-share-con">
+                                        <!--
+                                        <div class="chat-share-title">
+                                            <p class="fz-md fz-md-set fc-title inaline"></p>
+                                        </div>
+                                        -->
+                                        <div class="chat-share-summary">
+                                            <p class="fz-sm fz-sm-set fc-title in2line" v-html="item.messageBody.taskText"></p>
+                                        </div>
+                                        <div class="chat-share-detail ub ub-ac">
+                                            <div class="chat-share-detail-item ub-f1 ub">
+                                                <div class="fz-sm fz-sm-set fc-text">执行人:</div>
+                                                <div class="fz-sm fz-sm-set fc-text ub-f1 inaline">{{item.messageBody.taskReceiveInfoStr}}</div>
+                                            </div>
+                                            <div class="chat-share-detail-item">
+                                                <div class="fz-sm fz-sm-set fc-text">{{item.messageBody.taskSendTime}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-head" v-at="index">
+                            <div class="chat-head-box" @click="headAt(item)">
+                                <img class="chat-head-img" v-if="item.hashead" :src="item.headerImg" />
+                                <div class="myli-headpic-txt" v-else :class="item.headbgclass">{{item.headtext}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 对方-分享-任务END -->
+                    
+                </template>
+            </div>
+            
+            <div class="chat-unread actives hide" id="unread" onclick="loadunreadMsg()">
+                <div class="chat-unread-con bg-white ub ub-ac ub-pc">
+                    <i class="icon-28-unread"></i>
+                    <div class="chat-unread-text">
+                       <span class="fz-sm fc-main"></span>
+                    </div>
+                    <div class="chat-unread-arr"></div>
+                </div>
+            </div>
+            
+            <div class="chat-shade hide" id="shadeChat">
+                <div class="chat-modal fc-title">
+                    <div class="chat-modal-box">
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.copytext?'':'hide'" id="textDivId" ontouchstart="copyText(event)">
+                            <span class="fz-lg">复制</span>
+                        </div>
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.saveImg?'':'hide'" id="imageDivId" ontouchstart="savePic(event)">
+                            <span class="fz-lg">保存到相册</span>
+                        </div>
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.task?'':'hide'" id="taskTextZpId" ontouchstart="taskSend(event)">
+                            <span class="fz-lg">指派为任务</span>
+                        </div>
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.revoke?'':'hide'" id="revokeDinId" ontouchstart="revokeMsg(event)">
+                            <span class="fz-lg">撤回消息</span>
+                        </div>
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.remove?'':'hide'" id="removeMessage" ontouchstart="removeMsg(event)">
+                            <span class="fz-lg">删除消息</span>
+                        </div>
+                        <div class="chat-modal-btn border-btm" :class="shadeChat.Forwarding?'':'hide'" id="messageForwarding" ontouchstart="msgReSend(event)">
+                            <span class="fz-lg">转发消息</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!--弹出框：要发送的图片  -->
+            <div class="choosePic" style="position:fixed !important;right:2%;bottom:0;z-index:1000;overflow:hidden;border-radius: 0.5em;display: none" onclick="openlayer()">
+                <div class="choosePic-box bg-white" style="width:4.5em;height:6em;padding: 0.1em 0.1em 0.1em 0.1em;border-radius: 0.5em;border: 1px solid #C0C0C0;">
+                    <div style="height:2em;">
+                    <span style="font-size: 0.6em;">你可能要发送的照片：</span>
+                    </div>
+                    <div class="picbox" style="width:100%;height:3.6em;border:1px solid #C0C0C0;padding-bottom:0.2em;overflow:hidden;">
+                        <img src="" style="display:block;width:100%;"/>
+                    </div>
+                </div>
+                <div id="" style="height:0.6em; ">
+                   <i class="trang" style="position: absolute !important;z-index:1000;right:20%;bottom:-0.68em;border: 0.65em solid;border-color: #C0C0C0 transparent transparent transparent;"></i>
+                    <i class="trang-cover" style="position:absolute !important;z-index:1000;right:20%;bottom:-0.6em;border: 0.65em solid;border-color: #fff transparent transparent transparent;"></i> 
+                </div>
+            </div>
+        <!--弹出框：要发送的图片 end -->
+        <!-- </div> -->
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/vue-lazyload.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/prog.js"></script>
+        <script src="js/exif.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="js/chat-dialog-ci.js"></script>
+        <script src="js/chat-dialog-easemob-ready-ci.js"></script>
+        <script src="js/chat-dialog-easemob-showData-ci.js"></script>
+    </body>
+</html>

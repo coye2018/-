@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat.css">
+        <style>
+            #ScrollContent{
+                left:0;
+                right:0;
+                bottom:0;
+                top: 6em;
+            }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="chat">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub">
+                                <div class="tab-pill-text activess">
+                                    <span>会话</span>
+                                </div>
+                                <div class="tab-pill-text">
+                                    <span>群组</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn ub" id="nav-right">
+                        <div id="nav-noti" class="nav-btn-dbl ub ub-pc">
+                            <i class="icon-20-h-noti-on"></i>
+                        </div>
+                        <div id="nav-add" class="nav-btn-dbl ub ub-pc">
+                            <i class="icon-20-h-add"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="disContentChat hide">
+                    <i class="icon-20-chat-disContentChat"></i>
+                    <span id="chatDiscontent">与聊天服务器失去连接 </span>
+                </div>
+                <div class="search-box bc-bg">
+                    
+                    <div class="search" @click="searchToInput()">
+                        <div class="search-main ub-con ub ub-ac ub-pc" :class="isToInput?'':'hide' ">
+                            <div class="search-main-center ub-f1">
+                                <input class="search-ipt fix-search-ipt" v-model="searchIpt" v-focus="isToInput" @input="searchFilter()" @blur="searchToText()" />
+                            </div>
+                            <div class="search-main-right" @click="searchEmpty()">
+                                <i class="search-del-icon"></i>
+                            </div>
+                        </div>
+                        <div class="search-note ub-con ub ub-ac ub-pc" :class="isToInput?'hide':'' ">
+                            <i class="icon-20-h-search"></i>
+                            <span class="search-note-text fz-md fc-text">请输入搜索内容</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a" style="padding-top: 0">
+                <div class="tab-con" style="height: 100%;">
+                    <div class="tab-box activess" id="chatList">
+                        <div class="chat-scroll" @touchstart="chatScroll($event)">
+                            <ul class="myli" v-if="recent.length>0" v-cloak>
+                                <li class="myli-item js-toggle-item" v-for="(item, index) in recent" @click="enterChat(item, 0, $event)">
+                                    <div class="myli-center-lg ub ub-ac charli-option-animated">
+                                        <div class="myli-headpic-lg">
+                                            <div class="myli-headpic-box-lg">
+                                                <template v-for="(value, key) in item.people" v-if="key<4">
+                                                    <img class="myli-headpic-img-lg" v-if="value.hashead" :src="value.headurl" @error="headpicReplace(value, item.chatType)" />
+                                                    <div class="myli-headpic-txt-lg" v-else :class="value.headbgclass">
+                                                        <template v-if="item.people.length==1">{{value.userNameShort}}</template>
+                                                        <template v-else>{{value.userNameOne}}</template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div class="myli-main ub-f1">
+                                            <div class="chatli-top ub ub-ac">
+                                                <div class="chatli-title inaline ub-f1">
+                                                    <span class="fz-md fz-md-set fc-title">{{item.groupName}}</span>
+                                                </div>
+                                                <div class="chatli-time">
+                                                    <span class="fz-sm fz-sm-set fc-text">{{item.lastMsg.messageTime}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="chatli-btm ub ub-ac">
+                                                <div class="chatli-text inaline ub-f1">
+                                                    <span class="fz-sm fz-sm-set fc-warn-red" v-if="item.draft!=''">{{item.draft}}</span>
+                                                    <span class="fz-sm fz-sm-set fc-text" v-if="item.chatType=='1'">{{item.lastMsg.ext}}</span>
+                                                    <span class="fz-sm fz-sm-set fc-text" v-html="item.lastMsg.messageBody.ownerText"></span>
+                                                </div>
+                                                <div class="charli-note">
+                                                    <div class="charli-reddot bg-reddot" v-show="item.unreadMsgCount>0">
+                                                        <span class="fz-sm fz-sm-set fc-white">{{item.unreadMsgCount>99?'99+':item.unreadMsgCount}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ub ub-ac charli-option">
+                                            <div class="ub-f1"></div>
+                                            <div class="ub ub-ac charli-option-box">
+                                                <div class="ub ub-ac bg-reddot charli-option-item" @click.stop="delDialog(item, index, $event)">
+                                                    <span class="fz-md fz-md-set fc-white js-del">删除</span>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <!-- <li class="myli-item js-toggle-item">
+                                    <div class="myli-center-lg ub ub-ac charli-option-animated">
+                                        <div class="myli-headpic-lg">
+                                            <div class="myli-headpic-box-lg">
+                                                <div class="myli-headpic-txt-lg bg-head-0">股份</div>
+                                            </div>
+                                        </div>
+                                        <div class="myli-main ub-f1">
+                                            <div class="chatli-top ub ub-ac">
+                                                <div class="chatli-title inaline ub-f1">
+                                                    <span class="fz-md fz-md-set fc-title">值班群聊</span>
+                                                </div>
+                                                <div class="chatli-time">
+                                                    <span class="fz-sm fz-sm-set fc-text">7月31日 09:23</span>
+                                                </div>
+                                            </div>
+                                            <div class="chatli-btm ub ub-ac">
+                                                <div class="chatli-text inaline ub-f1">
+                                                    <span class="fz-sm fz-sm-set fc-text">航管部@广告公司 这污渍已渗透石板需要123123123需要需要需要123123123</span>
+                                                </div>
+                                                <div class="charli-note">
+                                                    <div class="charli-reddot bg-reddot">
+                                                        <span class="fz-sm fz-sm-set fc-white">99+</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ub ub-ac charli-option">
+                                            <div class="ub-f1"></div>
+                                            <div class="ub ub-ac charli-option-box">
+                                                <div class="ub ub-ac bg-reddot charli-option-item">
+                                                    <span class="fz-md fz-md-set fc-white js-del">删除</span>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li> -->
+                            </ul>
+                            <div class="nothing" v-else></div>
+                            <div class="nonetwork hide"></div>
+                        </div>
+                    </div>
+                     
+                    <div class="tab-box">
+                        <div class="chat-scroll">
+                            <ul class="myli" v-if="grouplist.length>0" v-cloak>
+                                <li class="myli-item" v-for="(item, index) in grouplist" @click="enterChat(item,1, $event)">
+                                    <div class="myli-center-lg ub ub-ac">
+                                        <div class="myli-headpic-lg">
+                                            <div class="myli-headpic-box-lg">
+                                                <template v-for="(value, key) in item.people" v-if="key<4">
+                                                    <img class="myli-headpic-img-lg" v-if="value.hashead" :src="value.headurl" @error="headpicReplace(value, item.chatType)" />
+                                                    <div class="myli-headpic-txt-lg" v-else :class="value.headbgclass">{{value.userNameOne}}</div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div class="myli-main ub-f1">
+                                            <div class="chatli-top ub ub-ac">
+                                                <div class="chatli-title inaline ub-f1">
+                                                    <span class="fz-md fz-md-set fc-title">{{item.groupName}}</span>
+                                                </div>
+                                                <div class="charli-note">
+                                                    <!--
+                                                    <div class="charli-reddot bg-reddot" v-show="item.unread>0">
+                                                        <span class="fz-sm fz-sm-set fc-white">{{item.unread>99?'99+':item.unread}}</span>
+                                                    </div>
+                                                    -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                            <div class="nothing" v-else></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/touch-0.2.14.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/pinyin_dict_firstletter.js"></script>
+        <script src="js/pinyinUtil.js"></script>
+        <script src="js/chat-pluIn.js"></script>
+        <script src="js/chat.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/swiper.min.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="../delay/css/delay.css">
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="main">
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<div class="fa fa-1g ub-img1"></div>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">首页</h1>
+					<div class="nav-btn" id="nav-right">
+						<div class="fa fa-1g ub-img1"></div>
+					</div>
+				</div>
+			</div>
+			<div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+				<div class="scrollbox">
+
+					<div class="bg-white pd-10-lr border-btm mg-box hide">
+						<div class="warning-top ub ub-ac">
+							<div class="warning-btn-box">
+								<button type="button" class="btn btn-square btn-border bg-main warning-btn" disabled="disabled">
+                                    <span class="fz-md">预警</span>
+                                </button>
+							</div>
+							<div class="idxbox-title ub-f1">
+								<span class="fz-md fc-title">大面积航班延误预警</span>
+							</div>
+							<div class="warning-time">
+								<span class="fz-sm fc-text">启动于</span>
+								<span class="fz-sm fc-text">今日22:22</span>
+							</div>
+						</div>
+						<div class="warning-btm border-top">
+							<div class="warning-btm-box ub ub-ac">
+								<div class="warning-img yellow ub-f1"></div>
+								<div class="warning-note ub ub-ver ub-ac">
+									<div class="fz-xxl fc-warn-yellow">黄色</div>
+									<div class="warning-note-mg fz-md fc-title">相应级别</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="border-top border-btm bg-white mg-box">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<div class="ub-con ub ub-ver ub-ac">
+										<div class="chart-title ub ub-ver ub-ac ub-pc">
+											<span class="fz-lg fc-title">放行率</span>
+										</div>
+										<div class="chart-show ub-f1 ub ub-ver pd-10-lr">
+											<div class="ub-f1" id="fangxinglv">
+											</div>
+											<div class="ub databox">
+												<div class="databox-item fc-warn-blue ub-f1 ub ub-ver ub-ac" id="Plan">
+													<div class="ub-f1">
+														<span class="fz-xxl" v-cloak>{{res.count1}}</span>
+													</div>
+													<div>
+														<span class="databox-dot"></span>
+														<span class="fz-md fc-title">计划</span>
+													</div>
+												</div>
+												<div class="databox-item fc-warn-green ub-f1 ub ub-ver ub-ac" id="Flight">
+													<div class="ub-f1">
+														<span class="fz-xxl" v-cloak>{{res.count2}}</span>
+													</div>
+													<div>
+														<span class="databox-dot"></span>
+														<span class="fz-md fc-title">正常</span>
+													</div>
+												</div>
+												<div class="databox-item fc-warn-yellow ub-f1 ub ub-ver ub-ac" id="Delay">
+													<div class="ub-f1">
+														<span class="fz-xxl" v-cloak>{{res.count3}}</span>
+													</div>
+													<div>
+														<span class="databox-dot"></span>
+														<span class="fz-md fc-title">延误</span>
+													</div>
+												</div>
+												<div class="databox-item fc-warn-red ub-f1 ub ub-ver ub-ac" id="Cancel">
+													<div class="ub-f1">
+														<span class="fz-xxl" v-cloak>{{res.count4}}</span>
+													</div>
+													<div>
+														<span class="databox-dot"></span>
+														<span class="fz-md fc-title">取消</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="swiper-slide">
+                                    <div class="ub-con ub ub-ver ub-ac">
+                                        <div class="chart-title ub ub-ver ub-ac ub-pc">
+                                            <span class="fz-lg fc-title">放行率</span>
+                                        </div>
+                                        <div class="chart-show ub-f1 ub ub-ver pd-10-lr">
+                                            <div class="ub-f1" id="fangxinglv">
+                                            </div>
+                                            <div class="ub databox">
+                                                <div class="databox-item fc-text ub-f1 ub ub-ver ub-ac" id="Plan">
+                                                    <div class="ub-f1">
+                                                        <span class="fz-xxl" v-cloak>{{res.count1}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="databox-dot"></span>
+                                                        <span class="fz-md fc-title">计划</span>
+                                                    </div>
+                                                </div>
+                                                <div class="databox-item fc-warn-green ub-f1 ub ub-ver ub-ac" id="Flight">
+                                                    <div class="ub-f1">
+                                                        <span class="fz-xxl" v-cloak>{{res.count2}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="databox-dot"></span>
+                                                        <span class="fz-md fc-title">正常</span>
+                                                    </div>
+                                                </div>
+                                                <div class="databox-item fc-warn-yellow ub-f1 ub ub-ver ub-ac" id="Delay">
+                                                    <div class="ub-f1">
+                                                        <span class="fz-xxl" v-cloak>{{res.count3}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="databox-dot"></span>
+                                                        <span class="fz-md fc-title">延误</span>
+                                                    </div>
+                                                </div>
+                                                <div class="databox-item fc-warn-red ub-f1 ub ub-ver ub-ac" id="Cancel">
+                                                    <div class="ub-f1">
+                                                        <span class="fz-xxl" v-cloak>{{res.count4}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="databox-dot"></span>
+                                                        <span class="fz-md fc-title">取消</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="swiper-slide">
+                                    <div class="ub-con ub ub-ver ub-ac">
+                                        <div class="chart-title ub ub-ver ub-ac ub-pc">
+                                            <div class="fz-lg fc-title">周放行率</div>
+                                            <div class="fz-lg fc-title">（测试数据）</div>
+                                        </div>
+                                        <div class="chart-show ub-f1 pd-10-lr" id="zhoufangxinglv">
+                                        </div>
+                                    </div>
+                                </div> -->
+								<!-- <div class="swiper-slide">
+                                    <div class="ub-con ub ub-ver ub-ac">
+                                        <div class="chart-title ub ub-ver ub-ac ub-pc">
+                                            <div class="fz-lg fc-title">延误情况</div>
+                                            <div class="fz-lg fc-title">（测试数据）</div>
+                                        </div>
+                                        <div class="chart-show ub-f1 pd-10-lr" id="yanwu">
+                                        </div>
+                                    </div>
+                                </div> -->
+							</div>
+							<!-- 如果需要分页器 -->
+							<!-- <div class="swiper-pagination"></div> -->
+						</div>
+					</div>
+
+					<div class="idxbox bg-white pd-10-lr border-top border-btm mg-box">
+						<div class="idxbox-top ub ub-ac">
+							<div class="idxbox-title ub-f1">
+								<span class="fz-md fc-title">重点航班</span>
+							</div>
+						</div>
+						<div class="idxbox-btm border-top">
+							<div class="idxbox-btm-box databox ub ub-ac">
+								<div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Vip">
+									<div class="ub-f1">
+										<span class="fz-xxl" v-cloak>{{res.count5}}</span>
+									</div>
+									<div>
+										<span class="fz-md fc-title">vip</span>
+									</div>
+								</div>
+								<div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Homeward">
+									<div class="ub-f1">
+										<span class="fz-xxl" v-cloak>{{res.count6}}</span>
+									</div>
+									<div>
+										<span class="fz-md fc-title">返航</span>
+									</div>
+								</div>
+								<div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Alternate">
+									<div class="ub-f1">
+										<span class="fz-xxl" v-cloak>{{res.count7}}</span>
+									</div>
+									<div>
+										<span class="fz-md fc-title">备降</span>
+									</div>
+								</div>
+								<div class="databox-item fc-title ub-f1 ub ub-ver ub-ac">
+									<div class="ub-f1">
+										<span class="fz-xxl" v-cloak>{{flight.bridge_rate}}</span>
+									</div>
+									<div>
+										<span class="fz-md fc-title">靠桥率</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="border-top border-btm bg-white mg-box ub ub-ver" style="height: 20em;">
+						<div class="ub-con ub ub-ver ">
+							<div class="chart-header pd-10-lr ub ub-ac ub-pc">
+								<span class="ub ub-ac fz-md">航班分布图</span>
+								<div class="ub-f1 ut-s tx-r" tabindex="0">
+									<span class="tab-pill">
+			                            <div class="tab-pill-box ub">
+			                                <div class="tab-pill-text actives">
+			                                    <span>进港</span>
+											</div>
+											<div class="tab-pill-text">
+												<span>出港</span>
+											</div>
+										</div>
+							        </span>
+								</div>
+						<!--<div class="radiobox ub ub-f1">
+                    <div class="idxbox bg-white pd-10-lr border-top border-btm mg-box">
+                        <div class="idxbox-top ub ub-ac">
+                            <div class="idxbox-title ub-f1">
+                                <span class="fz-md fc-title">重点航班</span>
+                            </div>
+                        </div>
+                        <div class="idxbox-btm border-top">
+                            <div class="idxbox-btm-box databox ub ub-ac">
+                                <div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Vip">
+                                    <div class="ub-f1">
+                                        <span class="fz-xxl" v-cloak>{{res.count5}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-md fc-title">vip</span>
+                                    </div>
+                                </div>
+                                <div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Homeward">
+                                    <div class="ub-f1">
+                                        <span class="fz-xxl" v-cloak>{{res.count6}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-md fc-title">返航</span>
+                                    </div>
+                                </div>
+                                <div class="databox-item fc-title ub-f1 ub ub-ver ub-ac" id="Alternate">
+                                    <div class="ub-f1">
+                                        <span class="fz-xxl" v-cloak>{{res.count7}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-md fc-title">备降</span>
+                                    </div>
+                                </div>
+                                <div class="databox-item fc-title ub-f1 ub ub-ver ub-ac">
+                                    <div class="ub-f1">
+                                        <span class="fz-xxl" v-cloak>{{flight.bridge_rate}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-md fc-title">靠桥率</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top border-btm bg-white mg-box ub ub-ver" style="height: 20em;">
+                        <div class="ub-con ub ub-ver ">
+                            <div class="chart-header pd-10-lr ub ub-ac ub-pc">
+                                <span class="ub ub-ac fz-md">航班动态分布图：</span>
+                                <div class="radiobox ub ub-f1">
+                                    <input type="radio" class="choose" id="enter" name="lv_radio" value="jingang" checked="checked">
+                                    <label for="enter">进港</label>
+                                </div>-->
+
+						<!--<div class="radiobox ub ub-f1">
+                                    <input type="radio" id="out" class="choose" value="chugang" name="lv_radio">
+                                    <label for="out">出港</label>
+                                </div>-->
+
+					</div>
+					<div class="chart-content ub-f1">
+						<div class="tab-charts ub ub-f1 showChart">
+							<div id="jingang" class="ub-f1"></div>
+						</div>
+						<div class="tab-charts ub ub-f1 visibility">
+							<div id="chugang" class="e-charts ub-f1 "></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="idxbox bg-white pd-10-lr border-top border-btm mg-box">
+			<div class="idxbox-top ub ub-ac">
+				<div class="idxbox-title ub-f1">
+					<span class="fz-md fc-title">特情</span>
+				</div>
+			</div>
+			<div class="idxbox-btm border-top">
+				<template v-if="flight.information.data.length>0">
+					<div class="idxbox-arti border-btm clickable" v-for="(value, key) in flight.information.data">
+						<div class="idxbox-arti-title">
+							<span class="fz-md fc-title">{{value.content}}</span>
+						</div>
+						<div class="idxbox-arti-time">
+							<span class="fz-sm fc-text">{{value.recivetime}}</span>
+						</div>
+					</div>
+				</template>
+				<div class="idxbox-top ub ub-ac tx-c" v-else>
+					<div class="idxbox-title ub-f1">
+						<span class="fz-md fc-text">暂无特情</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/xdate.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/swiper.jquery.min.js"></script>
+		<script src="../js/echarts/echarts.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/address.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg address-page" tabindex="0" data-control="PAGE" id="address_list">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">通讯录</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+                <div class="search-box bc-bg">
+                    <div class="search" @click="searchToInput()">
+                        <div class="search-main ub-con ub ub-ac ub-pc" :class="isToInput?'':'hide' ">
+                            <div class="search-main-center ub-f1">
+                                <input class="search-ipt fix-search-ipt" v-model="searchIpt" v-focus="isToInput" @input="searchFilter()" @blur="searchToText()" />
+                            </div>
+                            <div class="search-main-right" @click="searchEmpty()">
+                                <i class="search-del-icon"></i>
+                            </div>
+                        </div>
+                        <div class="search-note ub-con ub ub-ac ub-pc" :class="isToInput?'hide':'' ">
+                            <i class="icon-20-h-search"></i>
+                            <span class="search-note-text fz-md fc-text">请输入搜索内容</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="address-con">
+                    <div class="address-list" @scroll.stop="scrollSet($event)" id="wrapper">
+                        <div class="scrollbox" id="scroller">
+                            <!-- 数据 -->
+                            <div class="myli-box" v-for="(item, index) in people" :data-group="item.text" v-if="item.jsonStr.length>0" v-cloak>
+                                <div class="myli-type">
+                                    <span class="fz-md fc-text fz-md-set">{{item.text}}</span>
+                                </div>
+                                <ul class="myli">
+                                    <li class="myli-item" v-for="(value, key) in item.jsonStr" @click="interPeopleDetail(value,item)" :data-name="value.userName" :data-pinyin="value.userPinyin" :data-szm="value.userSZM">
+                                        <div class="myli-center ub ub-ac">
+                                            <div class="myli-headpic">
+                                                <div class="myli-headpic-box">
+                                                    <img class="myli-headpic-img" v-if="value.hashead" :src="value.headurl" @error="headpicReplace(value)" />
+                                                    <div class="myli-headpic-txt" v-else :class="value.headbgclass">{{value.headtext}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="myli-main ub-f1">
+                                                <p class="fz-md fc-title inaline fz-md-set">{{value.userName}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 数据END -->
+                            <div class="nothing ub ub-ac hide"></div>
+                            <div class="nonetwork" :class="nonet?'':'hide'"></div>
+                        </div>
+                    </div>
+                    <div class="address-index ub ub-ver ub-pc" v-cloak>
+                        <!-- <div class="address-index-box ub ub-ver" 
+                            @mouseenter.stop="fastFind($event)" 
+                            @mousemove.stop="fastFind($event)" 
+                            @mouseleave.stop="fastFindEnd($event)" > -->
+                        <div class="address-index-box ub ub-ver" 
+                            @touchstart.stop="fastFind($event)" 
+                            @touchmove.stop="fastFind($event)" 
+                            @touchend.stop="fastFindEnd($event)" 
+                            @touchcancel.stop="fastFindEnd($event)" >
+                            <span v-for="(item, index) in peopleIndex" :data-group="item" class="address-index-item fz-sm fc-title" :class="indexElement>-1&&indexElement==index?'active':'' ">{{item}}</span>
+                        </div>
+                    </div>
+                    <div class="address-itemshow" v-show="fastFindText!='' " v-cloak>{{fastFindText}}</div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="../js/iscroll.js"></script>
+        <script src="js/JSPinyin.js"></script>
+        <script src="js/address.js"></script>
+    </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>关闭</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" tabindex="0" id="Page">
+    <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER">
+        <div class="pd-10-lr bg-white tex-pd-tb border-btm">
+            <textarea id="reason" placeholder="请详细描述关闭理由..." class="fc-title fz-md fz-md-set reason-tax" v-model.trim="items.closeTax" ref="closeTax"></textarea>
+            <p class="fc-disabled fz-sm fz-sm-set" v-cloak>还能输入{{number}}个字</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script>
+    (function($) {
+        appcan.button("#nav-left", "btn-act",function() {
+            appcan.window.close(1);
+        });
+        appcan.button("#nav-right", "btn-act",function() {
+            appcan.window.close(1);
+        });
+
+        var vm = new Vue({
+            el:'#Page',
+            data:{
+                number: '3000',
+                items: {
+                    closeTax: ''
+                },
+                isClick: 0 //0=可以点击提交，1=不可以点击提交。为了不让重复点击提交按钮
+            },
+            watch: {
+                items: {
+                    handler: function (val, oldval) {
+                        var that = this;
+                        var num = 3000; //字体限制为3000个
+                        that.$refs.closeTax.setAttribute("maxlength", num);
+                        that.number = num - that.$refs.closeTax.value.length;
+                    },
+                    deep: true
+                }
+            }
+        });
+        appcan.ready(function() {
+            appcan.window.subscribe('patrol-sureClose', function () {
+                var str = vm.items.closeTax;
+                if(str.length == 0){
+                    layer.open({
+                        content: '请输入关闭理由'
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else if(vm.isClick == 1){
+                    appcan.window.publish('patrol-hideCloseClick','hideCloseClick');
+                    return false;
+                }else {
+                    appcan.window.publish('patrol-hideCloseClick','hideCloseClick');
+                    vm.isClick = 1;
+                    addConfirm({
+                        content: '是否关闭整改单？',
+                        yes: function(i) {
+                            layerRemove(i);
+                            var close = appcan.locStorage.getVal('patrol-closeDetails');
+                            var json = {
+                                path: mainPath + "reformApiController.do?aduitReform",
+                                data: {
+                                    "userId": appcan.locStorage.getVal("userID"),
+                                    "userName": appcan.locStorage.getVal("userName"),
+                                    "role": appcan.locStorage.getVal('patrol-role'),
+                                    "departId": "",
+                                    "reason": str,
+                                    "type": JSON.parse(close).type,
+                                    "reformId":appcan.locStorage.getVal('patrol-reformId'),
+                                    "picList": [],
+                                    "title":JSON.parse(close).title,
+                                    "managerId":JSON.parse(close).managerId,
+                                    "loginDepartId":appcan.locStorage.getVal('deptId')
+                                }
+                            };
+                            ajaxPOST(json, function (data, e) {
+                                if (e == "success") {
+                                    vm.isClick = 1;
+                                    //成功后的提醒弹窗通道
+                                    appcan.window.publish("patrol-reform-layerTitle", "close");
+                                    appcan.window.evaluateScript({
+                                        name: 'reform',
+                                        scriptContent: 'vm.ResetUpScroll()'
+                                    });
+                                    closeMultiPages([
+                                        'reform-rectification-details',
+                                        'reform-close-reject-reason'
+                                    ]);
+                                    //清除详情页缓存字段
+                                    var reformArr = ['patrol-status', 'patrol-reformId', 'patrol-role','patrol-closeDetails'];
+                                    reformArr.forEach(function(name){
+                                        appcan.locStorage.remove(name);
+                                    });
+                                } else {
+                                    vm.isClick = 0;
+                                    appcan.window.publish('patrol-hideCloseClick','showCloseClick');
+                                    layerToast('网络错误，请检查网络环境', 2);
+                                }
+
+                            });
+                        },
+                        no: function(i) {
+                            vm.isClick = 0;
+                            appcan.window.publish('patrol-hideCloseClick','showCloseClick');
+                        }
+                    });
+
+
+                }
+            })
+        });
+    })($);
+</script>
+</body>
+</html>

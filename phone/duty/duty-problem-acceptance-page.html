@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content=" width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/mobiscroll.min.css">
+        <link rel="stylesheet" href="css/duty-problem-acceptance.css">
+    </head>
+    <body class="bg" ontouchstart>
+        <div class="" tabindex="0" id="accpet" v-cloak>
+            <div class="ub ub-ver myfb nopadding uinn-4a" data-control="FLEXBOXVER" id="ScrollContent">
+                <div class="notice-form bg-white">
+                	<div class="notice-inputbox pd-10-lr">
+                        <span class="fz-lg"> 预计完成时间(必填且不可更改):</span>
+                    </div>
+                    <div class="notice-inputbox dure-time pd-10-lr">
+                    <div class="pd-10-lr ub ub-ac notice-ipts ">
+                        <div class="lists-item-center fc-text ub-f1 ">
+                            <span class="fz-lg">{{deadline.time}}</span>
+                        </div>
+                        <div class="lists-item-right">
+                            <i class="icon-20-h-date"></i>
+                        </div>
+                    	<input type="text" id="picktime" class="lists-hiddenipt"/>
+                	</div>
+                    </div>
+                    <div class="notice-inputbox pd-10-lr">
+                        <span class="fz-lg">备注(选填):</span>
+                    </div>
+                    <div class="notice-textarea pd-10-lr">
+                        <textarea class="notice-txa fc-title" id="txa" v-model="tasktext" placeholder="请输入备注,若无须整改或无法整改,也可以此说明……"></textarea>
+                        <div class="notice-tips tx-r">
+                            <span class="notice-tips-text fz-sm"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-spacing"></div>
+            </div>
+            
+            <div class="uf" data-control="FOOTER" id="Footer">
+                <div class="btn-setbtm border-top pd-10-lr bg-white" @click="submit()">
+                    <button class="btn bg-main">
+                        <span class="fz-bg fc-white">确定接受</span>
+                    </button>
+                </div>
+            </div>
+            
+   		</div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/mobiscroll.min.zh.js"></script>
+        <script src="js/duty-problem-acceptance-page.js"></script>
+    </body>
+</html>

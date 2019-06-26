@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-list.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">换班详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">申请人</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.createname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">申请单位</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.departname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="appr-box">
+                    <div class="appr appr-noshadow border-top border-btm pd-10-lr mg-box bg-white">
+                        <div class="appr-status ub ub-ac">
+                            <div class="ub-f1">
+                                <span class="fz-md fc-title">申请内容</span>
+                            </div>
+                        </div>
+                        <div class="appr-detail ub">
+                            <div class="appr-detail-box tx-l ub ub-ver ub-pc">
+                                <div>
+                                    <span class="fz-sm">{{approveDuty.name_b_time}}</span>
+                                </div>
+                                <div>
+                                    <span class="fz-sm">{{approveDuty.name_b_weekday}}</span>
+                                </div>
+                            </div>
+                            <div class="appr-detail-box tx-c ub ub-ver ub-pc">
+                                <div>
+                                    <span class="fz-md">{{approveDuty.name_b}}</span>
+                                </div>
+                            </div>
+                            <div class="appr-detail-box tx-c ub ub-ver ub-pc">
+                                <div>
+                                    <span class="fz-md">{{approveDuty.name_a}}</span>
+                                </div>
+                            </div>
+                            <div class="appr-detail-box ub ub-ver ub-pc ub-ae">
+                                <div>
+                                    <span class="fz-sm">{{approveDuty.name_a_time}}</span>
+                                </div>
+                                <div>
+                                    <span class="fz-sm">{{approveDuty.name_a_weekday}}</span>
+                                </div>
+                            </div>
+                            <div class="appr-icon ub ub-ac ub-pc">
+                                <i :class="approveDuty.approval_type==2?'icon-35-switch-return':'icon-35-switch-left'"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">换班原因</span>
+                            </div>
+                        </div>
+                        <div class="lists-item-lg pd-10-lr">
+                            <span class="lists-item-para fz-md fc-text">{{approveDuty.content}}</span>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">申请时间</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.create_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">状态</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-warn-green ub-f1">
+                                <span class="fz-md">{{approveDuty.approval}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">审批人</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.approval_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">审批单位</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.approval_departname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title fc-title">
+                                <span class="fz-md">审批时间</span>
+                            </div>
+                            <div class="lists-item-center inaline fc-text ub-f1">
+                                <span class="fz-md">{{approveDuty.approval_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-detail.js"></script>
+    </body>
+</html>

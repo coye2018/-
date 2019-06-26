@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/iosSelect.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg ub-con" data-control="PAGE" id="Page" v-cloak>
+            <div id="mescroll" class="mescroll">
+                <div id="mescroll_content">
+                    
+                    <!-- 
+                        1.包含了时间选择器、复选板块、input和textarea的一个表单
+                        2.包含了简单的表单验证和光标定位, 模拟了提交表单时的遮罩显示
+                        3.光标定位须指定id值, 具体操作见js
+                     -->
+                    
+                    <div class="list border-hide bg-white">
+                        <div class="list-item">
+                            <label class="input-item required ub">
+                                <div class="input-name">作业人人人</div>
+                                <div class="input-main ub-f1">
+                                    <input v-model="people" id="wwwwwwwwww" class="input" />
+                                </div>
+                            </label>
+                        </div>
+                        <div class="list-item">
+                            <label class="input-item ub">
+                                <div class="input-name">开始时间</div>
+                                <div class="input-main ub-f1">
+                                    <input class="input" v-model="dateStart.text" />
+                                </div>
+                                <div class="input-side">
+                                    <i class="icon-20 icon-grey-goto"></i>
+                                </div>
+                                <input type="text" id="date_start" class="input-hidden" readonly="readonly" />
+                            </label>
+                        </div>
+                        <div class="list-item">
+                            <label class="input-item ub">
+                                <div class="input-name">结束时间</div>
+                                <div class="input-main ub-f1">
+                                    <input class="input" v-model="dateEnd.text" />
+                                </div>
+                                <div class="input-side">
+                                    <i class="icon-20 icon-grey-goto"></i>
+                                </div>
+                            </label>
+                            <input type="text" id="date_end" class="input-hidden" readonly="readonly" />
+                        </div>
+                    </div>
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">清扫位置</span>
+                            <span class="forum-note">小标题</span>
+                        </div>
+                    </div>
+                    <div class="picker border-top border-btm bg-white" id="xxxxxxxxxx">
+                        <textarea class="picker-txa" v-model="txa" v-textarea="txaObj" placeholder="请输入详细位置"></textarea>
+                        <div class="picker-main">
+                            <span class="label" v-for="(item, index) in pick" @click="pickup({
+                                'arr': pick,
+                                'itm': item,
+                                'idx': index,
+                                'txa': 'txa',
+                                'txaObj': txaObj,
+                                'target': pickArr
+                            })" :class="{'label-active': item.active}">
+                                <div class="label-text" v-html="item.name"></div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="forum">
+                        <div class="forum-main">
+                            <span class="forum-title">清扫原因</span>
+                        </div>
+                    </div>
+                    <div class="picker border-top border-btm bg-white">
+                        <textarea class="picker-txa" v-model="txa_2" v-textarea="txaObj_2" placeholder="请输入清扫原因"></textarea>
+                        <div class="picker-main">
+                            <span class="label" v-for="(item, index) in pick_2" @click="pickup({
+                                'arr': pick_2,
+                                'itm': item,
+                                'idx': index,
+                                'txa': 'txa_2',
+                                'txaObj': txaObj_2,
+                                'target': pickArr_2
+                            })" :class="{'label-active': item.active}">
+                                <div class="label-text" v-html="item.name"></div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="forum" id="yyyyyyyyyy">
+                        <div class="forum-main">
+                            <span class="forum-title">备注</span>
+                        </div>
+                    </div>
+                    <div class="list border-hide bg-white">
+                        <div class="list-item ub ub-ver">
+                            <div class="txa-item">
+                                <div class="txa-main">
+                                    <textarea class="txa" v-model="note" v-textarea placeholder="最多可输入1000字"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/autosize.min.js"></script>
+        <script src="../js/iosSelect.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/model-form-1-page.js"></script>
+    </body>
+</html>

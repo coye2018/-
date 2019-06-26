@@ -1,0 +1,144 @@
+#ScrollContent{
+    min-height: 100%;
+}
+.login-body{
+    height: 100%;
+}
+.uh_ios7 [data-control="PAGE"]:before{
+    content: none;
+}
+.login-input-opacity{
+    opacity: 0.4;
+}
+
+.input-oneline{
+    position: relative;
+    height: 2.3em;
+    margin-top: 1em;
+}
+.input-oneline:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #E1E1E1;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+}
+.input-oneline-left,
+.input-oneline-right{
+    width: 2.5em;
+}
+.input-oneline-right{
+    text-align: right;
+    margin: 0 0.5em 0.25em;
+}
+.input-oneline-left>i{
+    margin-left: 0.625em;
+}
+.input-oneline-btn{
+    display: inline-block;
+    height: 1.75em;
+    line-height: 1.75em;
+    padding: 0 0.4em;
+    border: 1px solid #fff;
+    border-radius: 0.3333em;
+}
+.input-oneline-btn-text{
+    font-size: 0.875em;
+}
+.input-oneline-ipt{
+    width: 100%;
+    height: 2.2em;
+    font-size: 1em;
+    text-align: center;
+}
+.btn{
+    height: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0.4167em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    -webkit-transition: .15s;
+    transition: .15s;
+}
+.btn:active{
+    background-color: rgba(0,0,0,.1);
+}
+.btn-text{
+    color: #fff;
+    font-size: 1.25em;
+}
+.btn.btn-normal{
+    background-color: rgba(255,255,255,1);
+    border-color: rgba(255,255,255,1);
+}
+.btn.btn-normal:active{
+    background-color: rgba(255,255,255,.8);
+    border-color: rgba(255,255,255,.8);
+}
+.btn.btn-normal .btn-text{
+    color: #333;
+}
+.btn.btn-crystal{
+    background-color: rgba(255,255,255,.3);
+    border-color: rgba(255,255,255,1);
+}
+.btn.btn-crystal:active{
+    background-color: rgba(255,255,255,.2);
+    border-color: rgba(255,255,255,.8);
+}
+.btn.btn-crystal .btn-text{
+    color: #fff;
+}
+
+.bg-login{
+    background: url(../img/bg-login.png) center bottom no-repeat,
+                -webkit-linear-gradient(top, #52a6ff 0%,#378dde 100%,#7db9e8 100%);
+    background-size: 100%;
+}
+.login-box{
+    min-height: 100%;
+}
+.login-color-txt{
+    color: #fff;
+}
+.login-logo{
+    margin: 1.83em auto 0;
+    width: 4.5em;
+    height: 4.375em;
+    margin-bottom: 0.5625em;
+    background: url(../img/logo-login.png) center no-repeat;
+    background-size: 100%;
+}
+.login-appname{
+    margin-top: 0.875em;
+    text-align: center;
+}
+.login-appname-text{
+    font-size: 1em;
+}
+.login-input-box{
+    margin-top: 2.9375em;
+    overflow: hidden;
+}
+.login-option{
+    margin-top: 1.0417em;
+}
+.login-option-text{
+    font-size: 0.75em;
+    margin-right: 0.66em;
+    vertical-align: middle;
+}
+.login-btn-box{
+    margin-top: 0.8333em;
+}
+.copyright{
+    height: 3.375em;
+}

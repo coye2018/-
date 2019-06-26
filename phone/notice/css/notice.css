@@ -1,0 +1,143 @@
+#notice #ScrollContent{
+    padding-top: 6em;
+    height: 100%;
+}
+#Footer ~ #ScrollContent {
+  padding-bottom: 3.96em;
+}
+/*notice*/
+.notice-li-item{
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+}
+.notice-li-icon{
+    margin-right: 0.5em;
+}
+.notice-li-title{
+    margin: 0.5em 0;
+}
+.notice-li-desc{
+    margin-top: 0.625em;
+    margin-bottom: 0.25em;
+}
+.notice-li-reddot{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+/*notice*/
+
+/*notice-detail*/
+.notice-title{
+    word-break: break-all;
+    font-weight: bold;
+    margin-top: 0.75em;
+    line-height: 1.125;
+}
+.notice-para{
+    padding-top: 0.875em;
+    padding-bottom: 0.625em;
+}
+.notice-para-img>img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 20em;
+    padding: 0.25em 0;
+}
+.notice-para-text{
+    margin-top: 0.75em;
+    word-wrap: break-word;
+    word-break: normal;
+}
+.notice-para-desc{
+    margin-top: 1em;
+    margin-bottom: 0.625em;
+}
+.notice-para-desc-box{
+    word-break: break-all;
+}
+.notice-para-desc-box>span{
+    padding-right: 1em;
+}
+.notice-re{
+    padding: 0.5em 0;
+    line-height: 1.25;
+}
+.notice-re-text{
+    word-break: break-all;
+}
+.notice-re-box{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.notice-re-name:after{
+    content: '：';
+    color: #999;
+}
+.notice-re-date{
+    margin: 0 0.5em;
+}
+/*notice-detail.html*/
+.lists-item-pd{
+    padding-left: 1em;
+    padding-right: 0.625em;
+}
+.listbox{
+    padding-bottom: 0.312em;
+}
+.listbox:active{
+    background-color: rgba(0,0,0,0.02);
+}
+.list:active{
+    background-color: rgba(0,0,0,0.02);
+}
+.listbox:first-child{
+    padding-top: 0.312em;
+}
+.listbox:last-child{
+    padding-bottom: 0.312em;
+}
+.bg-grey{
+    background:#F6F7F9;
+
+}
+.listContent {
+    padding-top:0.5em;
+    padding-bottom: 0.5em;
+}
+.lists-items{
+    /*height:2em;*/
+    line-height:1.2em;
+}
+.listsbox{
+    padding-bottom:0.625em;
+}
+.listContent:after{
+    content: "";
+    position: absolute;
+    left: 0em;
+    right: 0em;
+    bottom: 0;
+    z-index: 1;
+    height: 1px;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+    background-color: #E1E1E1;
+}
+.dure-li-pig{
+    width:100%;
+    overflow: hidden;
+}
+.dure-li-pic{
+    height: 6em;
+    border-radius: 0.625em;
+    padding-right:0.625em;
+}
+.dure-li-pic>img{
+    display: block;
+    border-radius: 0.625em;
+    height: 100%;
+    width: 4.625em;
+    padding: 0.25em 0.2em;
+}

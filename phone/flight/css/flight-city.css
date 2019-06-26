@@ -1,0 +1,51 @@
+[v-cloak] {
+    display: none;
+}
+.city-selected{
+    margin-bottom:1.785em 
+}
+.city-item-box{
+    width: 100%;
+    height: 100%;
+}
+.city-item-title{
+    padding:0.5em 0;
+    font-size:1.56em; 
+}
+.city-item-title{
+    border-bottom: 1px dashed #E1E1E1;
+}
+.city-item-dec{
+    width:100%;
+    height:100%;
+    padding: 1.5em 0;
+    border-bottom: 1px dashed #E1E1E1;
+    margin-bottom:1.5em; 
+}
+.city-item-middle{
+    height:100%;
+}
+.img{
+    display:block;
+    width:5.43em;
+    height:2.5em;
+    margin: 0 auto;
+}
+.pd-10-l{
+    padding-left: 2em;
+}
+.pd-10-r{
+    padding-right: 2em;
+}
+.city-item{
+    position: relative
+}
+.icon-pr{
+   position: absolute;
+   top: 0.025em;
+   right: 0.5em;
+   font-size: 2em;
+   width: 0.5em;
+   height: 0.5em;
+   /*background: #000;*/
+}

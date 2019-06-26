@@ -1,0 +1,37 @@
+var hotCity = [{
+    cityCode: "PEK",
+    cityName: "北京"
+}, {
+    cityCode: "SHA",
+    cityName: "上海"
+}, {
+    cityCode: "SZX",
+    cityName: "深圳"
+}, {
+    cityCode: "CAN",
+    cityName: "广州"
+}, {
+    cityCode: "CTU",
+    cityName: "成都"
+}, {
+    cityCode: "HGH",
+    cityName: "杭州"
+}, {
+    cityCode: "WUH",
+    cityName: "武汉"
+}, {
+    cityCode: "SIA",
+    cityName: "西安"
+}, {
+    cityCode: "CKG",
+    cityName: "重庆"
+}, {
+    cityCode: "CSX",
+    cityName: "长沙"
+}, {
+    cityCode: "NKG",
+    cityName: "南京"
+}, {
+    cityCode: "XMN",
+    cityName: "厦门"
+}]

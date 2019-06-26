@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+<head>
+    <meta charset="UTF-8">
+    <title>整改单详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+    <link rel="stylesheet" href="../css/mobiscroll.min.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" id="Page">
+
+    <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER" style="height: 100%;overflow: auto">
+        <div class="nonetwork" :class="nonetwork?'':'hide'"  v-cloak></div>
+
+        <ul class="ulList bg-white border-btm" :class="nonetwork?'hide':''" v-cloak>
+            <li class="">
+                <span class="title fc-title fz-md fz-md-set">单号</span>
+                <span class="fc-text fz-md fz-md-set" v-text="items.number"></span>
+            </li>
+            <li class="ub">
+                <span class="title fc-title fz-md fz-md-set ub ub-ac">标题</span>
+                <span class="fc-text fz-md fz-md-set ub ub-ac rightText" v-text="items.title"></span>
+            </li>
+            <li class="ub">
+                <span class="title fc-title fz-md fz-md-set ub ub-ac">提报时间</span>
+                <span class="fc-text fz-md fz-md-set ub ub-ac rightText">{{items.createDate | getDate(0,10) }}</span>
+            </li>
+            <li class="ub">
+                <span class="title fc-title fz-md fz-md-set ub ub-ac">详细位置</span>
+                <span class="fc-text fz-md fz-md-set ub ub-ac rightText" v-text="items.area"></span>
+            </li>
+            <li class="">
+                <span class="title fc-title fz-md fz-md-set">事件描述</span>
+                <span class="ub fc-text fz-md fz-md-set textPadding" style=" word-break: break-all;">{{items.described | dealNull}}</span>
+            </li>
+            <li class="">
+                <span class="title fc-title fz-md fz-md-set">巡督人员</span>
+                <span class="fc-text fz-md fz-md-set" v-text="items.managerName"></span>
+            </li>
+            <li class="">
+                <span class="title fc-title fz-md fz-md-set">责任部门</span>
+                <span class="fc-text fz-md fz-md-set" v-text="items.departName"></span>
+            </li>
+            <li class="ub ub-ac" @click="copyUser">
+                <span class="title fc-title fz-md fz-md-set">抄送</span>
+                <span class="fc-text fz-md fz-md-set ub-f1 ut-s active" v-text=" copyUserNames" style="padding-left: 0.275em"></span>
+                <i class="icon-20-g-goto"></i>
+            </li>
+            <!--新增整改单没有这项 start-->
+            <li class="ub ub-ac" @click="openCriterion" v-if="items.standardList != null">
+                <span class="title fc-title fz-md fz-md-set">整改标准</span>
+                <span class="fc-main fz-md fz-md-set ub-f1 ut-s active" v-text="criterion"></span>
+                <i class="icon-20-g-goto"></i>
+            </li>
+            <!--新增整改单没有这项 end-->
+            <li class="">
+                <span class="title fc-title fz-md fz-md-set">状态</span>
+                <span class=" fz-md fz-md-set" v-color="items.status">{{items.status | showStatus}}</span>
+            </li>
+            <!--整改中,已完成 start-->
+            <li class="" v-if="items.status == 3 || items.status == 4 || items.status == 6 || items.status == 8">
+                <span class="title fc-title fz-md fz-md-set">预计完成</span>
+                <span class="fc-text fz-md fz-md-set" >{{items.completeDate | getDate(0,10) | dealNull}}</span>
+            </li>
+            <li class="" v-if="items.status == 4 || items.status == 8">
+                <span class="title fc-title fz-md fz-md-set">实际完成</span>
+                <span class="fc-text fz-md fz-md-set" >{{items.updateDate | getDate(0,10) | dealNull}}</span>
+            </li>
+            <li class="ub" v-if="items.status == 3 || items.status == 4 || items.status == 6">
+                <span class="title fc-title fz-md fz-md-set ub ub-ac">整改措施</span>
+                <span class="fc-text fz-md fz-md-set ub ub-ac rightText" >{{items.solution | dealNull}}</span>
+            </li>
+            <!--整改中,已完成 end-->
+            <!--新增整改单显示的图片 start-->
+            <li class=""  v-if="items.standardList == null" >
+                <span class="title ufl fc-title fz-md fz-md-set">整改前</span>
+                <span class="detail fz-md fz-md-set" v-if="items.pictureBeforeList == null">暂无图片</span>
+                <div class="ub listPic" v-else >
+                    <div class="ub ub-ac ub-pc" v-for="(img,index) in items.pictureBeforeList">
+                        <span :style="{backgroundImage: 'url('+ picPath + img + ')'}" @click="openPic(items.pictureBeforeList,index)"></span>
+                    </div>
+                </div>
+            </li>
+            <!--新增整改单显示的图片 end-->
+            <!--完成展示的图片 start-->
+            <li class=""  v-if="items.status == 4 || items.status == 8"  >
+                <span class="title ufl fc-title fz-md fz-md-set">整改后</span>
+                <span class="detail fz-md fz-md-set" v-if="items.pictureFinishedList == null">暂无图片</span>
+                <div class="ub listPic" v-else >
+                    <div class="ub ub-ac ub-pc" v-for="(img,index) in items.pictureFinishedList">
+                        <span :style="{backgroundImage: 'url(' + picPath + img + ')'}" @click="openPic(items.pictureFinishedList,index)"></span>
+                    </div>
+                </div>
+            </li>
+            <!--完成展示的图片 end-->
+             <li class="ub" v-if=" items.status == 4 || items.status == 8">
+                <span class="title fc-title fz-md fz-md-set ub ub-ac">完成情况</span>
+                <span class="fc-text fz-md fz-md-set ub ub-ac rightText" >{{items.finishDetail | dealNull}}</span>
+            </li>
+        </ul>
+        <div class="bg-white mg-10-t pd-10-lr" :class="nonetwork?'hide':''" style="padding-bottom: 3.75em" v-cloak>
+            <ul class="tabReply ub border-btm">
+                <li class="tabMe ub ub-ac ub-pc fc-text" @click="toggle1" :class="none?'':'b-b-active'">
+                    <span class="fz-md">进展</span>
+                </li>
+                <li class="tabMe ub ub-ac ub-pc fc-text " @click="toggle2" :class="none?'b-b-active':''">
+                    <span class="fz-md">回复 {{replyLength}}</span>
+                </li>
+                <li class="in-b ub ub-f3 ub-pe" :class="none?'':'hide'">
+                   <div class="rightReply ub ub-pc" @click="reply(items.id)">
+                       <i class="icon-20-reply"></i>
+                       <span >回复</span>
+                   </div>
+                </li>
+            </ul>
+            <div>
+                <!--start 进展-->
+                <ul class="progress pd-14-tb" :class="none?'hide':''" v-cloak>
+                    <li v-for="(item,index) in items.progressList" class="dynamic ub">
+                        <div class="dynamic-box1 tx-r">
+                            <p class="ub ub-pe fc-title fz-md fz-md-set" style="font-weight: bold">{{item.createName | systemName}}</p>
+                            <p class="ub ub-pe fc-text fz-sm fz-sm-set" style="line-height: 1.875em">{{item.createDate | getDate(5,16)}}</p>
+                        </div>
+                        <div class="dynamic-box2 ub ub-ver">
+                            <i :class="item.flag==2?'icon-20-t-end': item.flag==1?'icon-20-t-run':'icon-20-t-begin'"></i>
+                            <div class="dynamic-line ub-f1" v-show="index!=items.progressList.length-1"></div>
+                        </div>
+                        <div class="dynamic-box3 ub-f1">
+                            <!--<span class="fz-md fz-md-set fc-main">{{item.statusType}}</span>-->
+                            <span class="fz-md fz-md-set fc-title" style="word-wrap:break-word;">{{item.content}}</span>
+                            <p class="fz-md fc-title fz-md-set" style="line-height: 1.25em"></p>
+                        </div>
+                    </li>
+                </ul>
+                <!--end 进展-->
+                <!--start 回复-->
+                <ul class="reply" :class="none?'':'hide'" >
+                    <li class="" v-for="item in items.replyList" v-cloak>
+                        <div class="reply-list1 pd-10-lr ub ub-ac">
+                            <span class="fz-sm fz-sm-set fc-main reply-name">{{item.createName}}</span>
+                            <span class="fz-sm fz-sm-set fc-title">{{item.content}}</span>
+                            <span class="fz-sm fz-sm-set fc-text">&nbsp;{{item.createDate | getDate(5,16)}}</span>
+                        </div>
+                    </li>
+                    <!--<li class=""  v-for="items in itemList" v-cloak>-->
+                       <!--<div class="reply-list1 pd-10-lr ub ub-ac">-->
+                           <!--<span class="fz-sm fz-sm-set fc-main">{{items.frontDepartment}}</span>-->
+                           <!--<span class="fz-sm fz-sm-set fc-title">回复</span>-->
+                           <!--<span class="fz-sm fz-sm-set fc-main reply-name">{{items.behindDepartment}}</span>-->
+                           <!--<span class="fz-sm fz-sm-set fc-title">{{items.content}}</span>-->
+                           <!--<span class="fz-sm fz-sm-set fc-text">{{items.date}}</span>-->
+                       <!--</div>-->
+                    <!--</li>-->
+                </ul>
+                <!--end 回复-->
+            </div>
+        </div>
+
+    </div>
+
+    <!--footer-->
+    <!--驳回，改派，关闭-->
+    <div :class="nonetwork?'hide':''" id="footerBox" v-if='isHideFooter'>
+        <div class="uf" id="Footer" v-if="xunChaRole == '0' && items.status == '2'" v-cloak>
+            <div class="bg-white ub ub-ac ub-pc">
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter " @click="reject">
+                        <span class="">驳回</span>
+                    </button>
+                </div>
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter " @click="distribute">
+                        <span class="">改派</span>
+                    </button>
+                </div>
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter bg-reddot" @click="close">
+                        <span class="">关闭</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--接收,申诉-->
+        <div class="uf" id="Footer" v-if="xunChaRole == '1' && items.status == '1' || xunChaRole == '1' && items.status == '5'||xunChaRole == '1' && items.status == '9'" v-cloak>
+            <div class="bg-white ub ub-ac ub-pc" >
+                <div class="ub-f1 ub ub-pc" v-if="items.status == '1'||items.status == '5'">
+                    <button class="btnFooter" @click="accept(1)">
+                        <span class="">接收</span>
+                    </button>
+                </div>
+                <div class="ub-f1 ub ub-pc" v-if="items.status == '9'">
+                    <button class="btnFooter" @click="accept(2)">
+                        <span class="">整改措施反馈</span>
+                    </button>
+                </div>
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter" @click="appeal">
+                        <span class="">申诉</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--完成-->
+        <div class="uf" id="Footer" v-if="xunChaRole == '1' && items.status == '3' ||xunChaRole == '1' && items.status == '6'" v-cloak>
+            <div class="bg-white ub ub-ac ub-pc" >
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter btnWidth btnRadius" @click="complete">
+                        <span class="">完成</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--驳回待接收-->
+        <div class="uf" id="Footer" v-if="xunChaRole == '1' && items.status == '7' " v-cloak>
+            <div class="bg-white ub ub-ac ub-pc" >
+                <div class="ub-f1 ub ub-pc">
+                    <button class="btnFooter btnWidth btnRadius" @click="accept(1)">
+                        <span class="">接收</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--验收通过  -->
+    <div class="uf" id="Footer" v-if="(xunChaRole == '0' || xunChaRole == '') && items.status == '4'" v-cloak>
+            <div class="bg-white ub ub-ac ub-pc" >
+                <div class="ub-f1 ub ub-pc">
+                    <button class="ub-f1 btnFooter btnWidth btnRadius" style="margin-left: 0.5em" @click="confirmBtn">
+                        <span class="">验收通过</span>
+                    </button>
+                    <button class=" ub-f1 btnFooterWhite btnWidth btnRadius" style="margin-left: 0.5em;margin-right: 0.5em" @click="cancelBtn">
+                        <span class="">验收不通过</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    <!--end footer-->
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script src="../js/mobiscroll.min.zh.js"></script>
+<script src="reform/js/rectification-details.js" type="text/javascript"></script>
+</body>
+</html>

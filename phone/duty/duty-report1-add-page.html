@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-four.css">
+        <link rel="stylesheet" href="css/duty-report1-add.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" id="Page"　v-cloak>
+            <div class="bc-bg ub ub-ver myfb nopadding" data-control="FLEXBOXVER" id="ScrollContent">
+                <div class="scrollbox" v-if="!nonet">
+                    <div class="dure-para-desc ub ub-ac pd-10-lr">
+                        <div class="dure-para-desc-box ub-f1">
+                                <!-- <span class="fz-sm fz-sm-set fc-text">来源：{{dutyReportDetail.departname}}</span> -->
+                            <span class="fz-sm fz-sm-set fc-text" >值班人领导：</span>
+                            <span class="fz-sm fz-sm-set fc-text" v-for="(item,index) in dutyPerson">{{item.userName}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <!-- <span class="fz-sm fz-sm-set fc-text" v-if="dutyPerson.length > 0">{{dutyDay}}</span>  -->
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="du4-box">
+                        <div class="du4-title bg-white pd-10-lr border-btm ub ub-ac">
+                            <div class="du4-title-text du4-title-text-setwidth">
+                                <span class="fz-md fc-title">值班日</span>
+                            </div>
+                            <div class="du4-title-main ub-f1">
+                                <span class="fz-md fc-text">{{dutyDay}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="du4-box mg-box">
+                        <div class="du4-title bg-white pd-10-lr border-btm ub ub-ac">
+                            <div class="du4-title-text du4-title-text-setwidth">
+                                <span class="fz-md fc-title">值班人</span>
+                            </div>
+                            <div class="du4-title-main ub-f1"v-for="(item,index) in dutyPerson">
+                                <span class="fz-md fc-text">{{item.userName}}</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- <div class="dra-title-box bg-white pd-10-lr mg-box border-btm">
+                        <div class="dra-title-top ub ub-ac">
+                            <i class="icon-20-m-report"></i>
+                            <span class="fz-md fz-md-set">简报标题</span>
+                        </div>
+                        <div class="dra-title-input">
+                            <input class="dra-title-ipt fz-md fz-md-set fc-text" type="text" v-model="title">
+                        </div>
+                    </div> -->
+                    
+                    <div class="dra-edit mg-box pd-10-lr ub ub-ver ub-ac">
+                        <template v-for="(item, index) in content">
+                            <div class="dra-edit-add mg-box" @click="addBlock(index)"></div>
+                            <div class="dra-edit-block bg-white mg-box ub">
+                                <div class="dra-edit-delete" @click="deleteBlock(index)"></div>
+                                <div class="dra-edit-txt ub-f1">
+                                    <textarea class="dra-edit-txa fz-md fz-md-set fc-title" 
+                                        v-model="item.text" 
+                                        @input.once="setBlockTextHeight()" 
+                                        @input.change="changeText(item)" 
+                                        placeholder="点击添加文字"></textarea>
+                                    <span class="fc-text fz-sm dra-edit-tips">
+                                                                                                            最多不超过{{item.textTotal}}个字;&nbsp;&nbsp;剩余{{item.textCount}}个字
+                                    </span>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="dra-edit-add mg-box" @click="addBlock(content.length)"></div>
+                    </div>
+               </div> 
+               
+               <div class="nonetwork hide"></div>
+               
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/autosize.min.js"></script>
+        <script src="js/duty-report1-add-page.js"></script>
+    </body>
+</html>

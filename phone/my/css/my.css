@@ -1,0 +1,38 @@
+.my-info{
+    height: 7.5em;
+}
+.my-info-left{
+    margin: 0 1em;
+}
+.my-info-head,
+.my-info-head-default{
+    width: 3.75em;
+    height: 3.75em;
+    border-radius: 1.875em;
+    overflow: hidden;
+}
+.my-info-head-pic{
+    display: block;
+    height: 100%;
+}
+.my-info-head-default{
+    line-height: 3.75em;
+    text-align: center;
+    color: #fff;
+}
+.my-info-center{
+    margin-left: 0.5em;
+}
+.my-info-name{
+    font-weight: bold;
+}
+.my-info-id{
+    margin-top: 0.375em;
+}
+.my-info-dep{
+    margin-top: 0.375em;
+}
+
+.info-head-mg{
+    margin: 0.5em 0;
+}

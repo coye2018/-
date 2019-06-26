@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <title>整改单标准</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="reform/css/details-common.css">
+</head>
+<body ontouchstart >
+<div class="bc-bg"  data-control="PAGE" tabindex="0" id="Page">
+    <!--header-->
+    <div class="uh" data-control="HEADER" id="Header">
+        <div class="ub ub-ac header">
+            <div id="nav-left" class="nav-btn">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" >整改标准</h1>
+            <div id="nav-right" class="nav-btn">
+                <div class="fa fa-1g ub-img1"></div>
+            </div>
+        </div>
+    </div>
+    <!--end header-->
+
+    <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER">
+        <div class="" v-for="(items,index) in list" v-cloak>
+            <div class="catalog border-btm fz-sm">{{items.catalog}}</div>
+            <ul class="ulList border-btm bg-white" v-for="val in items.list">
+                <li class="ub">
+                    <span class="ub fz-sm fz-sm-set fc-title codestyle">{{val.code | numFmt}}</span>
+                    <div class="ub ub-f1 pd-10-lr">
+                        <span class=" fz-sm fz-sm-set fc-title ">{{val.standardDetail}}</span>
+                    </div>
+                    <div class="rightBtn">
+                        <button class="btn btn-square btn-sm fc-red">
+                            <span class="fz-sm">{{val.isSuitable}}</span>
+                        </button>
+                    </div>
+                </li>
+                <li class="" >
+                   <div class="ub">
+                       <span class="title fc-title fz-md fz-md-set">图片</span>
+                       <span class="detail fz-md fz-md-set" v-if="val.pictureList.length == 0">暂无图片</span>
+                       <div class="ub listPic" v-else >
+                           <div class="ub ub-ac ub-pc" v-for="(img,index) in val.pictureList">
+                               <span :style="{backgroundImage: 'url('+ picPath + img + ')'}" @click="openPic(val.pictureList,index)"></span>
+                           </div>
+                       </div>
+                   </div>
+                    <div class="" style="padding-top: 0.625em;">
+                        <span class="ub fc-title fz-md fz-md-set">事件描述</span>
+                        <span class="ub textPadding fc-text fz-md fz-md-set" style="word-break: break-all">{{val.described}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="nonetwork" :class="none?'':'hide'" v-cloak></div>
+    </div>
+
+</div>
+
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js"> </script>
+<script src="js/config.js"> </script>
+<script>
+    (function($) {
+        var vm = new Vue({
+            el:'#Page',
+            data:{
+                picPath:mainPath,
+                list:[],
+                none:false
+            },
+            methods:{
+                openPic: function (img,index) {
+                    var pic = [];
+                    for (var i = 0; i < img.length; i++) {
+                        var obj = img[i];
+                        pic.push(mainPath+obj)
+                    }
+//                    console.log(pic);
+                    picView(index,pic);
+                }
+            },
+            mounted: function() {
+                var that = this,
+                    reformId = appcan.locStorage.getVal('patrol-reformId');
+                var json = {
+                    path: mainPath + "reformApiController.do?getReformDetail&&reformId=" + reformId,
+                    data: {
+                        "loginDepartId":appcan.locStorage.getVal('deptId')
+                    }
+                };
+                ajaxPOST(json, function(data, e) {
+                    if(e == "success") {
+                        that.list = data.data.standardList;
+                    } else {
+                        that.none = true;
+                    }
+
+                })
+            }
+        });
+
+        appcan.button("#nav-left", "btn-act",function() {
+            appcan.window.close(1);
+        });
+        appcan.ready(function() {
+
+        })
+
+
+    })($);
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+.chat-headpic{
+    width: 2.292em;
+    height: 2.292em;
+}
+
+.chat-file-title{
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+}
+.chat-file-list{
+    overflow: hidden;
+}
+.chat-file-item{
+    float: left;
+    width: 20%;
+    padding: 2.6667% 0;
+}
+.chat-file-text{
+    width: 100%;
+    margin-top: 0.375em;
+    text-align: center;
+}
+.chat-file-more{
+    padding: 1.125em 0 1.5625em;
+}
+
+.chat-file-txa{
+    width: 100%;
+    height: 14.1667em;
+    line-height: 1.25;
+    padding-top: 0.875em;
+    padding-bottom: 0.875em;
+}

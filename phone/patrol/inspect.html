@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/mescroll.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!--<link rel="stylesheet" href="inspect/css/inspect.css">-->
+    <link rel="stylesheet" href="reform/css/reform-lists.css">
+    <style>
+        .unfinished-a {
+            width: 1.25em;
+            height: 1.25em;
+            background: url('../icon/24/unfinished-act.png') center center no-repeat;
+            background-size: contain;
+        }
+
+        .unfinished {
+            width: 1.25em;
+            height: 1.25em;
+            background: url('../icon/24/unfinished.png') center center no-repeat;
+            background-size: contain;
+        }
+
+        .finished {
+            width: 1.25em;
+            height: 1.25em;
+            background: url('../icon/24/finished.png') center center no-repeat;
+            background-size: contain;
+        }
+
+        .finished-a {
+            width: 1.25em;
+            height: 1.25em;
+            background: url('../icon/24/finished-act.png') center center no-repeat;
+            background-size: contain;
+        }
+
+        #ScrollContent {
+            padding-top: 5.75em;
+            height: 100%;
+        }
+
+        .list {
+            /*background-color: #fff;*/
+            /*margin-top: 5.875em;*/
+        }
+
+        .list > li {
+            /*border-bottom: 1px solid #E1E1E1;*/
+            line-height: 2.75em;
+            padding: 0 .625em 0 .625em;
+            position: relative;
+        }
+
+        .list > li:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #e1e1e1;
+            -webkit-transform: scaleY(0.33);
+            transform: scaleY(0.33);
+        }
+
+        .list > li > p > .title {
+            display: inline-block;
+            white-space: nowrap;
+            width: 80%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .list > li > p:first-child {
+            position: relative;
+        }
+
+        .list > li > p:first-child > span:last-child {
+            line-height: 2.1em;
+            height: 2.1em;
+            border-radius: .4em;
+        }
+
+        .list > li > p:nth-child(2) {
+            font-size: .875em;
+            line-height: .875em;
+            padding-bottom: .5em;
+            color: #999;
+        }
+
+        .receive {
+            display: inline-block;
+            line-height: 2.1em;
+            height: 2.1em;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.9375em;
+            width: 4.375em;
+            background-color: #52A6FF;
+            color: white;
+            /*font-size: .875em;*/
+            text-align: center;
+            border-radius: .4em;
+
+        }
+
+        .receive-n {
+            display: inline-block;
+            line-height: 2.1em;
+            height: 2.1em;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.9375em;
+            width: 4.375em;
+            background-color: #b2b2b2;
+            /*background-color: rgba(204, 204, 204, 1);*/
+            color: white;
+            /*font-size: .875em;*/
+            text-align: center;
+            border-radius: .4em;
+
+        }
+
+        .write {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.9375em;
+            width: 4.375em;
+            color: #52A6FF;
+            border: 2px solid #52A6FF;
+            /*font-size: .875em;*/
+            text-align: center;
+        }
+
+        .inspect {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.9375em;
+            width: 4.375em;
+            line-height: 2.1em;
+            height: 2.1em;
+            color: #52A6FF;
+            border: 2px solid #52A6FF;
+            /*font-size: .875em;*/
+            text-align: center;
+            border-radius: .4em;
+        }
+
+        .alists-box:active {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    </style>
+    <title>巡查单</title>
+</head>
+<body ontouchstart>
+<div class="bc-bg" data-control="PAGE" id="app" tabindex="0" v-cloak>
+
+    <div class="uh" data-control="HEADER" id="Header">
+        <!--头部开始-->
+        <div class="ub ub-ac header">
+            <div id="nav-left" class="nav-btn" @click="back">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0" id="change">巡查单</h1>
+            <div id="nav-right" class="nav-btn">
+                <div class="fa fa-1g ub-img1"></div>
+            </div>
+        </div>
+        <!--头部结束-->
+        <div class="ut-s tx-c" tabindex="0">
+            <!--列表tab-->
+            <div class="tab-square border-btm ub">
+                <div class="tab-square-text ub ub-pc ub-f1" :class="{'actives':isShow==true}" @click="toggle1">
+                    <div class="ub ub-ac">
+                        <span class="ub" :class="{'unfinished-a':isShow==true,'unfinished':isShow==false}"></span>
+                    </div>&nbsp;
+                    <div class="ub ub-ac">
+                        <span class="fz-md fz-md-set">未完成({{handingMsg}})</span>
+                    </div>
+                </div>
+                <div class="tab-square-text ub ub-pc ub-f1" :class="{'actives':isShow==false}" @click="toggle2">
+                    <div class="ub ub-ac">
+                        <span class="ub" :class="{'finished-a':isShow==false,'finished':isShow==true}"></span>
+                    </div>&nbsp;
+                    <div class="ub ub-ac">
+                        <span class="fz-md fz-md-set">已完成({{completeMsg}})</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent">
+        <div id="mescroll" class="mescroll mescroll1">
+            <ul class="list fc-title fz-lg" id="inspectList">
+                <li v-for="(item,index) in list" @click="toDetail(item)" class="alists-box bg-white">
+                    <p id="main">
+                        <span class="title fz-md fz-md-set">{{item.patroDate | getDate(5,11)}} {{item.title}}</span>
+                        <span v-if="item.status==2">
+                                <span class="receive fz-sm  fz-sm-set"
+                                      v-if="item.date">未接收</span>
+                                <span class="receive-n fz-sm  fz-sm-set" v-else>接收</span>
+                            </span>
+                        <span class="write fz-sm  fz-sm-set" v-else-if="item.status==5">编辑中</span>
+                        <!--<span class="inspect fz-sm  fz-sm-set" v-else-if="item.status==3">巡查中</span>-->
+                        <span v-else-if="item.status==3">
+                                <span class="inspect fz-sm  fz-sm-set" v-if="item.date">巡查中</span>
+                                <span class="receive-n fz-sm  fz-sm-set" v-else>接收</span>
+                            </span>
+                    </p>
+                    <p v-if="isShow==false">
+                        <span class="fz-sm  fz-sm-set">{{item.compeleteDate | getDate(5,16)}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<!--<script src="../../js/vue.min.js"></script>-->
+<script src="js/vue2513.min.js" type="text/javascript"></script>
+<script src="../js/mescroll.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="js/config.js" type="text/javascript"></script>
+<script src="inspect/js/inspect.js" type="text/javascript"></script>
+</body>
+</html>

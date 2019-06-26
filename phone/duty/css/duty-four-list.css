@@ -1,0 +1,76 @@
+#ScrollContent{
+  padding-bottom: 3.96em;
+  overflow: auto;
+  height: 100%;
+}
+#ScrollContent.nopadding-b{
+   padding-bottom: 0; 
+}
+
+.du4-item{
+    padding-top: 0.875em;
+    padding-bottom: 0.875em;
+}
+.du4-item-icon{
+    margin-right: 0.625em;
+}
+.du4-item-time{
+    margin-top: 0.5em;
+}
+.du4-item-btn{
+    margin-left: 0.625em;
+}
+
+[class^="du4-list-shade"]{
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+.du4-list-shade-1{
+    height: 1.375em;
+    position: absolute;
+    right: 0.375em;
+    top: 0.675em;
+    opacity: 0;
+}
+.du4-list-shade-1.actives{
+    opacity: 1;
+}
+.du4-list-shade-2{
+    position: absolute;
+    height: 7.875em;
+    right: 1em;
+    top: 2.5em;
+    -webkit-transform-origin: right top;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0
+}
+.du4-list-shade-2.actives{
+    -webkit-transform-origin: right top;
+    -webkit-transform: rotate(0);
+    opacity: 1
+}
+.du4-list-shade-3{
+    position: absolute;
+    bottom: -3.125em;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    width: 14.875em;
+    max-width: 90%;
+}
+.du4-list-shade-3.actives{
+    -webkit-transform: translate(-50%, -7em);
+    transform: translate(-50%, -7em);
+}
+
+.du4-notice-title{
+    padding-top: 0.875em;
+    padding-bottom: 0.875em;
+}
+.du4-notice-content{
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+    line-height: 1.3333;
+    font-weight: bold;
+}
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/chat.css">
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="chat_forward">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <template v-cloak>
+                            <i class="icon-20-h-backto" v-if="multiFlag==0"></i>
+                            <span class="fz-md fc-title" v-else>取消</span>
+                        </template>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">
+                        <span v-cloak>{{multiFlag==0?'选择一个聊天':'选择多个聊天'}}</span>
+                    </h1>
+                    <div class="nav-btn" id="nav-right" :data-flag="multiFlag">
+                        <template v-cloak>
+                            <span class="fz-md fc-title" v-if="multiFlag==0">多选</span>
+                            <span class="fz-md fc-main" v-else>完成({{recentPick.length}})</span>
+                        </template>
+                    </div>
+                </div>
+                <div class="search-box bc-bg">
+                    <div class="search" @click="searchToInput()">
+                        <div class="search-main ub-con ub ub-ac ub-pc" :class="isToInput?'':'hide' ">
+                            <div class="search-main-center ub-f1">
+                                <input class="search-ipt" v-model="searchIpt" v-focus="isToInput" @input="searchFilter()" @blur="searchToText()" />
+                            </div>
+                            <div class="search-main-right" @click="searchEmpty()">
+                                <i class="search-del-icon"></i>
+                            </div>
+                        </div>
+                        <div class="search-note ub-con ub ub-ac ub-pc" :class="isToInput?'hide':'' ">
+                            <i class="icon-20-h-search"></i>
+                            <span class="search-note-text fz-md fc-text">请输入搜索内容</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="lists">
+                    <div class="lists-box bg-white" id="create">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title ub-f1">
+                                <span class="fz-md">转发多人</span>
+                            </div>
+                            <div class="lists-item-right">
+                                <i class="icon-20-g-goto"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lists-title pd-10-lr">
+                    <span class="fz-sm fc-text">最近聊天</span>
+                </div>
+                <ul class="myli" v-if="recent.length>0">
+                    
+                    <li class="myli-item" v-for="(item, index) in recent" @click="pickItem(item, index)" v-cloak>
+                        <div class="myli-center-lg ub ub-ac">
+                            <div class="myli-tick" v-show="multiFlag==1">
+                                <i class="icon-20-choose" :class="item.checked?'actives':'' "></i>
+                            </div>
+                            <div class="myli-headpic-lg">
+                                <div class="myli-headpic-box-lg">
+                                    <template v-for="(value, key) in item.people" v-if="key<4">
+                                        <img class="myli-headpic-img-lg" v-if="value.hashead" :src="value.headurl" @error="headpicReplace(value, item.chatType)" />
+                                        <div class="myli-headpic-txt-lg" v-else :class="value.headbgclass">
+                                            <template v-if="item.people.length==1">{{value.userNameShort}}</template>
+                                            <template v-else>{{value.userNameOne}}</template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="myli-main ub-f1">
+                                <div class="chatli-top ub ub-ac">
+                                    <div class="chatli-title inaline ub-f1">
+                                        <span class="fz-md fz-md-set fc-title">{{item.groupName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- <li class="myli-item">
+                        <div class="myli-center-lg ub ub-ac">
+                            <div class="myli-headpic-lg">
+                                <div class="myli-headpic-box-lg">
+                                    <div class="myli-headpic-txt-lg bg-head-0">股份</div>
+                                </div>
+                            </div>
+                            <div class="myli-main ub-f1">
+                                <div class="chatli-top ub ub-ac">
+                                    <div class="chatli-title inaline ub-f1">
+                                        <span class="fz-md fz-md-set fc-title">值班群聊</span>
+                                    </div>
+                                    <div class="chatli-time">
+                                        <span class="fz-sm fz-sm-set fc-text">7月31日 09:23</span>
+                                    </div>
+                                </div>
+                                <div class="chatli-btm ub ub-ac">
+                                    <div class="chatli-text inaline ub-f1">
+                                        <span class="fz-sm fz-sm-set fc-text">航管部@广告公司 这污渍已渗透石板需要123123123需要需要需要123123123</span>
+                                    </div>
+                                    <div class="charli-note">
+                                        <div class="charli-reddot bg-reddot">
+                                            <span class="fz-sm fz-sm-set fc-white">99+</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="myli-item">
+                        <div class="myli-center-lg ub ub-ac">
+                            <div class="myli-headpic-lg">
+                                <div class="myli-headpic-box-lg">
+                                    <img class="myli-headpic-img-lg" src="http://img.ycwb.com/news/attachement/jpg/site2/20140828/002511e10c4015690c9653.jpg" />
+                                </div>
+                            </div>
+                            <div class="myli-main ub-f1">
+                                <div class="chatli-top ub ub-ac">
+                                    <div class="chatli-title inaline ub-f1">
+                                        <span class="fz-md fz-md-set fc-title">值班群聊</span>
+                                    </div>
+                                    <div class="chatli-time">
+                                        <span class="fz-sm fz-sm-set fc-text">7月31日 09:23</span>
+                                    </div>
+                                </div>
+                                <div class="chatli-btm ub ub-ac">
+                                    <div class="chatli-text inaline ub-f1">
+                                        <span class="fz-sm fz-sm-set fc-text">@广告公司: 这污渍已渗透石板需要</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="myli-item">
+                        <div class="myli-center-lg ub ub-ac">
+                            <div class="myli-headpic-lg">
+                                <div class="myli-headpic-box-lg">
+                                    <img class="myli-headpic-img-lg" src="http://img.qqzhi.com/upload/img_4_1622125709D228667349_23.jpg" />
+                                    <img class="myli-headpic-img-lg" src="http://img.qqzhi.com/upload/img_4_1622125709D228667349_23.jpg" />
+                                    <img class="myli-headpic-img-lg" src="http://img.qqzhi.com/upload/img_4_1622125709D228667349_23.jpg" />
+                                    <img class="myli-headpic-img-lg" src="http://img.qqzhi.com/upload/img_4_1622125709D228667349_23.jpg" />
+                                </div>
+                            </div>
+                            <div class="myli-main ub-f1">
+                                <div class="chatli-top ub ub-ac">
+                                    <div class="chatli-title inaline ub-f1">
+                                        <span class="fz-md fz-md-set fc-title">值班群聊</span>
+                                    </div>
+                                    <div class="chatli-time">
+                                        <span class="fz-sm fz-sm-set fc-text">7月31日 09:23</span>
+                                    </div>
+                                </div>
+                                <div class="chatli-btm ub ub-ac">
+                                    <div class="chatli-text inaline ub-f1">
+                                        <span class="fz-sm fz-sm-set fc-text">@广告公司: 这污渍已渗透石板需要</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="myli-item">
+                        <div class="myli-center-lg ub ub-ac">
+                            <div class="myli-headpic-lg">
+                                <div class="myli-headpic-box-lg">
+                                    <div class="myli-headpic-txt-lg bg-head-0">张</div>
+                                    <div class="myli-headpic-txt-lg bg-head-2">李</div>
+                                    <div class="myli-headpic-txt-lg bg-head-4">王</div>
+                                    <div class="myli-headpic-txt-lg bg-head-6">吴</div>
+                                </div>
+                            </div>
+                            <div class="myli-main ub-f1">
+                                <div class="chatli-top ub ub-ac">
+                                    <div class="chatli-title inaline ub-f1">
+                                        <span class="fz-md fz-md-set fc-title">值班群聊</span>
+                                    </div>
+                                    <div class="chatli-time">
+                                        <span class="fz-sm fz-sm-set fc-text">7月31日 09:23</span>
+                                    </div>
+                                </div>
+                                <div class="chatli-btm ub ub-ac">
+                                    <div class="chatli-text inaline ub-f1">
+                                        <span class="fz-sm fz-sm-set fc-text">@广告公司: 这污渍已渗透石板需要</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+                    
+                </ul>
+                <div class="nothing" v-else></div>
+                <div class="nonetwork hide"></div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/pinyin_dict_firstletter.js"></script>
+        <script src="js/pinyinUtil.js"></script>
+        <script src="js/chat-forward.js"></script>
+        <script src="js/chat-forward-more.js"></script>
+        <script src="js/chat-pluIn.js"></script>
+    </body>
+</html>

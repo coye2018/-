@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <div class="uh bg-header border-btm" data-control="HEADER" id="Header">
+                <div class="header">
+                    <div class="nav-btn" id="nav-left">
+                        <div class="nav-btn-item" id="nav-back">
+                            <i class="icon-20 icon-black-backto"></i>
+                        </div>
+                    </div>
+                    <div class="nav-main ub-f1 ub ub-ac ub-pc">
+                        <div class="nav-title inaline fz-xl">鱼骨动态列表</div>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ContentFlexVer">
+                
+                <div>假数据模拟真实效果</div>
+                <div class="prog bg-white border-top border-btm">
+                    <div class="prog-more" @click="progShow()">
+                        <div class="prog-more-text" v-text="progText.text"></div>
+                        <div class="prog-more-arr icon-upward" :class="progText.icon"></div>
+                    </div>
+                    <div class="prog-main">
+                        <div class="prog-item" v-for="(item, index) in option" v-show="isOptionItemShow(index)">
+                            <div class="prog-left">
+                                <div class="prog-dept" v-text="item.user"></div>
+                                <div class="prog-time" v-text="item.date"></div>
+                            </div>
+                            <div class="prog-center">
+                                <i class="icon-20" :class="item.icon"></i>
+                                <div class="prog-line"></div>
+                            </div>
+                            <div class="prog-right">
+                                <div class="prog-status">
+                                    <span class="fc-main" v-text="item.code"></span>
+                                </div>
+                                <div class="prog-detail" ref="progContent" :class="{'in3line': item.contentHide == 0}" v-html="item.content"></div>
+                                <div class="prog-detail-more" @click="progContMore(index)" v-if="item.contentHide != -1" v-html="item.contentNote"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>静态纯展示无js的html结构</div>
+                <div class="prog bg-white border-top border-btm">
+                    <div class="prog-more">
+                        <div class="prog-more-text">查看更多</div>
+                        <div class="prog-more-arr icon-upward actives"></div>
+                    </div>
+                    <div class="prog-main">
+                        <div class="prog-item">
+                            <div class="prog-left">
+                                <div class="prog-dept">地勤</div>
+                                <div class="prog-time">10-20 22:38</div>
+                            </div>
+                            <div class="prog-center">
+                                <i class="icon-20 icon-yugu-end"></i>
+                                <div class="prog-line"></div>
+                            </div>
+                            <div class="prog-right">
+                                <div class="prog-status">
+                                    <span class="fc-main">李四</span>
+                                    <span class="fc-title">完成了整改单</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-left">
+                                <div class="prog-dept">地勤</div>
+                                <div class="prog-time">10-20 22:38</div>
+                            </div>
+                            <div class="prog-center">
+                                <i class="icon-20 icon-yugu-done"></i>
+                                <div class="prog-line"></div>
+                            </div>
+                            <div class="prog-right">
+                                <div class="prog-status">
+                                    <span class="fc-main">李四</span>
+                                    <span class="fc-title">接受了整改单</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-left">
+                                <div class="prog-dept">地勤</div>
+                                <div class="prog-time">10-20 22:33</div>
+                            </div>
+                            <div class="prog-center">
+                                <i class="icon-20 icon-yugu-begin"></i>
+                                <div class="prog-line"></div>
+                            </div>
+                            <div class="prog-right">
+                                <div class="prog-status">
+                                    <span class="fc-main">张三</span>
+                                    <span class="fc-title">派发了整改单</span>
+                                </div>
+                                <div class="prog-detail in3line">这里测试文字超过三行并且包括连续英文和数字会不会断行ww123wwwww123ww123wwwww123ww123wwwww123ww123wwwww123ww123wwwww123ww123wwwww123ww123wwwww123</div>
+                                <div class="prog-detail-more">更多&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/model-yugu.js"></script>
+    </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../duty/css/duty-four.css">
+        <link rel="stylesheet" href="css/duty-four-3.css">
+        <style type="text/css">
+            .uh_ios7 [data-control="PAGE"]:before{
+                content: none;
+            }
+            .uh_ios7 .uh {
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <script src="../js/preset.js"></script>
+        <div tabindex="0" data-control="PAGE" id="Page" class="bc-bg" v-cloak>
+            <div class="bc-bg ub ub-ver nopadding" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <div class="lists bg-white mg-box" >
+                    <div class="lists-box">
+                        <div class="pd-10-lr ub ub-ac border-btm" style="padding-top: 0.6em;padding-bottom: 0.6em">
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set">必见人员</span>
+                            </div>
+                            <div class="lists-item-center ub-f1 ub">
+                                <span class="fz-md fz-md-set fc-text duty-text" v-html="obj.person"></span>
+                            </div>
+                        </div>
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set">必问问题</span>
+                            </div>
+                        </div>
+                        <div class="pd-10-lr ub ub-ac duty-four-br border-btm">
+                            <span class="fc-text fz-md-set fz-md duty-text" v-html="obj.question"></span>
+                        </div>
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set">问题回复</span>
+                            </div>
+                        </div>
+                        <div class="pd-10-lr ub ub-ac duty-four-br border-btm">
+                            <textarea class="duty-four-txa fc-title" id="txa"
+                                v-model="obj.content" placeholder="请输入必见人员对必问问题的回复" v-if="textareaOrSpan==1"></textarea>
+                            <span class="fc-text fz-md-set fz-md duty-text" v-if="textareaOrSpan==2" v-html="obj.content"></span>
+                        </div>
+                        <!-- 巡查图片 -->
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set">人员照片</span>
+                            </div>
+                        </div>
+                        <!-- 上传图片 -->
+                        <div class="addpic addpic-fb bg-white duty-four-br duty-four-pic border-btm">
+                            <!-- 预览图 -->
+                            <div class="addpic-box" v-for="(item, index) in previewImgs" @click.stop="openImgFn(previewImgs, index)">
+                                <div class="addpic-item">
+                                    <div class="addpic-item-con ub ub-ac ub-pc">
+                                        <!-- <span v-text="item.percent" v-if="item.status == 'pending'"></span>
+                                        <img :src="item.src" class="addpic-con" v-if="item.status == 'finish'" /> -->
+                                        <div v-text="item.percent" v-if="item.status == 'pending'"></div>
+                                        <div class="fz-sm fz-sm-set" v-if="item.status == 'fail'">上传失败</div>
+                                        <img :src="item.src" class="addpic-con" v-if="item.status == 'finish'" @error="imgError(index)" />
+                                    </div>
+                                </div>
+                                <div class="addpic-del" @click.stop="delet(previewImgs, index)" v-if="textareaOrSpan==1"></div>
+                            </div>
+                            <!-- 已上传图片 -->
+                            <div class="addpic-box js-view-img" v-for="(item, index) in obj.check_images"  @click="openImgFn(obj.check_images, index)">
+                                <div class="addpic-item">
+                                    <div class="addpic-item-con tx-c">
+                                        <img :src="item" class="addpic-con" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 拍照 -->
+                            <!-- <div class="addpic-btn" onclick="openCamera(this)" v-if="(obj.status == 'todo') && (isSubmit == 'false')"> -->
+                            <div class="addpic-btn" onclick="openCamera(this)" v-if="textareaOrSpan==1">
+                                <div class="addpic-item">
+                                    <div class="addpic-from-camera tx-c"></div>
+                                </div>
+                            </div>
+                            <!-- 未提交 -->
+                            <span class="fc-text fz-md-set fz-md duty-text" v-if="(obj.status == 'todo') && (isSubmit == 'true')">无</span>
+                        </div>
+                        <!-- 完成时间 -->
+                        <!-- <div class="lists-item pd-10-lr ub ub-ac" v-if="isDefine(obj.create_time_detail)">
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set">完成时间：</span>
+                            </div>
+                            <div class="lists-item-title">
+                                <span class="fz-md fz-md-set fc-text">{{obj.create_time_detail}}</span>
+                            </div>
+                        </div> -->
+                    </div>
+                    
+                </div>
+                <!-- lists end -->
+                
+             
+             <!-- 提交按钮-->
+                <div class="btn-setbtm border-top pd-10-lr bg-white ub" id="Footer" v-if="showBtn">
+                    <button class="btn ub-f1 hide" style="margin-right:0.5em" >
+                        <div class="fz-bg fc-main"></div>
+                    </button>
+                    <button class="btn bg-main ub-f1" @click="submitDataFn"  style="margin-left:0.5em">
+                        <span class="fz-bg fc-white">保存</span>
+                    </button>
+                </div>
+                
+             </div> 
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/plug-in.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/es6-promise.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="js/duty-four-3-question-page.js"></script>
+    </body>
+</html>

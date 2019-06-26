@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="../css/mescroll.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="css/flight-information.css">
+</head>
+<body class="" ontouchstart>
+<div class="flight" data-control="PAGE" id="infor"  v-cloak>
+    <div class="uh" data-control="HEADER" id="Header">
+        <div class="ub ub-ac header">
+            <div class="nav-btn" id="nav-left">
+                <i class="icon-20-h-backto"></i>
+            </div>
+            <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">航班动态</h1>
+            <div class="nav-btn" id="nav-right">
+                <i class="icon-20-h-search"></i>
+                <!-- <i class="icon-20-h-search"></i> -->
+                <!--<i class="icon-20-h-date"></i>-->
+                <!--<i class="icon-20-h-date"></i>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+        <div id="mescroll" class="mescroll content">
+            <ul>
+                <li v-for="list in lists" v-if="lists.length" :data-id="list.ffid" @click='getDataid(list.ffid)'>
+                    <div class="left">
+                        <div class="left-l" :class="{delayColor:list.delay,cancelColor:list.cancel,actualColor:list.normal,noneColor:list.none}"></div>
+                        <div class="left-r tx-c">
+                            <span class="fz-md actualTic">{{list.flightstate}}</span>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="right-t">
+                            <div class=right-t-l>
+                                <img :src="list.twocharcode" @error="changePic(list)">
+                                <!--<i v-else class="icon-20-h-jichang"></i>-->
+                                <h2>{{list.flightno}}</h2>
+                                <p>({{list.craftno}})</p>
+                            </div>
+                            <div class="right-t-r">
+                                <h2>机位</h2>
+                                <p>{{list.craftsite}}</p>
+                            </div>
+                        </div>
+                        <div class="right-b ub">
+                            <div class="b1 ub-f1">
+                                <h2>{{list.starstationcn}}</h2>
+                                <p>{{list.sst}}</p>
+                            </div>
+                            <div class="b2 ub-f1">
+                                <img src="./img/icon-arrive.png" alt="">
+                            </div>
+                            <div class="b3 ub-f1">
+                                <h2>{{list.terminalstationcn}}</h2>
+                                <p>{{list.est}}</p>
+                            </div>
+                        </div>
+                        <div class="right-f">
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- 数据END -->
+            <div class="nonetwork" :class="nonet?'':'hide'"></div>
+            <div class="nothing ub ub-ac" :class="nothing?'':'hide'"></div>
+        </div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.scrollbox.js"></script>
+<script src="../js/template.import.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/xdate.js"></script>
+<script src="../js/mescroll.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/swiper.jquery.min.js"></script>
+<script src="../js/fastclick.js"></script>
+<script src="../js/echarts/echarts.min.js"></script>
+<script src="js/flight-plan.js"></script>
+</body>
+</html>

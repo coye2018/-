@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="" id="fsize-set">
+    <script src="../js/fsize-set.js"></script>
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <!--<link rel="stylesheet" href="../../css/mescroll.min.css">-->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="inspect/css/inspect-common.css">
+    <style>
+        #main {
+            padding-top: 0;
+        }
+        ul:nth-of-type(2){
+            margin-top: 0;
+        }
+        .standard{
+            display: inline-block;
+            /*width: 13em;*/
+        }
+    </style>
+    <title>派发整改单</title>
+</head>
+<body ontouchstart style="background-color: #f6f7f9;">
+    <div id="app" v-cloak>
+        <div id="main" class="bc-bg ub ub-ver myfb nopadding" data-control="FLEXBOXVER">
+            <!--<div class="catalog fz-sm">{{Catalog}}</div>-->
+            <ul>
+
+            </ul>
+            <ul>
+                <li class="fz-md fz-md-set border-btm">
+                    <span class="title">标题</span>
+                    <input type="text" placeholder="请输入标题" v-model.trim="title">
+                </li>
+                <li class="fz-md fz-md-set border-btm">
+                    <span class="title">提报时间</span>
+                    <input type="text" placeholder="请输入标题" v-model.trim="time" disabled="disabled">
+                </li>
+                <li class="fz-md fz-md-set border-btm">
+                    <span class="title">详细位置</span>
+                    <input type="text" placeholder="请输入位置" v-model.trim="location">
+                </li>
+                <li class="fz-md fz-md-set border-btm">
+                    <span class="title">事件描述</span>
+                    <p class="fc-text paddingT">
+                        <textarea style="line-height: 1em;" rows="2" class="ub-fh" placeholder="请输入事件描述信息" v-model.trim="detail"></textarea>
+                    </p>
+                </li>
+                <li class="fz-md fz-md-set border-btm" @click="chooseDep" class="alists-box bg-white">
+                    <span class="title">责任部门</span>
+                    <span class="detail" id="name">{{department}}</span>
+                    <div class="department">
+                        <i class="icon-20-g-goto"></i>
+                    </div>
+                </li>
+                <li class="fz-md fz-md-set border-btm" @click="chooseUser" class="alists-box bg-white">
+                    <span class="title">抄送</span>
+                    <span class="detail">{{copyUserNames}}</span>
+                    <div class="department">
+                        <i class="icon-20-g-add"></i>
+                    </div>
+                </li>
+                <li class="fz-md fz-md-set border-btm" @click="toReform">
+                    <span class="title">整改项</span>
+                    <span class="fc-main ut-s standard">整改项详情</span>
+                    <!--<span class="fc-main">6465</span>-->
+                    <div class="department">
+                        <i class="icon-20-g-goto"></i>
+                    </div>
+                </li>
+            </ul>
+            <div class="footer">
+                <div class="created" @click="appointed" v-if="isAppoint">派发</div>
+                <div class="created" v-else>派发</div>
+            </div>
+        </div>
+    </div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<!--<script src="../../js/vue.min.js"></script>-->
+<script src="js/vue2513.min.js" type="text/javascript"></script>
+<script src="../js/mescroll.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="js/config.js" type="text/javascript"></script>
+<script src="inspect/js/inspect-appoint-content.js" type="text/javascript"></script>
+</body>
+</html>

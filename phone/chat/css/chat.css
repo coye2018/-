@@ -1,0 +1,89 @@
+#ScrollContent{
+    padding-top: 6em;
+}
+.uh_ios7 #ScrollContent{
+    top: 0;
+    padding-top: 7em;
+}
+.tab-box{
+    height: 1px;
+}
+.chat-scroll{
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.tab-box{
+    -webkit-transition: none;
+    transition: none;
+}
+
+.chatli-btm{
+    margin-top: 0.5em;
+}
+.chatli-text{
+    line-height: 1.25;
+}
+.chatli-time,
+.charli-note{
+    margin-left: 0.75em;
+}
+.charli-reddot{
+    height: 0.875em;
+    line-height: 0.875em;
+    padding: 0 0.125em;
+    border-radius: 0.4375em;
+    min-width: 1em;
+    text-align: center;
+}
+
+
+
+/* 会话隐藏选项 */
+.charli-option {
+    position: absolute;
+    right: -3.5em;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+}
+.charli-option-box{
+    height: 100%;
+}
+.charli-option-item{
+    height: 100%;
+    width: 3.5em;
+    text-align: center;
+}
+.charli-option-item span{
+    display: block;
+    margin: 0 auto;
+}
+.charli-option-animated{
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+}
+.charli-option-animated.actives{
+    transform: translate3d(-3.5em,0,0);
+    -webkit-transform: translate3d(-3.5em,0,0);
+}
+.disContentChat{
+    background-color:#ffe4e1;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+.disContentChat > span{
+    font-weight: bold;
+    vertical-align:middle;
+    font-size:0.9em;
+}
+.icon-20-chat-disContentChat{
+    vertical-align:middle;
+    margin-left: 2%;
+    width: 1.25em;
+    height: 1.25em;
+    background-image: url(../img/chat_warn.png);
+}

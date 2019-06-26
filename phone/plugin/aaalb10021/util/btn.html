@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            <zh-header @left="backto">
+                <span>按钮或标签</span>
+            </zh-header>
+            <zh-content>
+                
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn>默认小按钮</zh-btn>
+                    <zh-btn :color="'green'">绿(green)</zh-btn>
+                    <zh-btn :color="'red'">红(red)</zh-btn>
+                    <zh-btn :color="'blue'">蓝(blue)</zh-btn>
+                    <zh-btn :color="'orange'">橙(orange)</zh-btn>
+                    <zh-btn :color="'grey'">灰(grey)</zh-btn>
+                </div>
+                
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :bg="true">默认小按钮</zh-btn>
+                    <zh-btn :color="'green'" :bg="true">绿(green)</zh-btn>
+                    <zh-btn :color="'red'" :bg="true">红(red)</zh-btn>
+                    <zh-btn :color="'blue'" :bg="true">蓝(blue)</zh-btn>
+                    <zh-btn :color="'orange'" :bg="true">橙(orange)</zh-btn>
+                    <zh-btn :color="'grey'" :bg="true">灰(grey)</zh-btn>
+                </div>
+                
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'">默认大按钮</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'" :color="'blue'">蓝色大按钮</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'" :color="'blue'" :bg="true">蓝色带背景大按钮</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'" :color="'blue'" :radius="true">蓝色圆角大按钮</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'" :color="'blue'">文字超出一行缩略缩略缩略缩略缩略缩略缩略缩略缩略缩略缩略</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="'large'" :color="'blue'" :multi="true">文字超出一行不缩略文字超出一行不缩略文字超出一行不缩略</zh-btn>
+                </div>
+                
+                
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="st_1.size" :color="st_1.color" :bg="st_1.bg" @click="doSomething_1" :loading="st_1.loading">点击事件</zh-btn>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <zh-btn :size="st_2.size" :color="st_2.color" :bg="st_2.bg" @click="doSomething_2" :is-disabled="st_2.isDisabled">该按钮被禁用了</zh-btn>
+                </div>
+                
+                <div style="margin-bottom: 0.5em;">
+                    <div>[添加回复]按钮比小按钮要稍微大一点，所以另外写。想覆盖样式可以自己加other-class，传入一个字符串，每个类之间空格隔开</div>
+                    <zh-btn :color="'blue'" :other-class="'btn-reply'">添加回复</zh-btn>
+                </div>
+                
+            </zh-content>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js-model/btn.js"></script>
+    </body>
+</html>

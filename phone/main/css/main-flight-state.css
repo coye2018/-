@@ -1,0 +1,33 @@
+html,body{
+    height: 100%;
+    overflow: hidden;
+}
+#ScrollContent{
+    height: 100%;
+}
+#Echart{
+    display: none;
+}
+
+.chart-title:before{
+    left: 12%;
+    right: 72%;
+}
+.chart-title:after{
+    left: 72%;
+    right: 12%;
+}
+.tab-box.actives{
+    visibility: visible;   
+}
+
+.tab-box{
+    visibility: hidden;   
+    height: 100%!important;
+}
+
+.tab-box.hide{
+    display: none!important;
+}
+
+

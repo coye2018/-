@@ -1,0 +1,97 @@
+#ScrollContent{
+    padding-top: 2.75em;
+}
+
+
+.levels .active.fc-warn-blue-b{background:#52A6FF;border-color: #52A6FF;}/*警示-蓝色*/
+.levels .active.fc-warn-yellow-b{background:#ffcc03;border-color: #ffcc03;}/*警示-黄色*/
+.levels .active.fc-warn-orange-b{background:#ff8b51;border-color: #ff8b51;}/*警示-橙色*/
+.levels .active.fc-warn-red-b{background:#fe4344;border-color: #fe4344;}/*警示-红色*/
+
+
+.delay-start{}
+
+.delay-box{
+   padding: 0.8333em 0.729em 0.9375em;
+}
+
+.delay-title{
+    margin-bottom: 1.041em;
+}
+
+.levels button{
+    display: block;
+    margin-right: 0.562em;
+    padding: 0.416em 0;
+    border: 1px solid #e1e1e1;
+    text-align: center;
+}
+.levels button:last-child{
+    margin: 0;
+}
+
+.levels button.active{
+    background: #fe4344;
+    border: 1px solid #fe4344;
+    color: #fff;
+}
+
+.input-area{
+    width: 100%;
+    min-height: 5em;
+}
+
+.delay-container::before{
+    top: 0;
+    left: 0;
+    right: 0;
+    content: "";
+    position: absolute;
+    height: 1px;
+    background-color: #e1e1e1;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+    z-index: 1;
+}
+.delay-container::after{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "";
+    position: absolute;
+    height: 1px;
+    background-color: #e1e1e1;
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+    z-index: 1;
+}
+
+
+.delay-fixed-btm-spacing{
+    height: 3.75em;
+}
+.delay-fixed-btm{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;    
+    height: 3.75em;
+    padding: 0.625em;
+}
+
+/* 通知内容 */
+.delay-item-title{
+    padding: 0 0 0.937em 0; 
+}
+.delay-item-box{
+    padding-top: 0.833em; 
+    padding-bottom: 0.833em; 
+}
+.delay-item-textarea{
+    width: 100%;
+}
+
+
+
+
+

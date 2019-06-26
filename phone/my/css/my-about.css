@@ -1,0 +1,42 @@
+/*about*/
+.about-copyright{
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+.about-box{
+    
+}
+.about-app{
+    height: 12.7083em;
+}
+.about-app-logo{
+    
+}
+.about-app-logo>img{
+    width: 4.6875em;
+}
+.about-app-name{
+    margin-top: 0.625em;
+}
+.about-app-name>span{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.about-app-version{
+    margin-top: 1em;
+}
+/*about END*/
+
+/*about-list*/
+.about-list .lists-box:nth-last-child(n+2):after{
+    left: 0;
+    right: 0;
+}
+.about-text{
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+}
+.about-text-date{
+    margin-top: 0.5em;
+}
+/*about-list END*/

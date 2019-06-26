@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/task.css">
+        <style type="text/css">
+            body{overflow: hidden;}
+            body.uh_ios7{font-size: 1.15rem;}
+            #ScrollContent{height: 100%;}
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="task" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub">
+                                <div class="tab-pill-text actives">
+                                    <span>指派的</span>
+                                </div>
+                                <div class="tab-pill-text">
+                                    <span>接收的</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                        <i class="icon-20-h-search"></i>
+                    </div>
+                </div>
+                <div class="search-box bc-bg" :class="hasSearch?'':'hide' ">
+                    <div class="search" @click="searchToInput()">
+                        <div class="search-main ub-con ub ub-ac ub-pc" :class="isToInput?'':'hide' ">
+                            <div class="search-main-center ub-f1">
+                                <input class="search-ipt fix-search-ipt" v-model="searchIpt" v-focus="isToInput" @input="searchFilter()" @blur="searchToText()" />
+                            </div>
+                            <div class="search-main-right" @click="searchEmpty()">
+                                <i class="search-del-icon"></i>
+                            </div>
+                        </div>
+                        <div class="search-note ub-con ub ub-ac ub-pc" :class="isToInput?'hide':'' ">
+                            <i class="icon-20-h-search"></i>
+                            <span class="search-note-text fz-md fc-text">请输入搜索内容</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver myfb" data-control="FLEXBOXVER" id="ScrollContent" :class="hasSearch?'hasSearch':'' ">
+                    <div id="mescroll-1" class="mescroll actives"> 
+                        <ul class="task-li">
+                            <li  v-for="(item,index) in appointTask " @click="unclick(item,index,0)">
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                                        </div>
+                                        <template v-if="item.filepath!=''&&item.filepath!='null'">
+                                        <div class="task-li-pic">
+                                            <img :src="item.filepath"/>
+                                        </div>
+                                        </template>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">{{item.create_time}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+                                        <button class="btn btn-square btn-sm bg-main" :class="item.stateColum!='未完成'?'btn-disabled':'btn-border'">
+                                            <span class="fz-sm">{{item.stateColum}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--
+                            <li>
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title">航站楼A105洗手间卫生太差，航管要加强保洁，尤其是高峰时间的卫生要搞好</span>
+                                        </div>
+                                        <div class="task-li-pic">
+                                            <img src="http://upload.chinaz.com/2016/0507/chinaz_dc74289f20a734510d114b61b943e7fa.jpg" />
+                                        </div>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">今天 15:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+ 
+                                        <button class="btn btn-square btn-border btn-sm bg-main">
+                                            <span class="fz-sm fz-sm-set">未接受</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title">航站楼A105洗手间卫生太差，航管要加强保洁，尤其是高峰时间的卫生要搞好</span>
+                                        </div>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">今天 15:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+                                        <button class="btn btn-square btn-disabled btn-sm bg-main">
+                                            <span class="fz-sm">已完成</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            -->
+                        </ul>
+                         <div class="nothing hide" id="appointNothing"></div>
+                         <div class="nonetwork" :class="nonetRecive?'':'hide'"></div>
+                     </div>
+                    <div id="mescroll-2" class="mescroll"> 
+                        <ul class="task-li">
+                            <li v-for="(item,index) in reciveTask " @click="unclick(item,index,1)">
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                                        </div>
+                                        <template v-if="item.filepath!=''&& item.filepath!='null'">
+                                        <div class="task-li-pic">
+                                            <img :src="item.filepath"/>
+                                        </div>
+                                        </template>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">{{item.create_time}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+                                        <button class="btn btn-square btn-sm bg-main" :class="item.state==0?'btn-border':(item.state==2?'btn-disabled':'')">
+                                            <span class="fz-sm">{{item.stateColum}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--
+                            <li>
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title">航站楼A105洗手间卫生太差，航管要加强保洁，尤其是高峰时间的卫生要搞好</span>
+                                        </div>
+                                        <div class="task-li-pic">
+                                            <img src="http://upload.chinaz.com/2016/0507/chinaz_dc74289f20a734510d114b61b943e7fa.jpg" />
+                                        </div>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">今天 15:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+                                        <button class="btn btn-square btn-sm bg-main">
+                                            <span class="fz-sm fz-sm-set">进行中</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="task-li-item bg-white border-btm pd-10-lr ub clickable">
+                                    <div class="task-li-icon">
+                                        <i class="icon-35-task"></i>
+                                    </div>
+                                    <div class="task-li-center ub-f1">
+                                        <div class="task-li-title in3line">
+                                            <span class="fz-md fz-md-set fc-title">航站楼A105洗手间卫生太差，航管要加强保洁，尤其是高峰时间的卫生要搞好</span>
+                                        </div>
+                                        <div class="task-li-desc">
+                                            <span class="fz-sm fz-sm-set fc-text">今天 15:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-li-right">
+                                        <button class="btn btn-square btn-disabled btn-sm bg-main">
+                                            <span class="fz-sm fz-sm-set">已完成</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                           --> 
+                        </ul>
+                        <div class="nothing hide" id="reciveNothing"></div>
+                        <div class="nonetwork" :class="nonet?'':'hide'"></div>
+                     </div>   
+               </div> 
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/fastclick.js"></script>
+        <script src="js/task.js"></script>
+    </body>
+</html>

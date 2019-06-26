@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../task/css/task.css">
+        <link rel="stylesheet" href="css/delay-detail.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="delay-detail">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">航延预警详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <!--<i class="icon-20-h-more"></i>-->
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                
+                <!-- 预警信息预览 -->
+                <div class="bg-white pd-10-lr border-btm mg-box">
+                    <div class="warning-top ub ub-ac">
+                        <div class="warning-btn-box">
+                            <button type="button" class="btn btn-square btn-border bg-main warning-btn" disabled="disabled">
+                                <span class="fz-md">预警</span>
+                            </button>
+                        </div>
+                        <div class="idxbox-title ub-f1">
+                            <span class="fz-md fc-title">大面积航班延误预警</span>
+                        </div>
+                        <div class="warning-time">
+                            <span class="fz-sm fc-text">启动于</span>
+                            <span class="fz-sm fc-text">{{ create_time | formatDate('title') }}</span>
+                        </div>
+                    </div>
+                    <div class="warning-btm border-top">
+                        <div class="warning-btm-box ub ub-ac">
+                            <div class="warning-img ub-f1" :class="levelIcon"></div>
+                            <div class="warning-note ub ub-ver ub-ac">
+                                <div class="fz-xxl"  :class="{
+                                    'fc-warn-red': level == 1,
+                                    'fc-warn-orange': level == 2,
+                                    'fc-warn-yellow': level == 3,
+                                    'fc-warn-blue': level == 4}">
+                                    {{level | levelFilter }}
+                                </div>
+                                <div class="warning-note-mg fz-md fc-title">相应级别</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 通知内容 -->
+                <div class="bg-white">
+                    <div class="pd-10-lr ub ub-ver delay-item-box">
+                        <h3 class="delay-item-title">
+                            <span class="fz-md fz-md-set">通知内容</span>
+                        </h3>
+                        <textarea rows="5" cols="100" readonly="readonly"
+                            class="fc-text delay-item-textarea"
+                            v-model="content"></textarea>
+                    </div>
+                </div>
+                
+                <!-- 通知人 -->
+                <div class="bg-white border-top" @click="msgList(1)">
+                    <div class="lists-item pd-10-lr ub ub-ac">
+                        <div class="lists-item-title fc-title">
+                            <span class="fz-md">通知人</span>
+                            <span class="fz-sm"><br>(应用内 )</span>
+                        </div>
+                        <div class="lists-item-center inaline fc-text ub-f1">
+                            <div class="progress-bar">
+                                <i class="progress-bar-percent" :style="{ width: sendAppMsgPercent+'px' }"></i>
+                            </div>
+                        </div>
+                        <div class="fc-text delay-item-progress">
+                            <span class="fz-md">
+                                {{appReceivers.receivednum}}/{{appReceivers.totalnum}}
+                            </span>
+                        </div>
+                        <div class="lists-item-right">
+                            <i class="icon-20-g-goto"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white border-top mg-box" @click="msgList(2)">
+                    <div class="lists-item pd-10-lr ub ub-ac">
+                        <div class="lists-item-title fc-title">
+                            <span class="fz-md">短信通知人</span>
+                        </div>
+                        <div class="lists-item-center inaline fc-text ub-f1">
+                            <div class="progress-bar">
+                                <i class="progress-bar-percent" :style="{ width: sendSmsMsgPercent+'px' }"></i>
+                            </div>
+                        </div>
+                        <div class="fc-text delay-item-progress">
+                            <span class="fz-md">
+                                {{messageReceivers.receivednum}}/{{messageReceivers.totalnum}}
+                            </span>
+                        </div>
+                        <div class="lists-item-right">
+                            <i class="icon-20-g-goto"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 动态 -->
+                <div class="lists mg-box">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center task-tab-box ub-f1 ub">
+                                <div class="task-tab actives">
+                                    <span class="fz-md fz-md-set">动态</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lists-box task-tab-con bg-white">
+                        <div class="lists-item-fre pd-10-lr">
+                            <div class="task-prog">
+                                
+                                <div class="task-prog-item ub" v-for="(item, index) in dynamicsInfo">
+                                    <div class="task-prog-left tx-r">
+                                        <div class="task-prog-dept">
+                                            <span class="fz-md fz-md-set fc-title">航管部</span>
+                                        </div>
+                                        <div class="task-prog-time">
+                                            <span class="fz-sm fz-sm-set fc-text">{{ item.create_time | formatDate('list') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-prog-center ub ub-ver">
+                                        <i :class="{
+                                            'icon-20-t-begin': index == dynamicsInfo.length - 1,
+                                            'icon-20-t-end': index == 0,
+                                            'icon-20-t-run': index != 0 && index != dynamicsInfo.length - 1
+                                        }"></i>
+                                        <div class="task-prog-line ub-f1" v-if="!(index == dynamicsInfo.length-1)"></div>
+                                    </div>
+                                    <div class="task-prog-right ub-f1">
+                                        <div class="task-prog-status">
+                                            <span class="fz-md fz-md-set fc-title">响应级别升级为</span>
+                                        </div>
+                                        <div class="task-prog-detail  ub-f1">
+                                            <span class="fz-md fz-md-set fc-title" :class="{
+                                                    'fc-warn-red': item.level == 1,
+                                                    'fc-warn-orange': item.level == 2,
+                                                    'fc-warn-yellow': item.level == 3,
+                                                    'fc-warn-blue': item.level == 4,}">
+                                                {{item.level | levelFilter }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- 动态end -->
+               
+            </div>
+            <!-- FLEXBOXVER end -->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/prog.js"></script>
+        <script src="../js/autosize.min.js"></script>
+        <script src="js/delay-detail.js"></script>
+    </body>
+</html>

@@ -1,0 +1,467 @@
+#ScrollContent{
+    min-height: 100%;
+    padding:3.815em 1em 0 1em;
+    /*background-color: #f7f7f9;*/
+}
+[v-cloak] {
+    display: none;
+}
+/*#ScrollContent{*/
+    /*height: 100em;*/
+/*}*/
+
+.main-content{
+    width: 100%;
+    height:100%;
+}
+.city-item-box{
+    width: 100%;
+    height:100%;
+}
+.city-item-title{
+    height: 2em;
+    line-height:1.2em;
+    color: #ffffff;
+}
+.city-item-title img{
+    width: 6%;
+    margin-left: 0.8em;
+}
+
+.title-clor{
+    background-color: #52a7ff;
+}
+.airplane{
+    display: inline-block;
+    margin: 0em 0.4em 0em 0.6em;
+}
+.china {
+    font-size: 1em;
+    font-weight: 400;
+    height: 2em;
+    line-height: 2em;
+}
+.city-item-dec{
+    margin: 1.875em 2.625em 0em 1.25em;
+}
+.img{
+    vertical-align:center;
+    display: block;
+    width:5.43em;
+    height:2.5em;
+    margin: 0 auto;
+    
+}
+.city-item{
+    position: relative;
+    /*padding-right: 0.2em;*/
+}
+.right-b {
+    margin-top: 0.8em;
+    width: 100%;
+}
+.right-b .b2 {
+    height: 2em;
+    width: 20%;
+}
+.right-b .b1 {
+    height: 2em;
+    width: 44%;
+}
+.right-b .b3 {
+    text-align: right;
+    /*margin-left: 0.4em;*/
+    width: 44%;
+}
+.right-b h2{
+    display: block;
+    margin-bottom: 0.3em;
+    font-size: 1.125em;
+    /*font-weight: 700;*/
+    padding-top: 0.2em;
+}
+.right-b .p1 {
+    font-size: 1em;
+    float: left;
+    margin-top: 0.2em;
+}
+.right-b .p2 {
+    float: left;
+    font-size: 0.625em;
+    margin-top: 0.6em;
+}
+.right-b .b2 img{
+    display: block;
+    /*margin-left: -0.4em;*/
+    width: 2.8em;
+    margin: 0 auto;
+    margin-top: 0.2em;
+    height: 1.4em;
+}
+
+.right-b .b3 .p1{
+    float: right;
+}
+.right-b .b3 .p2{
+    float: right;
+}
+.right-b .b3 h2{
+    width:100%;
+    text-align: right;
+    font-size: 1.125em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*padding-right: 0.4em;*/
+}
+.right-b .b1 h2{
+    font-size: 1.125em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.plan-state{
+    position: absolute;
+    bottom:0;
+    right:-1.5em;
+}
+.divide-line{
+    width: 100%;
+    overflow: hidden;
+    padding:0.4em 0.5em;
+    margin: 0.6875em 0em;
+    position: relative;
+}
+
+.radius-left{
+    position: absolute;
+    top: 0.4em;
+    left: -0.5em;
+    width: 1em;
+    height: 1em;
+    border-radius:50%;
+    background-color:#f7f7f9; 
+}
+.radius-right{
+    position: absolute;
+    top: 0.4em;
+    right: -0.5em;
+    width: 1em;
+    height: 1em;
+    border-radius:50%;
+    background-color:#f7f7f9; 
+}
+.divide-line ul{
+    width: 100%;
+    height: 1em;
+    display:flex;
+    overflow: hidden;
+    margin-top: 0.2em;
+}
+.divide-line li{
+    float: left;
+    width: 0.3em;
+    height: 0.6em;
+    border-radius:50%;
+    background-color:#E1E1E1;
+    /*margin:0 0.125em;  */
+}
+.list-lis{
+    margin: 0 auto;
+}
+.alignl{
+    margin-left: 30%;
+}
+.alignleft{
+    width: 70%!important;
+}
+.planleft{
+    padding-left: 0.625em;
+}
+.list-lis:last-child{
+    margin-right: auto;
+}
+.lists-item-right-btn{
+    border-right: 1px solid #E1E1E1;
+}
+.lists-item-right-btn .cc {
+    color: #9b9b9b;
+}
+.lists-item-right-btn:last-child{
+    border: none;
+}
+.lists-item-right-btn span{
+    width: 100%;
+    height:50%;
+    display: inline-block;
+}
+.lists-item{
+    margin:0.635em 0 1.5625em 0; 
+}
+.lists-item .flight-data{
+    width:34%;
+    padding-right:0;
+}
+.leftw {
+    width:34%;
+    padding-right:0;
+}
+.lists-item .data {
+    font-weight: 700;
+}
+.lists-box{
+    border-bottom: 1px solid #E1E1E1;
+}
+.lists-item1{
+    margin:1.5625em 0 1.5625em 0; 
+}
+.lists-item1 .xian {
+    display: block;
+    margin-left: -0.6em;
+}
+.lists-item1 .data1 {
+    font-weight: 700;
+}
+
+.list-item_title{
+    margin-top: 1.25em;
+}
+.flight-detail{
+    margin: 1.25em 0em;
+}
+.lists-box:nth-last-child(n+2):after{
+    height:0;
+}
+.shareflight{
+    font-weight: 700;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.sharef{
+    padding-left: 0.625em;
+    margin-top: 0.5em;
+    color: #9b9b9b;
+}
+/**
+ *鱼骨图
+ */
+.fishbone{
+    font-size: 1rem;
+    width: 100%;
+    height: 22em;
+    margin-bottom: 1em;
+    padding: 0.5em 0;
+    letter-spacing: -0.4em;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: #fff;
+    position: static;
+    padding-left: 2.7em;
+}
+.fishbone-arrow{
+    display: inline-block;
+    position: relative;
+    height: 1em;
+    width: 4.5em;
+    color: #999;
+    background-color: currentcolor;
+    margin-left: 1em;
+    margin-right: 0.5em;
+    overflow: visible;
+}
+.done{
+    color: #52a7ff;
+}
+.doing{
+    color: #F9B551;
+}
+.fishbone-arrow:after{
+    position: absolute;
+    bottom: 0;
+    right: -1em;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 0.5em solid transparent;
+    border-left-color: currentcolor;
+}
+.fishbone-arrow:before{
+    position: absolute;
+    bottom: 0;
+    left: -1em;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 0.5em solid currentcolor;
+    border-left-color: transparent;
+}
+.fishbone-con{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3.5em;
+    letter-spacing: 0;
+}
+.fishbone-con:after{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 0;
+    width: 1px;
+    margin-left: -1px;
+    height: 100%;
+    background-color: #e1e1e1;
+    z-index: 2;
+}
+.fishbone-arrow:nth-child(2n-1) .fishbone-con{
+    bottom: 50%;
+}
+.fishbone-arrow:nth-child(2n) .fishbone-con{
+    top: 50%;
+}
+.fishbone-tag{
+    position: relative;
+    z-index: 3;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    color: #fff;
+    background-color: #707070;
+    font-size: 1.2rem;
+    line-height: 1.5em;
+    border-radius: 0.75em;
+    padding: 0 0.5em;
+    text-align: center;
+    word-break: keep-all;
+    white-space: nowrap;
+    max-width: 10em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fishbone-dot{
+    position: relative;
+    z-index: 3;
+    width: 0.5em;
+    height: 0.5em;
+    background-color: #fff;
+    border-radius: 50%;
+}
+.fishbone-arrow:nth-child(2n-1) .fishbone-con{
+    margin-bottom: -0.25em;
+}
+.fishbone-arrow:nth-child(2n) .fishbone-con{
+    margin-top: -0.25em;
+}    
+
+
+.fishbone-text{
+    width:6em;
+    position: absolute;
+    left:-1em;
+    z-index: 3;
+    font-size: 1.2rem;
+    line-height: 1.5em;
+    letter-spacing:0;
+    text-align: center;
+}
+.fishbone-arrow:nth-child(2n) .fishbone-text{
+     bottom: -4em;
+}
+.fishbone-arrow:nth-child(2n-1) .fishbone-text{
+     top:-4em;
+}
+/*弹出框
+ * */
+.fishbone-detail{
+    display:none !important;
+    position:absolute;
+    left:0.3em;
+    top:26em;
+    z-index: 4;
+    background-color:#707070;
+    color: #fff;
+    letter-spacing:0;
+    border-radius: 0.75em;
+    height: 7em;
+    width: 9em;
+    padding: 1em 1em 1em 1.2em;
+    font-size: 1em;
+    opacity: 0.8;
+}
+.triangle{
+    position: absolute;
+    left: 2em;
+    top: 6.8em;
+    z-index: 4;
+    width: 0;
+    height: 0;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    border-top: 1em solid #707070;
+}
+.node,.plane,.expected,.actual{
+    font-size: 1em;
+    line-height: 1.3em;
+    text-align:left;
+}
+.mask-serve {
+    width: 4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+/*end*//*弹出框
+ * */
+.fishbone-detail{
+    display:none !important;
+    position:absolute;
+    left:0em;
+    top:-14em;
+    z-index:4;
+    background-color:#707070;
+    color: #fff;
+    letter-spacing:0;
+    border-radius: 0.75em;
+    height: 5em;
+    width: 7em;
+    padding: 0.5em;
+    font-size: 1em;
+}
+.triangle{
+    position: absolute;
+    left: 2em;
+    top: 4.6em;
+    z-index: 4;
+    width: 0;
+    height: 0;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    border-top: 1em solid #707070;
+}
+.fishbone-arrow:nth-child(2n) .fishbone-detail{
+    top: 6.5em;
+}
+.fishbone-arrow:nth-child(2n-1) .fishbone-detail{
+    top:-10em;
+}
+.fishbone-arrow:nth-child(2n) .triangle{
+    top: -1em;
+    transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+}
+.fishbone-arrow:nth-child(2n-1) .triangle{
+    bottom: -1em;
+}
+.node,.plane,.expected,.actual{
+    font-size: 1em;
+    line-height: 1.3em;
+    text-align:left;
+}
+
+/*end*/
+.show{
+    display: block !important;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px htmlset">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/main-flight-state.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <div class="ub-f1 ut-s tx-c" tabindex="0">
+                        <span class="tab-pill">
+                            <div class="tab-pill-box ub">
+                                <div class="tab-pill-text actives">
+                                    <span>进港</span>
+                                </div>
+                                <div class="tab-pill-text">
+                                    <span>出港</span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="nav-btn" id="nav-right">
+                        <!-- <i class="icon-20-h-date"></i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent">
+                <div class="ub-f1 tab-con bg-white">
+                    <div class="tab-box ub ub-ver actives">
+                        <div class="chart-title ub ub-ver ub-ac ub-pc">
+                            <span class="fz-lg fc-title">当日进港航班数量</span>
+                        </div>
+                        <div class="ub-f1 ub ub-ver" style="overflow-x: auto">
+                            <div class="e-charts ub-f1" id="jingang"></div>
+                        </div>
+                    </div>
+                    <div class="tab-box ub ub-ver" >
+                        <div class="chart-title ub ub-ver ub-ac ub-pc">
+                            <span class="fz-lg fc-title">当日出港航班数量</span>
+                        </div>
+                        <div class="ub-f1 ub ub-ver" style="overflow-x: auto">
+                            <div class="e-charts ub-f1" id="chugang"></div>
+                        </div>
+                    </div>
+                    <div class="nothing" v-if="nothing"></div>
+                    <div class="nonetwork" v-if="nonetwork"></div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/echarts/echarts.min.3.8.0.js"></script>
+        <script src="js/main-flight-state2.js"></script>
+    </body>
+</html>

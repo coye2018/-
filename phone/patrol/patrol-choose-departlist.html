@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page">
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div id="nav-left" class="nav-btn">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">抄送</h1>
+					<div class="nav-btn" id="nav-right">
+						<div class="fa fa-1g ub-img1"></div>
+					</div>
+				</div>
+			</div>
+			<div class="bc-bg" data-control="FLEXBOXVER" id="content">
+				<div class="tab-con">
+					<div class="tab-box actives">
+						<ul class="myli">
+							<li class="myli-item" v-for="(value, key) in copylist" v-cloak>
+								<div class="myli-center ub ub-ac">
+									<div class="myli-headpic">
+										<div class="myli-headpic-box">
+											<img class="myli-headpic-img" v-if="value.hashead" :src="value.people.headurl" @error="headpicReplace(value)" />
+											<div class="myli-headpic-txt" v-else :class="value.people.headbgclass">{{value.headtext}}</div>
+										</div>
+									</div>
+									<div class="myli-main ub-f1">
+										<p class="fz-md fc-title inaline fz-md-set">{{value.realName}}</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/config.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#content',
+				data: {
+					copylist: [],
+					allPeopleHeadImg:[]
+				},
+				created:function(){
+				    
+				},
+				mounted: function() {
+			
+				},
+				methods:{
+				    headpicReplace: function(vals){
+                        //加载头像失败, 替换成文字图像
+                        Vue.set(vals, 'hashead', false);
+                        Vue.set(vals, 'headbgclass', 'bg-head-' + getRandomNum(0, 7));
+                    }
+				}
+			
+			});
+			
+	         
+			(function($) {
+				appcan.ready(function() {
+				    loadAllPeopleInfo();
+					appcan.button('#nav-left', 'btn-act', function() {
+						appcan.window.close(1)
+					});
+				
+				})
+                function loadAllPeopleInfo(){
+                    var ajaxJson={
+                        path:serverPath+"focchat.do?focgetAllUserHeadImages",
+                        data:{},
+                        layer:false
+                    }
+                    ajaxRequest(ajaxJson,function(data,e){
+                        if(e=="success"){
+                            // console.log(data);
+                            //将当前登录人所在的一级公司的所有用户的头像信息存入缓存中，以便聊天模块适用。
+                            vm.allPeopleHeadImg = data.obj;
+                            // appcan.locStorage.setVal("allPeopleHeadImg",JSON.stringify(data.obj));
+                            var copylist = JSON.parse(appcan.locStorage.getVal('patrol-copydepartlist'));
+                            appcan.locStorage.remove('patrol-copydepartlist');
+                            for(var i = 0; i < copylist.length; i++) {
+                                // copylist[i].headtext = copylist[i].realname.substr(-2, 2);
+                                // copylist[i].headbgclass = getHeadClass(copylist[i].id);
+                                if(vm.allPeopleHeadImg){
+                                    for(var j=0; j < vm.allPeopleHeadImg.length; j++) {
+                                        if(copylist[i].id === vm.allPeopleHeadImg[j].id){
+                                            copylist[i].headtext = vm.allPeopleHeadImg[j].realname.substr(-2,2);
+                                            if(isDefine(vm.allPeopleHeadImg[j].head_image)){
+                                                vm.allPeopleHeadImg[j].hashead = true;
+                                                vm.allPeopleHeadImg[j].headurl = mainPath +vm.allPeopleHeadImg[j].head_image;
+                                            }else{
+                                                vm.allPeopleHeadImg[j].hashead = false;
+                                                vm.allPeopleHeadImg[j].headbgclass = getHeadClass(vm.allPeopleHeadImg[j].id);
+                                            }
+                                            copylist[i].people = vm.allPeopleHeadImg[j];
+                                            break;
+                                        }else{
+                                            // copylist[i].headtext = copylist[i].realName.substr(-2,2);
+                                        }
+                                      } 
+                                }
+                            };
+                            vm.copylist = copylist;
+                            // console.log(vm.copylist);
+                        }
+                    });
+                  }   
+			})($)
+		</script>
+	</body>
+
+</html>

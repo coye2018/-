@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/mescroll.min.css" />
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="punish/css/punish.css" />
+		<style>
+			.fz-sm-w{
+				width: 3.65em;
+			}
+			.uh_ios7 .pulist-item-title.inaline.ut-s{
+			    line-height: 1.15em
+			}
+		</style>
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+			<!--header start-->
+			<div class="uh" data-control="HEADER" id="Header">
+				<div class="ub ub-ac header">
+					<div class="nav-btn" id="nav-left">
+						<i class="icon-20-h-backto"></i>
+					</div>
+					<h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">{{title}}</h1>
+					<!--巡查督查经理和巡查大队领导才可以新增处罚单-->
+					<div class="nav-btn" @click="AddPunish()" v-if="role==0 || role==2 || role==3">
+						<i class="icon-20-h-add"></i>
+					</div>
+					<div class="nav-btn" v-else>
+					</div>
+				</div>
+				<!--tab start-->
+				<!-- 巡查督查经理    未通过 审批中 已通过 -->
+				<!-- 领导                   待审批 未通过 已通过-->
+				<ul class="slider" v-show="role==0">
+					<li :class="{'cur':tab == 0}" @click="changeTab(0)">
+						<span><i :class="{'icon-20-nopass-act':tab == 0,'icon-20-nopass':tab != 0}"></i></span>
+						<span class="fz-md fz-md-set">未通过({{nopass}})</span>
+					</li>
+					<li :class="{'cur':tab == 1}" @click="changeTab(1)">
+						<span><i :class="{'icon-20-unapprove-act':tab == 1,'icon-20-unapprove':tab != 1}"></i></span>
+						<span class="fz-md fz-md-set">审批中({{handing}})</span>
+					</li>
+					<li :class="{'cur':tab == 2}" @click="changeTab(2)">
+						<span><i :class="{'icon-20-approve-act':tab == 2,'icon-20-approve':tab != 2}"></i></span>
+						<span class="fz-md fz-md-set">已审核({{completed}})</span>
+					</li>
+				</ul>
+				<ul class="slider" v-show="role==2 || role==3">
+					<li :class="{'cur':tab == 1}" @click="changeTab(1)">
+						<span><i :class="{'icon-20-unapprove-act':tab == 1,'icon-20-unapprove':tab != 1}"></i></span>
+						<span class="fz-md fz-md-set">待审批({{handing}})</span>
+					</li>
+					<li :class="{'cur':tab == 0}" @click="changeTab(0)">
+						<span><i :class="{'icon-20-nopass-act':tab == 0,'icon-20-nopass':tab != 0}"></i></span>
+						<span class="fz-md fz-md-set">未通过({{nopass}})</span>
+					</li>					
+					<li :class="{'cur':tab == 2}" @click="changeTab(2)">
+						<span><i :class="{'icon-20-approve-act':tab == 2,'icon-20-approve':tab != 2}"></i></span>
+						<span class="fz-md fz-md-set">已审核({{completed}})</span>
+					</li>
+				</ul>
+				<!-- 二级单位值班账号 -->
+				<ul class="slider" v-show="role==1">
+                    <li :class="{'cur':tab == 2}" @click="changeTab(2)">
+                        <!-- <span><i :class="{'icon-20-nopass-act':tab == 0,'icon-20-nopass':tab != 0}"></i></span> -->
+                        <span class="fz-md fz-md-set">我接收的({{completed}})</span>
+                    </li>
+                    <li :class="{'cur':tab == 3}" @click="changeTab(3)">
+                        <!-- <span><i :class="{'icon-20-unapprove-act':tab == 1,'icon-20-unapprove':tab != 1}"></i></span> -->
+                        <span class="fz-md fz-md-set">抄送我的({{copytotal}})</span>
+                    </li>                    
+                </ul>                
+				<!--tab end-->
+			</div>
+			<!--header end-->
+			<div class="bc-bg ub ub-ver uinn-4a" data-control="FLEXBOXVER" id="ScrollContent" :class="{'hastab':role==0||role==2||role==3||role==1}">
+				<!-- list start -->
+				<div id="mescroll" class="mescroll" :class="{'mescroll1':role==0||role==2||role==3||role==1}">
+					<div class="pulist-list" id="punish-list">
+						<div class="pulist-item border-btm clickable ub ub-ac bg-white pd-10-lr" v-for="item in list" @click="openDetail(item.id)">
+							<div class="pulist-item-icon">
+								<i class="icon-35-task"></i>
+							</div>
+							<div class="pulist-item-ctr ub-f1">
+								<div class="pulist-item-title inaline ut-s" >
+									<span class="fz-md fc-title fz-md-set">{{item.title}}</span>
+								</div>
+								<div class="pulist-item-time inaline ub">
+									<span class="fz-sm fc-text ub-f1 ut-s fz-sm-set">责任部门：{{item.departName}}</span>
+									<span class="fz-sm fc-text ub-f1 ut-s fz-sm-set">{{item.createDate | getDate(5,16)}}</span>
+								</div>
+							</div>
+							<div class="pulist-item-btn" v-if="role==0 || role==2 || role==3">
+								<button class="btn btn-square btn-border btn-sm btn-danger fz-sm-w" v-if="tab==0">
+                                    <span class="fz-sm" v-if="item.status == '6'">驳回</span>
+                                    <span class="fz-sm" v-if="item.status == '5'">不通过</span>
+                                </button>
+                                <button class="btn btn-square btn-border btn-sm btn-green" v-if="tab==1">
+                                    <span class="fz-sm btn-sm-long ut-s" v-if="role==0 || role==2">{{item.aduitName}}{{handingtxt}}</span>
+                                    <span class="fz-sm" v-else>{{handingtxt}}</span>
+                                </button>
+								<button class="btn btn-square btn-sm bg-main" v-if="tab==2">
+                                    <span class="fz-sm">已审核</span>
+                                </button>
+							</div>
+						</div>
+					</div>
+					<div class="nonetwork" :class="nonet?'':'hide'"></div>
+				</div>
+				<!-- list end -->
+			</div>
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/mescroll.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+		<script src="punish/js/punish.js"></script>
+	</body>
+
+</html>

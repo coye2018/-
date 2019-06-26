@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/delay-history.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg address-page" tabindex="0" data-control="PAGE" id="delay-history">
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">航延预警历史记录</h1>
+                    <div class="nav-btn" id="nav-right">
+                       <!-- <i class="icon-20-h-date"></i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a" v-cloak>
+            
+                <!-- 历史列表 -->
+                <div class="ub ub-ac delay-list" 
+                    v-for="list in lists"
+                    @click="LinkHistorydetail(list.id)" v-cloak>
+                    <div class="delay-hd">
+                        <img src="../icon/20/h-time.png"/>
+                    </div>
+                    <div class="ub-f1 delay-primary">
+                        <h3>
+                            <span class="fz-md fz-md-set">
+                                                                                【{{list.create_time | formatDateTitle}}】{{list.maxlevel | formatText}}
+                            </span>
+                        </h3>
+                        <p>
+                            &nbsp;<span class="fz-sm fz-sm-set">发布于</span>
+                            <span class="fz-sm fz-sm-set" >{{list.create_time | formatDateDesc}}</span>
+                        </p>
+                    </div>
+                </div>
+                  
+                <!-- <div class="ub ub-ac delay-list">
+                    <div class="delay-hd">
+                        <img src="../icon/20/h-time.png"/>
+                    </div>
+                    <div class="ub-f1 delay-primary">
+                        <h3>
+                            <span class="fz-md fz-md-set">手动阀手动阀</span>
+                        </h3>
+                        <p>
+                            &nbsp;<span class="fz-sm fz-sm-set">发布于</span>
+                            <span class="fz-sm fz-sm-set" >ddffdf</span>
+                        </p>
+                    </div>
+                </div>  --> 
+                
+                <div class="nothing" :class="nothing ? '' : 'hide' "></div>
+                <div class="nonetwork" :class="nonetwork ? '' : 'hide' "></div>
+                
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="js/delay-history.js"></script>
+    </body>
+</html>

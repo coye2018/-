@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="../js/preset.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" data-control="PAGE" id="Page" v-cloak>
+            
+            <!-- 
+                1. @left 点击左边返回键的回调函数
+                2. show-right是右边显示多少个图标, 只能填0/1/2, 不填则为0
+                3. @right-one 点击右边第一个图标的回调函数, 对应的插槽叫right1
+                4. @right-two 点击右边第二个图标的回调函数, 对应的插槽叫right2
+                5. right1和right2可以放按钮/文字, 展示如下
+                6. 如Header底下还要放内容，可用slot="other"
+             -->
+            
+            <zh-header @left="backto" :show-right="2" @right-one="add" @right-two="cancel">
+                <span>我是头部哦！</span>
+                <i slot="right1" class="icon-20 icon-black-add"></i>
+                <span slot="right2">取消</span>
+            </zh-header>
+            
+            <!--
+                1. 如果需要加底部容器zh-footer, 一定要紧跟在zh-header后面
+                2. zh-footer-btn是底部按钮组件
+                3. btn-length是底部按钮个数, 只能填1/2, 不填则为1
+                4. btn1是第一个按钮(必填), btn2是第二个按钮(选填)
+             -->
+            
+            <zh-footer>
+                <zh-footer-btn :btn-length="2">
+                    <zh-btn slot="btn1" :size="'large'" :color="'blue'">按钮1</zh-btn>
+                    <zh-btn slot="btn2" :size="'large'" :color="'blue'" :bg="true">按钮2</zh-btn>
+                </zh-footer-btn>
+            </zh-footer>
+            
+            <!-- 
+                1. zh-content要紧跟在zh-footer后面, 如果没有zh-footer, 就紧跟在zh-header后面
+                2. 默认设置了内上边距和内下边距(如果有zh-footer), 见以下组件
+                3. 如需要覆盖则添加pd-top/pd-bottom属性, 值为String型, 支持px/em等css单位. 如 :pd-bottom="'3em'"
+             -->
+            
+            <zh-content>
+                <div id="mescroll" class="mescroll">
+                    <div id="mescroll_content">
+                        
+                        <div>这是不含输入框的模板页面，如果包含了输入框，必须拆成父子页面来做</div>
+                        
+                    </div>
+                </div>
+            </zh-content>
+            
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/zh-common.js"></script>
+        <script src="js-model/page-single.js"></script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+.task-form{
+    padding-top: 0.625em;
+}
+.task-inputbox{
+    padding-bottom: 0.625em;
+    position: relative;
+}
+.task-ipt{
+    display: block;
+    font-size: 0.875em;
+    width: 100%;
+    height: 2.75em;
+    border-radius: 0.2381em;
+    border: 1px solid #52A6FF;
+    padding: 1em 0.8571em;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.task-textarea{
+    padding-bottom: 0.625em;
+    position: relative;
+}
+.task-txa{
+    display: block;
+    font-size: 0.875em;
+    width: 100%;
+    height: 10em;
+    line-height: 1.25;
+    border-radius: 0.2381em;
+    border: 1px solid #52A6FF;
+    padding: 1em 0.8571em;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.task-ipt:focus,
+.task-txa:focus{
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0.25em rgba(82,166,255,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0.25em rgba(82,166,255,.6);
+}
+.task-tips{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 0.625em;
+    padding-bottom: 0.375em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+.task-tips-text{
+    color: #ccc;
+}

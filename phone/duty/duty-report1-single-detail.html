@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="" id="fsize-set">
+        <script src="../js/fsize-set.js"></script>
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty-report1.css">
+    </head>
+    <body class="" ontouchstart>
+        <div class="bc-bg" tabindex="0" data-control="PAGE" id="duty_report_detail" v-cloak>
+            <div class="uh" data-control="HEADER" id="Header">
+                <div class="ub ub-ac header">
+                    <div class="nav-btn" id="nav-left">
+                        <i class="icon-20-h-backto"></i>
+                    </div>
+                    <h1 class="ub-f1 ulev-3 ut-s tx-c" tabindex="0">简报详情</h1>
+                    <div class="nav-btn" id="nav-right">
+                        <div class="fa fa-1g ub-img1"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="dure-essay pd-10-lr bg-white border-btm mg-box">
+                    <div class="dure-title">
+                        <span class="fz-lg fz-lg-set fc-title">{{dutyReportDetail.title}}</span>
+                    </div>
+                    <div class="dure-para-desc ub ub-ac">
+                        <div class="dure-para-desc-box ub-f1">
+                            <!--<span class="fz-sm fz-sm-set fc-text">来源：{{dutyReportDetail.departname}}</span>-->
+                            <span class="fz-sm fz-sm-set fc-text" >值班人员：</span>
+                            <span class="fz-sm fz-sm-set fc-text" v-for="(item,index) in dutyPerson">{{item.userName}}</span>
+                            <span class="fz-sm fz-sm-set fc-text">{{dutyReportDetail.create_time}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dure-para" v-for="(item,index) in contentList">
+                        <div class="dure-para-img" v-if="hasimg == true">
+                            <img :src="item.file_path" />
+                        </div>
+                        <div class="dure-para-text">
+                            <span class="fz-md fz-md-set fc-title" v-html="item.content"></span>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- <div class="dure-para-desc ub ub-pe">
+                        <div  class="dure-icon-box"   id="dianzan">
+                            <i class="icon-20-like" :class="islike?'actives':''"></i>
+                            <div class="dure-icon-num bg-main" v-show="likenumNotzero">
+                                <span class="fz-sm fc-white">{{dutyReportDetail.like_num}}</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                
+                <div class="lists">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md fz-md-set">最新评论</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                            </div>
+                            <div class="dure-icon-box" >
+                                <button class="btn btn-sm bg-main" @click="addcomment()">
+                                    <i class="icon-20-reply"></i>
+                                    <span class="fz-sm fz-sm-set">评论</span>
+                                </button>
+                            </div>
+                            <div class="lists-item-right">
+                                <button class="dure-icon-box" @click="morecomment()">
+                                    <i class="icon-20-m-comment"></i>
+                                    <div class="dure-icon-num bg-main"  v-show="commentnumNotzero">
+                                        <span class="fz-sm fc-white">{{commentSum}}</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nothing ub ub-ac" id="nothing" v-if="commentSum==0" v-cloak></div>
+                    <ul class="myli" v-for="(commentitem,index) in dutyComment" v-else>
+                        <li class="myli-item">
+                            <div class="myli-center ub">
+                                <div class="myli-headpic-lg">
+                                    <div class="myli-headpic-box-lg">
+                                        <img class="myli-headpic-img-lg" v-if="commentitem.hashead" :src="commentitem.headurl" />
+                                        <div class="myli-headpic-txt-lg" v-else :class="commentitem.headbgclass">{{commentitem.headtext}}</div>
+                                    </div>
+                                </div>
+                                <div class="myli-main ub-f1">
+                                    <div class="dure-comment-top ub">
+                                        <div class="dure-comment-name ub-f1">
+                                            <span class="fz-sm fz-sm-set fc-text">{{commentitem.departname}} {{commentitem.username}}</span>
+                                        </div>
+                                        <div class="dure-comment-time">
+                                            <span class="fz-sm fz-sm-set fc-text">{{commentitem.create_time}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="dure-comment-btm">
+                                        <div class="dure-comment-text">
+                                            <span class="fz-md fz-md-set fc-title" v-html="commentitem.briefing_content"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <!--
+            <div class="bc-bg ub ub-ver" data-control="FLEXBOXVER" id="ScrollContent" class="uinn-4a">
+                <div class="dure-essay pd-10-lr bg-white border-btm mg-box">
+                    <div class="dure-title">
+                        <span class="fz-lg fz-lg-set fc-title">20170626值班简报</span>
+                    </div>
+                    <div class="dure-para-desc ub ub-ac">
+                        <div class="dure-para-desc-box ub-f1">
+                            <span class="fz-sm fz-sm-set fc-text">来源：信息公司</span>
+                            <span class="fz-sm fz-sm-set fc-text">作者：李四</span>
+                            <span class="fz-sm fz-sm-set fc-text">17-03-21 12:51</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dure-para">
+                        <div class="dure-para-img">
+                            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502626884452&di=983dbd39f41d1142bad770b20c7fb20f&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D1189192669%2C882379967%26fm%3D214%26gp%3D0.jpg" />
+                        </div>
+                        <div class="dure-para-text">
+                            <span class="fz-md fz-md-set fc-title">123123123123123123123123123123123123123123123123123123123123123123123123123123123</span>
+                        </div>
+                    </div>
+                    <div class="dure-para">
+                        <div class="dure-para-img">
+                            <img src="http://tupian.enterdesk.com/uploadfile/2012/0712/20120712021519751.jpg" />
+                        </div>
+                        <div class="dure-para-text">
+                            <span class="fz-md fz-md-set fc-title">123123123123123123123123123123123123123123123123123123123123123123123123123123123</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dure-para-desc ub ub-pe">
+                        <div class="dure-icon-box" id="dianzan">
+                            <i class="icon-20-like"></i>
+                            <div class="dure-icon-num bg-main">
+                                <span class="fz-sm fc-white">32</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lists">
+                    <div class="lists-box bg-white">
+                        <div class="lists-item pd-10-lr ub ub-ac">
+                            <div class="lists-item-center fc-title">
+                                <span class="fz-md fz-md-set">最新评论</span>
+                            </div>
+                            <div class="lists-item-note inaline fc-text ub-f1">
+                            </div>
+                            <div class="lists-item-right">
+                                <div class="dure-icon-box" id="more_comment">
+                                    <i class="icon-20-m-comment"></i>
+                                    <div class="dure-icon-num bg-main">
+                                        <span class="fz-sm fc-white">32</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <ul class="myli">
+                        <li class="myli-item">
+                            <div class="myli-center ub">
+                                <div class="myli-headpic-lg">
+                                    <div class="myli-headpic-box-lg">
+                                        <div class="myli-headpic-txt-lg bg-head-0">李四</div>
+                                    </div>
+                                </div>
+                                <div class="myli-main ub-f1">
+                                    <div class="dure-comment-top ub">
+                                        <div class="dure-comment-name ub-f1">
+                                            <span class="fz-sm fz-sm-set fc-text">信息公司 李四</span>
+                                        </div>
+                                        <div class="dure-comment-time">
+                                            <span class="fz-sm fz-sm-set fc-text">17-08-13 13:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="dure-comment-btm">
+                                        <div class="dure-comment-text">
+                                            <span class="fz-md fz-md-set fc-title">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="myli-item">
+                            <div class="myli-center ub">
+                                <div class="myli-headpic-lg">
+                                    <div class="myli-headpic-box-lg">
+                                        <img class="myli-headpic-img-lg" src="http://tvax1.sinaimg.cn/crop.0.0.600.600.50/005C1r36ly8fdrb0fkzrej30go0go7he.jpg" />
+                                    </div>
+                                </div>
+                                <div class="myli-main ub-f1">
+                                    <div class="dure-comment-top ub">
+                                        <div class="dure-comment-name ub-f1">
+                                            <span class="fz-sm fz-sm-set fc-text">股份01</span>
+                                        </div>
+                                        <div class="dure-comment-time">
+                                            <span class="fz-sm fz-sm-set fc-text">17-08-13 13:09</span>
+                                        </div>
+                                    </div>
+                                    <div class="dure-comment-btm">
+                                        <div class="dure-comment-text">
+                                            <span class="fz-md fz-md-set fc-title">旅客情绪平稳，对机场服务表示满意。</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+           -->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-report1-single-detail.js"></script>
+    </body>
+</html>

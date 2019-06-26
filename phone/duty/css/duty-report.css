@@ -1,0 +1,150 @@
+#ScrollContent{
+    min-height: 100%;
+    height: 100%;
+}
+#ScrollContent.hasSearch{
+    padding-top: 6em;
+}
+#Footer ~ #ScrollContent {
+    padding-bottom: 3.96em;
+}
+
+/*duty-report.html*/
+.dure-li-item{
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+}
+.dure-li-title{
+    margin: 0.25em 0 0.5em;
+    line-height: 1.125;
+}
+.dure-li-pic{
+    height: 8em;
+    border-radius: 0.625em;
+    overflow: hidden;
+}
+.dure-li-pic>img{
+    display: block;
+    border-radius: 0.625em;
+    height: 100%;
+}
+.dure-li-desc{
+    margin-top: 0.625em;
+    margin-bottom: 0.25em;
+}
+.dure-li-zan{
+    height: 1.5em;
+    line-height: 1.5em;
+}
+/*duty-report.html END*/
+
+/*duty-report-detail.html*/
+.dure-title{
+    font-weight: bold;
+    margin-top: 0.75em;
+    line-height: 1.125;
+}
+.dure-para{
+    padding-top: 0.875em;
+    padding-bottom: 0.625em;
+}
+.dure-para-img>img{
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 25em;
+    padding: 0.25em 0;
+}
+.dure-para-text{
+    margin-top: 0.75em;
+    text-indent: 2em;
+    line-height: 1.25;
+    word-wrap: break-word;
+    word-break: normal;
+}
+.dure-para-desc{
+    margin-top: 1em;
+    margin-bottom: 0.625em;
+}
+.dure-para-desc-box>span{
+    padding-right: 1em;
+}
+
+.dure-icon-box{
+    position: relative;
+    margin: 0.25em 0.75em;
+}
+.dure-icon-num{
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-transform: translate(66%, -50%);
+    padding: 0 0.225em;
+    height: 0.875em;
+    line-height: 0.875em;
+    border-radius: 0.4375em;
+    border: 1px solid #fff;
+    box-sizing: content-box;
+    text-align: center;
+}
+
+.dure-comment-time{
+    margin-left: 1em;
+}
+.dure-comment-top{
+    margin-top: 0.1875em;
+    margin-bottom: 0.5em;
+}
+.dure-comment-btm{
+    margin-bottom: 1em;
+}
+.dure-comment-text{
+    line-height: 1.3333;
+    word-wrap: break-word;
+    word-break: normal;
+}
+/*duty-report-detail.html*/
+
+/*zhezhao*/
+[class^="dure-shade"]{
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+.dure-shade-1{
+    height: 1.375em;
+    position: absolute;
+    right: 0.625em;
+    top: 0.675em;
+    opacity: 0;
+}
+.dure-shade-1.actives{
+    opacity: 1;
+}
+.dure-shade-2{
+    position: absolute;
+    height: 7.875em;
+    right: 0.375em;
+    top: 2.5em;
+    -webkit-transform-origin: right top;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0
+}
+.dure-shade-2.actives{
+    -webkit-transform-origin: right top;
+    -webkit-transform: rotate(0);
+    opacity: 1
+}
+.dure-shade-3{
+    position: absolute;
+    bottom: -3.125em;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    width: 14.875em;
+    max-width: 90%;
+}
+.dure-shade-3.actives{
+    -webkit-transform: translate(-50%, -7em);
+    transform: translate(-50%, -7em);
+}
+/*zhezhao END*/

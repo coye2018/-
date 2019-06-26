@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="" id="fsize-set">
+		<script src="../js/fsize-set.js"></script>
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<!--<link rel="stylesheet" href="../css/mobiscroll.min.css">-->
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="punish/css/punish.css" />
+		<style>
+			.punish-content{
+				position: fixed;
+				width: 100%;
+				top: 0em;
+				bottom: 3.5em;
+				overflow-y: auto;
+			}
+			/*.uh_ios7 .punish-content{
+				top: 1em;
+			}*/
+		</style>
+
+	</head>
+
+	<body class="" ontouchstart>
+		<div class="bc-bg" tabindex="0" data-control="PAGE" id="Page" v-cloak>
+			<div class="bc-bg ub ub-ver uinn-4a nopadding" data-control="FLEXBOXVER" id="ScrollContent">
+				<div class="punish-content">
+				<!-- list start -->
+				<div class="lists mg-box">
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">标题</span></div>
+							<div class="lists-item-center  fc-text ub-f1 "><input type="text" name="title" id="title" class="lists-item-ipt fz-md fz-md-set" value="" placeholder="请输入标题" v-model="params.title" maxlength="32"></div>
+						</div>
+					</div>
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac" id="picktime">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">提报时间</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1 "><span class="fz-md fz-md-set">{{params.time}}</span></div>
+							<!--<div class="lists-item-right"><i class="icon-20-g-goto"></i></div>-->
+						</div>
+					</div>
+					<div class="lists-box bg-white">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">巡督人员</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1"><span class="fz-md fz-md-set">{{params.userName}}</span></div>
+							<!--<div class="lists-item-right"><i class="icon-20-g-goto"></i></div>-->
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">事件概况</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea"><textarea id="" placeholder="请详细描述事件概况……" class="task-txa-no fc-text ffz-md fz-md-set" v-model="params.content" maxlength="3500"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">原因分析</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea"><textarea id="" placeholder="请详细描述原因……" class="task-txa-no fc-text fz-md fz-md-set" v-model="params.reason" maxlength="3500"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">事件结论</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea"><textarea id="" placeholder="请详细描述事件结论……" class="task-txa-no fc-text fz-md fz-md-set" v-model="params.conclusion" maxlength="3500"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box-task bg-white">
+						<div class="lists-item-free pd-10-lr">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">处罚建议</span></div>
+							<div class="task-form bg-white border-btm">
+								<div class="task-textarea"><textarea id="" placeholder="请详细描述处罚建议……" class="task-txa-no fc-text fz-md fz-md-set" v-model="params.proposal" maxlength="3500"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lists-box bg-white" @click="chooseDep(0)">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">被处罚单位</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1"><span class="fz-md fz-md-set">{{params.departName}}</span></div>
+							<div class="lists-item-right" v-show="isUpPunish != 1"><i class="icon-20-g-goto"></i></div>
+						</div>
+					</div>
+					<div class="lists-box bg-white" @click="chooseDep(1)">
+						<div class="lists-item pd-10-lr ub ub-ac">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">抄送</span></div>
+							<div class="lists-item-center inaline fc-text ub-f1"><span class="fz-md fz-md-set">{{params.copyUserNames}}</span></div>
+							<div class="lists-item-right"><i class="icon-20-g-add"></i></div>
+						</div>
+					</div>
+					<div class="lists-box-pic bg-white">
+						<div class="lists-item-free pd-10-lr ub ">
+							<div class="lists-item-title fc-title"><span class="fz-md fz-md-set">图片</span></div>
+							<div class="lists-item-center ub-f1">
+								<div class="add-pic-box" v-for="(img,index) in params.picList">
+									<div class="add-pic-item">
+										<div class="add-pic-item-con tx-c" :style="{backgroundImage: 'url(' + path + img + ')'}" @click="openPic(index)">
+										</div>
+									</div>
+									<div class="add-pic-del" @click="delPic(index)"></div>
+								</div>
+
+								<!--<div class="add-pic-box">
+									<div class="add-pic-item">
+										<div class="add-pic-item-con tx-c" style="background-image: url(http://imgsrc.baidu.com/imgad/pic/item/71cf3bc79f3df8dc613cb28fc711728b471028ae.jpg);">
+										</div>
+									</div>
+									<div class="add-pic-del"></div>
+								</div>-->
+								<div class="add-pic-btn" @click="uploadPic()" v-show="hidePic == 1">
+									<div class="addpic-item">
+										<div class="addpic-item-con add-pic-btn-icon"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- list end -->
+				</div>
+			</div>
+			<!--底部按钮 start-->
+			<div class="uf" data-control="FOOTER" id="Footer">
+				<div class="btn-setbtm border-top pd-10-lr bg-white">
+					<button class="btn bg-main" id="distribute" @click="addPunish()">
+                        <span class="fz-bg fc-white">提交</span>
+                    </button>
+				</div>
+			</div>
+			<!--底部按钮 end-->
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.scrollbox.js"></script>
+		<script src="../js/template.import.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="js/plug-in.js"></script>
+		<script src="../js/common.js"></script>
+		<!--<script src="../js/jquery-1.11.1.min.js"></script>-->
+		<!--<script src="../js/mobiscroll.min.zh.js"></script>-->
+		<script src="js/config.js"></script>
+		<script src="js/main.js"></script>
+		<script src="punish/js/punish-add-content.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/mescroll.min.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="css/duty.css">
+        <link rel="stylesheet" href="css/duty-list.css">
+    </head>
+    <body ontouchstart>
+        <div id="mescroll" class="mescroll bc-bg"> 
+                <div id="Page">
+                        <div class="appr pd-10-lr mg-box bg-white" v-for="(item,index) in approveDuty" @click="unclick(item,index)" v-cloak>
+                            <div class="appr-status ub ub-ac">
+                                <div class="ub-f1">
+                                    <span class="fz-md fc-title">状态：</span>
+                                    <span class="fz-md" :class="item.approval_state==1?'fc-warn-green':'fc-text'">{{item.approval}}</span>
+                                </div>
+                                <div class="ub-f1 tx-r">
+                                    <span class="fz-sm fc-text">提交时间：</span>
+                                    <span class="fz-sm fc-text">{{item.create_time}}</span>
+                                </div>
+                            </div>
+                            <div class="appr-detail ub">
+                                <div class="appr-detail-box tx-l ub ub-ver ub-pc">
+                                    <div>
+                                        <span class="fz-sm">{{item.name_b_time}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-sm">{{item.name_b_weekday}}</span>
+                                    </div>
+                                </div>
+                                <div class="appr-detail-box tx-c ub ub-ver ub-pc">
+                                    <div>
+                                        <span class="fz-md">{{item.name_b}}</span>
+                                    </div>
+                                </div>
+                                <div class="appr-detail-box tx-c ub ub-ver ub-pc">
+                                    <div>
+                                        <span class="fz-md">{{item.name_a}}</span>
+                                    </div>
+                                </div>
+                                <div class="appr-detail-box ub ub-ver ub-pc ub-ae">
+                                    <div>
+                                        <span class="fz-sm">{{item.name_a_time}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="fz-sm">{{item.name_a_weekday}}</span>
+                                    </div>
+                                </div>
+                                <div class="appr-icon ub ub-ac ub-pc">
+                                    <i :class="item.approval_type==2?'icon-35-switch-return':'icon-35-switch-left'"></i>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- 数据END -->
+                    
+                    <div class="nothing ub ub-ac" :class="isNothing?'':'hide'"></div>
+                </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.scrollbox.js"></script>
+        <script src="../js/template.import.js"></script>
+        <script src="../js/vue.min.js"></script>
+        <script src="../js/xdate.js"></script>
+        <script src="../js/mescroll.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="js/duty-switch-history-page.js"></script>
+    </body>
+</html>
